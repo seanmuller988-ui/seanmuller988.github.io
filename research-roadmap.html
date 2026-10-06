@@ -34,11 +34,12 @@
     <button class="nav-toggle" type="button" aria-controls="nav" aria-expanded="false">Menu</button>
     <nav class="nav" id="nav" aria-label="Primary">
       <a href="index.html">Home</a>
-      <a href="systematic-equity.html">Systematic Equity</a>
-      <a href="execution.html">Execution &amp; Costs</a>
+      <a href="quantitative-methods.html">Methods</a>
       <a href="case-studies.html">Case Studies</a>
-      <a href="research-roadmap.html" aria-current="page">Research Agenda</a>
-      <a href="about.html">About &amp; contact</a>
+      <a href="systematic-equity.html">Platform</a>
+      <a href="execution.html">Execution</a>
+      <a href="research-roadmap.html" aria-current="page">Agenda</a>
+      <a href="about.html">About</a>
     </nav>
   </div>
 </header>
@@ -48,7 +49,7 @@
     <p class="eyebrow">Current research agenda &middot; <span class="badge">Ongoing research</span></p>
     <h1>The questions I want to answer next</h1>
     <p>Where the current evidence stops, what I think may be true beyond it, how I am approaching each question, and what would change my view.</p>
-    <p class="status">Plans and hypotheses, not results. These are research questions, not commitments or a schedule. Planned means the study described has not been run; Designing means the approach is still being worked out; Testing means the tooling exists and has automated tests, and no study has used it yet. Definitions, variables and thresholds are omitted throughout.</p>
+    <p class="status">Plans and hypotheses, not results. These are research questions, not commitments or a schedule. Planned means the study described has not been run; Designing means the approach is still being worked out.</p>
   </div>
 </div>
 <main id="main" class="agenda">
@@ -59,10 +60,9 @@
       <li><a href="#forward-evidence">Forward evidence on a fixed configuration</a> <span class="muted small">Evidence Extension &middot; Planned</span></li>
       <li><a href="#path-and-concentration">From one compounding path to a distribution</a> <span class="muted small">Robustness Research &middot; Planned</span></li>
       <li><a href="#regime-coverage">Regime coverage</a> <span class="muted small">Strategy Evolution &middot; Planned</span></li>
-      <li><a href="#own-order-impact">Calibrating execution assumptions with live order evidence</a> <span class="muted small">Execution and Capacity Research &middot; Designing</span></li>
+      <li><a href="#own-order-impact">Refining execution-cost calibration with live evidence</a> <span class="muted small">Execution and Capacity Research &middot; Designing</span></li>
       <li><a href="#capacity-at-size">Cost, fills and capacity as simulated size grows</a> <span class="muted small">Execution and Capacity Research &middot; Planned</span></li>
       <li><a href="#detectable-effects">What a second research sweep could detect</a> <span class="muted small">Model Extension &middot; Designing</span></li>
-      <li><a href="#decision-record">A decision-level record of candidate signals</a> <span class="muted small">Research Infrastructure &middot; Testing</span></li>
       <li><a href="#idle-capital">The use of idle capital</a> <span class="muted small">Model Extension &middot; Planned</span></li>
     </ul>
   </div>
@@ -72,7 +72,7 @@
 <p class="cat">Evidence Extension &middot; Planned</p>
 <h2>Forward evidence on a fixed configuration</h2>
 <h3>Current state</h3>
-<p>Fitted parameters are out of sample in a walk-forward test; the choice among configurations is not. No backtest of the selected configuration on later dates is on file. Every performance figure on this site is a historical backtest. No live or paper-trading results are shown here.</p>
+<p>Fitted parameters are out of sample in a walk-forward test; the choice among configurations is not. Data after the research window accrue with time, and the configuration is to be read on them without changes.</p>
 <h3>Open question</h3>
 <p>Whether the selected configuration, held fixed, behaves on later data as it does inside the two-year research window.</p>
 <h3>Why it matters</h3>
@@ -90,7 +90,7 @@
 <p class="cat">Robustness Research &middot; Planned</p>
 <h2>From one compounding path to a distribution</h2>
 <h3>Current state</h3>
-<p>The backtest headline is one compounding path, and a two-year multiple moves by about &plusmn;0.5&times; under small, arbitrary changes. On the first reported backtest, the reported start date ended highest of five nearby starts. Attribution and leave-out tests exist for that trade record only.</p>
+<p>The backtest headline is one compounding path, and a two-year multiple moves materially under small, arbitrary changes. Dependence-aware intervals, start-date sensitivity, attribution and leave-out tests were run on the first reported trade record and are being extended to the selected configuration as part of the continuing robustness program.</p>
 <h3>Open question</h3>
 <p>How wide the spread is across start dates, how much remains without the largest winners or after standard factors, and whether calendar dependence can be reduced without lowering the expected result.</p>
 <h3>Why it matters</h3>
@@ -98,7 +98,7 @@
 <h3>Early hypothesis</h3>
 <p>That the spread across starts comes from path dependence and a few large trades, not from model quality, as measurements on an earlier build showed.</p>
 <h3>Planned approach</h3>
-<p>I am evaluating shifted-start runs of the selected configuration. A planned extension is to repeat the leave-out tests and factor attribution on its trade record, with dependence-aware intervals.</p>
+<p>I am evaluating shifted-start runs of the selected configuration. Broader factor and benchmark decomposition, together with leave-out diagnostics and dependence-aware intervals, remain part of the continuing evidence-extension program.</p>
 <h3>What would change my view</h3>
 <p>A spread centered near the headline would support quoting it; one well below would mean quoting the spread instead. Profit is already concentrated in a few trades. If little remained without them, or standard factors absorbed most of the return, I would describe a concentrated or factor exposure, not a broad process.</p>
   </div>
@@ -112,31 +112,31 @@
 <h3>Open question</h3>
 <p>How the strategy behaves when market conditions differ materially from those in the research window, and how its design should adapt if they do.</p>
 <h3>Why it matters</h3>
-<p>Results from one environment cannot simply be extrapolated across structurally different periods. The aim is to measure how the results depend on the environment first, then to decide explicitly how the system should behave when conditions change.</p>
+<p>Results from one environment cannot simply be extrapolated across structurally different periods.</p>
 <h3>Early hypothesis</h3>
 <p>Held loosely: adverse regimes may call for a separately researched component, not a re-tuning of the primary one.</p>
 <h3>Planned approach</h3>
-<p>A planned extension is to define regimes without using future information, then measure which components remain stable across them, on historical stress periods where data allows and against later observation. From there I am evaluating two responses: capital scaled by regime, and components specialized by regime in place of a single model.</p>
+<p>A planned extension is to define regimes without using future information, then measure which components remain stable across them, on historical stress periods where data allows and against later observation. From there I am evaluating two responses: capital scaled by regime, and components specialized by regime in place of one configuration for all regimes.</p>
 <h3>What would change my view</h3>
-<p>Evidence that the components are stable across regimes would favor a single model over a separate component. The bar for any extension is that it improves robustness across market states without materially degrading results in the primary regime.</p>
+<p>Evidence that the components are stable across regimes would favor one configuration for all regimes over a separate component. The bar for any extension is that it improves robustness across market states without materially degrading results in the primary regime.</p>
   </div>
 </section>
 <section class="agenda-item" id="own-order-impact">
   <div class="wrap">
 <p class="cat">Execution and Capacity Research &middot; Designing</p>
-<h2>Calibrating execution assumptions with live order evidence</h2>
+<h2>Refining execution-cost calibration with live evidence</h2>
 <h3>Current state</h3>
-<p>The current execution model is grounded in public market data and literature-based priors. The platform is now generating real-capital execution observations, which creates a second evidence source for checking whether the research simulator remains appropriately calibrated.</p>
+<p>The historical cost model is grounded in public market data and prior research (<a href="execution.html#method">execution page</a>). Live execution data are now being accumulated to refine empirical impact and implementation-shortfall estimates as the sample grows.</p>
 <h3>Open question</h3>
-<p>How closely realized execution outcomes align with modeled assumptions as the live sample grows, and when that sample becomes large enough to justify revising the simulator.</p>
+<p>How the accumulating fills should be benchmarked to measure the coefficient, and whether realized fills match the fill model at the same relative size.</p>
 <h3>Why it matters</h3>
-<p>Execution assumptions sit behind every modeled cost and capacity statement. A stable live calibration can replace part of that uncertainty with direct measurement.</p>
+<p>The impact setting sits behind every modeled cost and capacity statement. An own-order estimate replaces an assumption with a measurement.</p>
 <h3>Early hypothesis</h3>
-<p>The public-data model remains the principal case until the live sample is large and stable enough to support a meaningful comparison.</p>
+<p>None beyond a convention I set: the model value stays the principal case until an own-order estimate exists.</p>
 <h3>Planned approach</h3>
-<p>One current research question is how to define a calibration test that is statistically meaningful without over-reading a small live sample. The plan is to compare realized shortfall with the simulator using pre-specified benchmarks and uncertainty bands.</p>
+<p>One current research question is how to design the measurement: which benchmark price to compare fills against, and what range of order sizes to cover. A power analysis showed the benchmark largely determines the sample needed.</p>
 <h3>What would change my view</h3>
-<p>Persistent, statistically meaningful deviations between realized execution and the simulator would justify revising the model; noisy differences inside the expected range would not.</p>
+<p>A measured coefficient well above the model value, or fills below the model&rsquo;s, would raise modeled cost and lower every capacity statement. A value near the lower tape estimate would do the opposite.</p>
   </div>
 </section>
 <section class="agenda-item" id="capacity-at-size">
@@ -144,17 +144,17 @@
 <p class="cat">Execution and Capacity Research &middot; Planned</p>
 <h2>Cost, fills and capacity as simulated size grows</h2>
 <h3>Current state</h3>
-<p>In historical simulation, modeled execution friction rises as simulated capital increases. Earlier capacity work was performed on a superseded trade record and used simplifying assumptions, so I do not publish a single capacity number for the current configuration.</p>
+<p>In the selected configuration&rsquo;s historical backtest, modeled cost per round trip rises with the simulated starting balance; the <a href="execution.html#capacity">execution page</a> explains the mechanism and gives the $1M figure. The detailed execution and capacity studies ran on the first reported trade record, and the capacity study held profit per trade fixed.</p>
 <h3>Open question</h3>
 <p>How cost, fills and capacity behave as simulated size grows, and how much remains if profit per trade falls with size.</p>
 <h3>Why it matters</h3>
 <p>Earlier results do not carry over to the selected configuration. Capacity assuming undiminished profit per trade is an upper bound.</p>
 <h3>Early hypothesis</h3>
-<p>None on levels. In an earlier replay on the superseded universe, an adverse bound on every fill removed essentially all the simulated gain: a bound, not a forecast.</p>
+<p>None on levels. In the earlier studies, at small size, the fill assumption acted through unfilled shares rather than cost. As size grows I expect the impact term, which rises with order size while the half-spread charge does not, to become the binding term.</p>
 <h3>Planned approach</h3>
-<p>A planned extension is to repeat the execution stresses on the selected configuration, compare results across liquidity conditions, and evaluate capacity against a marginal-return hurdle rather than a single headline threshold.</p>
+<p>A planned extension is to repeat the fill-assumption and fill-price stresses and shortfall decomposition on the selected configuration&rsquo;s trade record, and to state capacity per signal, for the portfolio and against a marginal-return hurdle.</p>
 <h3>What would change my view</h3>
-<p>If central fill-price conventions, not only an adverse bound, removed most of the modeled profit, the cost model would be the binding uncertainty.</p>
+<p>If central fill-price conventions, and not only an adverse bound on every fill, removed most of the modeled profit, the cost model would be the binding uncertainty.</p>
   </div>
 </section>
 <section class="agenda-item" id="detectable-effects">
@@ -162,7 +162,7 @@
 <p class="cat">Model Extension &middot; Designing</p>
 <h2>What a second research sweep could detect</h2>
 <h3>Current state</h3>
-<p>The October 2026 sweep took the first reported backtest, with its hindsight universe and flat cost, as its reference. It put 69 candidate improvements and 44 placebo twins through one family-wise test. One survived, an effect already known, and was fragile. A feasibility study put the achievable skill for ranking individual signals below its pre-registered bar.</p>
+<p>The October 2026 research sweep ended with one fragile survivor, an effect already known (<a href="case-studies/counting-trials.html">case study</a>). A feasibility study put the achievable skill for ranking individual signals below its pre-registered bar.</p>
 <h3>Open question</h3>
 <p>One current research question is whether learnable structure remains beyond the ranking of individual signals, and whether machine-learning methods can find leads on a sample this short without overfitting.</p>
 <h3>Why it matters</h3>
@@ -173,24 +173,6 @@
 <p>I am investigating this in a separate research fork; nothing moves out of it without my item-by-item decision. I am evaluating how a second sweep should pose its questions so a realistic effect is detectable.</p>
 <h3>What would change my view</h3>
 <p>An effect that beats both its placebo and the effect already known would reopen that line of modeling. A second null from adequately powered studies would bound an effect, not show its absence.</p>
-  </div>
-</section>
-<section class="agenda-item" id="decision-record">
-  <div class="wrap">
-<p class="cat">Research Infrastructure &middot; Testing</p>
-<h2>A decision-level record of candidate signals</h2>
-<h3>Current state</h3>
-<p>Studies to date rebuilt each candidate signal&rsquo;s outcome from stored price bars. A purpose-built research record now exists: each candidate, taken or not, with the reason for the decision and a later outcome under one definition. The tooling has automated tests, and no study has used it yet.</p>
-<h3>Open question</h3>
-<p>Whether logged decisions, with their reasons and the portfolio&rsquo;s state at that moment, give enough resolution for questions that two years of backtested trades cannot settle.</p>
-<h3>Why it matters</h3>
-<p>The portfolio&rsquo;s state at decision time cannot be rebuilt afterward from price bars, and candidates outnumber trades. A rule that filters signals should also be judged on the signals it blocks.</p>
-<h3>Early hypothesis</h3>
-<p>Tests posed per candidate, on the larger sample, may detect effects that per-trade tests cannot. Candidates on the same day share market shocks, so the gain is smaller than the raw count suggests.</p>
-<h3>Planned approach</h3>
-<p>A planned extension is to use the record in backtest runs first, compare it with the reconstructions behind earlier studies, and base later research on it.</p>
-<h3>What would change my view</h3>
-<p>If logged and reconstructed records disagreed materially on the same dates, the earlier reconstructions would need re-examination. If per-candidate tests proved as underpowered as per-trade tests, the binding constraint would be length of history, not logging.</p>
   </div>
 </section>
 <section class="agenda-item" id="idle-capital">
@@ -204,7 +186,7 @@
 <h3>Why it matters</h3>
 <p>It sets the return on total capital and the fairness of any comparison with an always-invested benchmark.</p>
 <h3>Early hypothesis</h3>
-<p>The earlier evidence supports one narrow statement: an index position is market exposure under another name. Beyond that I hold no hypothesis.</p>
+<p>Two remedies look tempting, and I hold neither. Putting more of the idle capital behind whatever signals are open is concentration, not utilization: a scarce signal sized larger is a larger bet on the same thing. An index position is market exposure under another name.</p>
 <h3>Planned approach</h3>
 <p>A planned extension is to remeasure idle capital on the selected configuration with a financing charge and a cash yield added to the backtest ledger together. I am evaluating whether a second, weakly correlated use could take the idle fraction and return it on demand.</p>
 <h3>What would change my view</h3>

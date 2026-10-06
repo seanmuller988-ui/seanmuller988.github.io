@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Selecting on a noisy proxy: a result that looked real and was measurement error · Case study · Sean Muller</title>
+<meta name="description" content="A rule that bought when a model-based proxy for a price read low looked real on nearly every registered check. Lagging the selection by one day removed it, and so did actual quotes.">
+<meta name="author" content="Sean Muller">
+<link rel="canonical" href="https://seanmuller988-ui.github.io/case-studies/selecting-on-a-noisy-proxy.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Sean Muller · Quantitative research">
+<meta property="og:title" content="Selecting on a noisy proxy: a result that looked real and was measurement error · Case study · Sean Muller">
+<meta property="og:description" content="A rule that bought when a model-based proxy for a price read low looked real on nearly every registered check. Lagging the selection by one day removed it, and so did actual quotes.">
+<meta property="og:url" content="https://seanmuller988-ui.github.io/case-studies/selecting-on-a-noisy-proxy.html">
+<meta property="og:image" content="https://seanmuller988-ui.github.io/assets/images/og-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Sean Muller. Quantitative research: systematic equities, validation, execution.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Selecting on a noisy proxy: a result that looked real and was measurement error · Case study · Sean Muller">
+<meta name="twitter:description" content="A rule that bought when a model-based proxy for a price read low looked real on nearly every registered check. Lagging the selection by one day removed it, and so did actual quotes.">
+<meta name="twitter:image" content="https://seanmuller988-ui.github.io/assets/images/og-card.png">
+<link rel="icon" href="../assets/images/favicon.svg" type="image/svg+xml">
+<link rel="alternate icon" href="../favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="../assets/images/apple-touch-icon.png">
+<link rel="stylesheet" href="../css/style.css">
+<script src="../js/main.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="../index.html">Sean Muller<span>Quantitative research</span></a>
+    <button class="nav-toggle" type="button" aria-controls="nav" aria-expanded="false">Menu</button>
+    <nav class="nav" id="nav" aria-label="Primary">
+      <a href="../index.html">Home</a>
+      <a href="../quantitative-methods.html">Methods</a>
+      <a href="../case-studies.html" aria-current="page">Case Studies</a>
+      <a href="../systematic-equity.html">Platform</a>
+      <a href="../execution.html">Execution</a>
+      <a href="../research-roadmap.html">Agenda</a>
+      <a href="../about.html">About</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Case study &middot; Statistics &middot; July 2026 &middot; <span class="badge">Completed</span></p>
+    <h1>Selecting on a noisy proxy: a result that looked real and was measurement error</h1>
+    <p>A rule that bought when a model-based proxy for a price read low looked real on nearly every registered check. Lagging the selection by one day removed it, and so did actual quotes.</p>
+    <p class="tagrow"><span class="hash">Errors in variables</span> <span class="hash">Selection bias</span> <span class="hash">Placebo controls</span> <span class="hash">Pre registration</span></p>
+  </div>
+</div>
+<main id="main">
+<article class="case">
+  <div class="wrap narrow">
+<h2>The question</h2>
+<p>In June 2026 I asked whether my equity research was leaving any source of information unused. One candidate was data on a different instrument that earlier notes had repeatedly called unavailable; a read-only count showed part of it was already stored. In July my question was whether that data could add anything anywhere, including whether a rule could pick the days on which the other instrument was worth buying.</p>
+
+<h2>Initial approach</h2>
+<p>A daily panel was built. It held no traded prices, only a model-based proxy for a price computed from quotes. The simulated trade paid that proxy, plus a cost, as its entry price.</p>
+<p>Each test was a cell with pass bars written before the run: a positive mean after costs, a block-bootstrap p-value, a minimum sample, the same sign in both halves, a cap on the profit share of the three best months, a shuffled-date placebo and a monotone dose-response. Every readout, controls included, was added to a running trial count. The unconditional trade lost money after costs, as expected.</p>
+
+<h2>What broke</h2>
+<p>On 15 July 2026 a battery of 12 cells was run. One stood out: buy when the proxy read low. On more than 3,000 observations its mean after costs was positive, and none of 2,000 bootstrap draws had a mean at or below zero. The bootstrap resampled calendar months, and with 12 of them that p-value is coarse. Both halves agreed in sign, the mean declined monotonically from the lowest fifth of readings to the highest, 10 of 12 months were positive, and three shuffled-date placebos were dead.</p>
+<p>By the letter of the registration it had still failed: the three best months carried more than half of the total. With those months removed the mean stayed positive. The program&rsquo;s summary report calls it &ldquo;the one that looked real.&rdquo;</p>
+
+<h2>Investigation</h2>
+<p>The follow-up on that cell added a control that the registration did not contain: select on the previous day&rsquo;s reading, pay the current day&rsquo;s price. On nearly the same sample the mean went from clearly positive to slightly below zero (bootstrap p = 0.64).</p>
+<p>This is selection on measurement error. It is not the textbook errors-in-variables case, where noise in a predictor weakens a real relationship. Here one error sits in both the variable selected on and the price paid, so it creates a relationship that is not there. Write the proxy as the true price plus an error. Selecting days on which the proxy reads low selects, in part, days on which the error is negative. The simulated trade then pays the proxy, so it buys at a discount no market offered, and the discount is booked as profit.</p>
+<div class="table-wrap"><table>
+<thead><tr><th scope="col">Check</th><th scope="col">Under a shared measurement error</th></tr></thead>
+<tbody>
+<tr><td>Dose-response</td><td>Passes: a lower reading selects a more negative error.</td></tr>
+<tr><td>Period splits</td><td>Passes: the error is present in every period.</td></tr>
+<tr><td>Shuffled-date placebo</td><td>Reads dead: shuffling removes the shared error with any real link.</td></tr>
+<tr><td>Lagged selection</td><td>Separates: yesterday&rsquo;s error is not in today&rsquo;s price, and a truly low price was usually low yesterday.</td></tr>
+<tr><td>Independent price</td><td>Separates: the price paid is one a market quoted.</td></tr>
+</tbody>
+</table></div>
+
+<h2>What changed</h2>
+<p>A rule was written into the research catalog: any cell conditioned on a noisy measured price must also pass selection on the lagged value, or an independent re-measurement of the price, before its readout counts.</p>
+
+<h2>Validation</h2>
+<p>The independent re-measurement ran the same day: the same rule on a separate sample of recorded two-sided quotes, paying the quoted ask. Conditioning moved the trade from a loss to about break-even (p = 0.44), with opposite signs in the two halves. There the lagged and unlagged versions read about the same, as they should when the price paid is a real quote and not the proxy.</p>
+<p>The lag control assumes the proxy&rsquo;s error does not persist from day to day; the re-measurement does not. The lag control was added after the cell had been seen. The registration entered version control only shortly before the results, so the claim that the bars predate the run is largely self-recorded.</p>
+
+<h2>Result</h2>
+<p>All 12 cells failed their registered bars, and no cell in the wider program passed. Both controls put the low-reading rule near break-even, so the record keeps one modest observation: that is better than the unconditional trade, which lost. The tests quoted compare each mean with zero, not with the unconditional trade, so this suggests the reading carries some information and does not establish it. The cell and its refutation sit in the same results entry, so the result never stood.</p>
+
+<h2>What I learned</h2>
+<p>Dose-response, period splits and placebos establish that selection and outcome are linked, not whether the link is in the market or in the measurement. When the variable selected on and the price paid come from the same noisy measurement, that battery is blind by construction, and a stronger pass is not stronger evidence.</p>
+<p>My part here was the question and the breadth of the search. The control that mattered was not in the plan, and the one bar the cell missed gave no hint of the cause.</p>
+
+<h2>What changed in the research process afterward</h2>
+<p>The next registration required a lagged variant with the same sign and at least half the size for every cell conditioned on this data. Five later registrations carried the requirement in their pass bars or met it by design. In one, the lagged variant matched the unlagged reading, and the entry read that effect, a negative one, as real. In another, a small positive reading flipped sign under the lag.</p>
+<p>The record shows the rule applied only within studies on this data.</p>
+  </div>
+</article>
+<nav class="case-nav" aria-label="Case studies">
+  <div class="wrap narrow">
+    <a href="../case-studies.html">&larr; All case studies</a>
+    <a href="split-adjustment-and-tail-risk.html">Next: Reverse splits faked a short-side result; the repaired result was rejected on its tail &rarr;</a>
+  </div>
+</nav>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p>Selected materials are presented for educational and professional purposes. Proprietary signal definitions, parameters, portfolio construction rules and execution logic are intentionally omitted. All performance figures are historical backtests unless labeled otherwise; no live or paper-trading results are shown. Historical and simulated results do not guarantee future performance. Nothing here is an offer or investment advice.</p>
+    <div class="row"><span>&copy; 2026 Sean Muller &middot; Last updated 6 October 2026</span><span><a href="../about.html#contact">Contact</a></span></div>
+  </div>
+</footer>
+</body>
+</html>

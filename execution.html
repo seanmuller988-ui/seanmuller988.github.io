@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Execution &amp; Costs · Sean Muller</title>
-<meta name="description" content="Execution and transaction-cost research: from a flat cost assumption to a fill model with spread, square-root impact, delay and partial fills.">
+<meta name="description" content="Execution and transaction-cost research: from a flat cost assumption to a cost model that depends on spread, liquidity, volatility and order size, with partial fills and implementation shortfall.">
 <meta name="author" content="Sean Muller">
 <link rel="canonical" href="https://seanmuller988-ui.github.io/execution.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Sean Muller · Quantitative research">
 <meta property="og:title" content="Execution &amp; Costs · Sean Muller">
-<meta property="og:description" content="Execution and transaction-cost research: from a flat cost assumption to a fill model with spread, square-root impact, delay and partial fills.">
+<meta property="og:description" content="Execution and transaction-cost research: from a flat cost assumption to a cost model that depends on spread, liquidity, volatility and order size, with partial fills and implementation shortfall.">
 <meta property="og:url" content="https://seanmuller988-ui.github.io/execution.html">
 <meta property="og:image" content="https://seanmuller988-ui.github.io/assets/images/og-card.png">
 <meta property="og:image:width" content="1200">
@@ -18,7 +18,7 @@
 <meta property="og:image:alt" content="Sean Muller. Quantitative research: systematic equities, validation, execution.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Execution &amp; Costs · Sean Muller">
-<meta name="twitter:description" content="Execution and transaction-cost research: from a flat cost assumption to a fill model with spread, square-root impact, delay and partial fills.">
+<meta name="twitter:description" content="Execution and transaction-cost research: from a flat cost assumption to a cost model that depends on spread, liquidity, volatility and order size, with partial fills and implementation shortfall.">
 <meta name="twitter:image" content="https://seanmuller988-ui.github.io/assets/images/og-card.png">
 <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml">
 <link rel="alternate icon" href="favicon.ico" sizes="any">
@@ -34,11 +34,12 @@
     <button class="nav-toggle" type="button" aria-controls="nav" aria-expanded="false">Menu</button>
     <nav class="nav" id="nav" aria-label="Primary">
       <a href="index.html">Home</a>
-      <a href="systematic-equity.html">Systematic Equity</a>
-      <a href="execution.html" aria-current="page">Execution &amp; Costs</a>
+      <a href="quantitative-methods.html">Methods</a>
       <a href="case-studies.html">Case Studies</a>
-      <a href="research-roadmap.html">Research Agenda</a>
-      <a href="about.html">About &amp; contact</a>
+      <a href="systematic-equity.html">Platform</a>
+      <a href="execution.html" aria-current="page">Execution</a>
+      <a href="research-roadmap.html">Agenda</a>
+      <a href="about.html">About</a>
     </nav>
   </div>
 </header>
@@ -47,66 +48,69 @@
   <div class="wrap">
     <p class="eyebrow">Execution research &middot; October 2026</p>
     <h1>Execution and transaction costs</h1>
-    <p>A backtest needs a rule for what price an order gets. The easy rule is the bar's closing price, in full, for a small flat fee. This work replaced that rule with a fill model and reports what the model charges.</p>
-    <p class="status">Performance figures shown on this site are historical backtests. The platform also trades live with real capital, but live performance is not published here. The execution costs on this page are model outputs; live order data is being accumulated as a separate calibration source.</p>
+    <p>A backtest needs a rule for what price an order gets. The easy rule is the price that prompted the order, in full, for a small flat fee. This work replaced it with a cost model built on spread, liquidity, volatility and order size, and asked which conclusions survive.</p>
+    <p class="status">Every performance figure on this site is a historical backtest. No live or paper-trading results are shown here. Costs on this page are modeled.</p>
   </div>
 </div>
 <main id="main">
 <section id="problem">
   <div class="wrap">
     <h2>The problem</h2>
-    <p class="lede">Real orders do three things the easy rule ignores.</p>
-    <div class="grid g3">
-      <div class="card"><h3>They cross the spread</h3><p>A buyer pays more than the mid price and a seller receives less.</p></div>
-      <div class="card"><h3>They move the price</h3><p>The larger an order is relative to the volume trading at the time, the more it pays.</p></div>
-      <div class="card"><h3>They may not fill</h3><p>In thinly traded names only part of an order can be done in the time available.</p></div>
-    </div>
+    <p class="lede">A flat cost with full fills is not conservative. It is wrong in the direction that flatters the result.</p>
+    <p>Real orders cross part of the bid-ask spread, move the price against themselves by more the larger they are relative to the volume trading at the time, and sometimes cannot be completed, so part of the expected profit is never earned. A flat cost hides all three, says nothing about capacity because it charges the same at every account size, and flatters the least liquid names most. My first reported backtest used it. Replacing it lowered the result materially; I accepted the lower figure because the evidence behind it is more credible.</p>
   </div>
 </section>
 
 <section id="method">
   <div class="wrap">
-    <h2>Method</h2>
-    <p class="lede">Standard models. The impact setting is conservative under one estimate and about central under the other.</p>
-    <p>Cost per side is modeled as half of an assumed bid-ask spread plus a square-root market-impact term:</p>
-    <p style="font-family:var(--serif);font-size:1.15rem;margin:10px 0 14px">cost per side &nbsp;=&nbsp; s&nbsp;/&nbsp;2 &nbsp;+&nbsp; Y &middot; &sigma; &middot; &radic;(Q&nbsp;/&nbsp;V)</p>
-    <p class="small muted">s is the spread assumed for the stock's liquidity tier, &sigma; its daily volatility, Q the order size in dollars and V its daily dollar volume. Y is the impact coefficient.</p>
-    <p>The simulator separates the research decision from the modeled execution process, allows partial fills when liquidity is limited, and decomposes implementation shortfall into delay, spread and impact. Exact scheduling, participation and order-handling rules are intentionally omitted.</p>
-    <p>The impact setting was estimated from public market data using two approaches and combined with a prior from the academic literature. The estimates disagree, so the difference is treated as model uncertainty rather than resolved away. Live order observations are now being accumulated for a future calibration check. Exact coefficients and execution parameters are not disclosed.</p>
+    <h2>The modeling framework</h2>
+    <p>Historical execution research here models trading costs as functions of spread, volatility, liquidity and order size rather than assuming a constant per-trade penalty. The framework allows market impact and fill uncertainty to vary with trading conditions, and tests whether the research remains economically meaningful under less favorable assumptions. The impact calibration remains the least certain input and is discussed at a high level in the <a href="assets/docs/Sean_Muller_Execution_and_Transaction_Costs.pdf">execution brief</a>.</p>
+    <p>Around it sit <strong>delay</strong>, since an order reaches the market after the price that prompted it; <strong>partial fills</strong>, since an order may fill only in part when volume is thin, with the unfilled remainder carried as an opportunity cost rather than assumed away; and <strong>implementation shortfall</strong>, which splits the gap between profit at the decision price and executable profit into delay, spread, impact, fees and unfilled shares, so order-handling rules can be compared on the same trades.</p>
+    <p>The impact coefficient was estimated two ways from public trade-and-volume data and combined with a prior from the academic literature. The estimators disagree, and I carry that as uncertainty: the model&rsquo;s value is conservative against one and about central against the other.</p>
   </div>
 </section>
 
 <section id="findings">
   <div class="wrap">
-    <h2>Selected findings</h2>
-    <p class="lede">These studies were run on the trade record of the first reported backtest, which is superseded, and have not been repeated on the selected configuration. The cost table further down is the selected configuration.</p>
-    <div class="grid g2">
-      <div class="card"><h3>At small size, participation decides fills, not cost</h3><p>Captured profit was indistinguishable across the three higher participation rates tested. It was lower at the lowest rate, where more of each order went unfilled, but that gap was not statistically resolved at the base size and was resolved only narrowly at three times the size.</p></div>
-      <div class="card"><h3>A better exit rule improved completion, not price</h3><p>Against the first version of the worked-exit rule, a refined version raised the filled share of exit orders under every fill assumption tested. A small price gain appeared only under the most favorable assumption and vanished under a stricter one, so none is claimed.</p></div>
-      <div class="card"><h3>More complexity did not automatically improve execution</h3><p>A more sophisticated optimal-control formulation was tested against simpler scheduling rules. On held-out simulation it did not outperform the best simple alternative, so the production research path kept the simpler rule rather than adding complexity without evidence.</p></div>
-      <div class="card"><h3>Capacity is not one number</h3><p>In a projection on the first reported trade record, the binding constraint differed across segments of the universe: in some the order outgrew the volume available, in others modeled cost was the limit. Between half-years the levels moved by large factors, so I report no capacity figure. The projection has not been repeated on the selected configuration.</p></div>
-    </div>
+    <h2>What the studies found</h2>
+    <p class="lede">More than a dozen studies ran on an intraday fill simulator over the first reported trade record, tuned on one half of the sample and read on the other. A finding counted only if it held in at least three of four half-years and on busy as well as ordinary days.</p>
+    <ul>
+      <li><strong>At small scale, fill assumptions matter through unfilled shares, not through cost.</strong> Stressing the fill assumption over a wide range barely changed captured profit except at the most restrictive setting, where more of each order went unfilled; even that gap resolved only at larger scale.</li>
+      <li><strong>Working an order over a window beat a single immediate order, mostly through fewer unfilled shares.</strong> The lead held in every half-year but rests on a small share of trades, is a tie on busy days, and is only marginally significant once dependence within sessions and within groups of related stocks is allowed for.</li>
+      <li><strong>Neither optimal control nor a learned policy beat a simple schedule.</strong> Posed as a stochastic control problem with temporary market impact and a liquidity constraint, whose value function satisfies a Hamilton&ndash;Jacobi&ndash;Bellman equation, the schedule turns on how fast the expected gain decays against how convex impact cost is. Its full solution spread most orders, because convex impact makes spreading cheaper once there is time and volume to finish; on held-out data that lost to the best simple schedule, and modest risk aversion drove it back toward that rule. A learned timing policy fared no better: its gain was matched by a copy trained on scrambled inputs.</li>
+    </ul>
   </div>
 </section>
 
 <section id="capacity">
   <div class="wrap">
-    <h2>Cost and scale</h2>
-    <p class="lede">Modeled execution friction rises as simulated capital increases, but the relationship is not summarized publicly as a single capacity number.</p>
-    <div class="grid g3">
-      <div class="card"><h3>Costs are size-sensitive</h3><p>Scaling the same research logic to larger simulated orders increases modeled spread, impact and fill constraints. The exact size-to-cost mapping is intentionally omitted.</p></div>
-      <div class="card"><h3>Capacity varies through time</h3><p>The binding constraint can shift between available liquidity and modeled cost, and the estimated limit moves materially across periods and parts of the universe.</p></div>
-      <div class="card"><h3>No single capacity claim</h3><p>I treat capacity as a research question rather than a fixed headline number. The selected configuration is being re-evaluated under broader execution and live-calibration evidence.</p></div>
-    </div>
-    <p class="small">Selected configuration results elsewhere on the site are historical simulations. Configuration selection and evaluation overlap in the primary research window, so those figures are not presented as independent out-of-sample evidence.</p>
-    <p class="small">The full write-up is in the <a href="assets/docs/sean-muller-execution-and-transaction-costs.pdf">execution and transaction-cost brief</a> (PDF).</p>
-    <h3>What is not fully modeled</h3>
+    <h2>Capacity</h2>
+    <p>Capacity is not one number: per order, per book and economic capacity answer different questions. In the capacity study the binding constraint differed across segments of the universe, available volume in some and modeled cost in others; between half-years only the first segment to saturate repeated and the levels moved by large factors, so I report no capacity figure.</p>
+    <p>What I do report is the cost model inside the headline backtest. The half-spread component is flat across scale while impact grows with order size, so modeled cost rises with the simulated account and partial fills become material at larger scale. At a $1M simulated scale it is about 40 basis points per round trip, and the ending multiple after that cost is 3.04&times;. Selected configuration result. Configuration selection and evaluation overlap in this research window, so it is not independent out-of-sample evidence. Deflated Sharpe ratio: 0.85.</p>
+    <p class="small">The full write-up is in the <a href="assets/docs/Sean_Muller_Execution_and_Transaction_Costs.pdf">execution and transaction-cost brief</a> (PDF).</p>
+  </div>
+</section>
+
+<section id="not-modeled">
+  <div class="wrap">
+    <h2>What is not modeled</h2>
     <ul>
-      <li>Live order observations are accumulating, but the public-data impact model remains the principal research calibration until the live sample is large enough for a stable comparison.</li>
-      <li>Financing cost on exposure above the account's equity is not charged in the historical simulations shown here.</li>
-      <li>Permanent market impact is not modeled in the historical replay.</li>
-      <li>Queue position, latency and crowding are not modeled.</li>
-      <li>Some execution assumptions are deliberately conservative; exact thresholds and sizing rules are omitted from the public site.</li>
+      <li><strong>Permanent impact.</strong> My fills do not move the prices that later fills and marks see.</li>
+      <li><strong>Financing.</strong> The simulated book can use leverage, and no financing cost is charged.</li>
+      <li><strong>Completion on every leg.</strong> Where the fill model assumes an order completes, finer-grained studies showed that at larger scale some did not, so modeled cost there is understated.</li>
+      <li><strong>Volume persistence, queue position, latency and crowding.</strong> None is modeled, and the capacity study held profit per trade fixed.</li>
+    </ul>
+  </div>
+</section>
+
+<section id="limits">
+  <div class="wrap">
+    <h2>Limits</h2>
+    <ul>
+      <li><strong>Calibration.</strong> Every cost figure here is modeled; the impact coefficient comes from public tape data and a literature prior. Execution data from live operation are now being accumulated to refine and empirically calibrate the impact assumptions used in the historical research; a study of what that measurement requires found that the benchmark price matters more than the number of fills, so the measurement design is in progress. A paper account cannot supply it at any size, because it simulates its fills.</li>
+      <li><strong>Where the studies ran.</strong> The detailed studies used the first reported trade record, before the universe was rebuilt as of each date; repeating them on the selected configuration&rsquo;s trade record is a planned extension (<a href="research-roadmap.html#capacity-at-size">research agenda</a>).</li>
+      <li><strong>Busy days.</strong> That half of the repeatability rule rests on few sessions, so a pass or a fail there is weak evidence.</li>
+      <li><strong>Fill-price convention.</strong> The fill price is a proxy for an executable price. In an earlier replay on the superseded universe an adverse bound on every fill removed essentially all of the simulated gain: a bound, not a forecast. That stress is part of the planned repeat on the selected configuration.</li>
     </ul>
   </div>
 </section>

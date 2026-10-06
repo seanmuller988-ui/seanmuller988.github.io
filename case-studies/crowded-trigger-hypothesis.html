@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Testing my own hypothesis about crowded chart triggers until no trading claim was left · Case study · Sean Muller</title>
+<meta name="description" content="I expected widely watched chart triggers on heavily traded instruments to produce predictable reactions. Three controls removed every tradable claim.">
+<meta name="author" content="Sean Muller">
+<link rel="canonical" href="https://seanmuller988-ui.github.io/case-studies/crowded-trigger-hypothesis.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Sean Muller · Quantitative research">
+<meta property="og:title" content="Testing my own hypothesis about crowded chart triggers until no trading claim was left · Case study · Sean Muller">
+<meta property="og:description" content="I expected widely watched chart triggers on heavily traded instruments to produce predictable reactions. Three controls removed every tradable claim.">
+<meta property="og:url" content="https://seanmuller988-ui.github.io/case-studies/crowded-trigger-hypothesis.html">
+<meta property="og:image" content="https://seanmuller988-ui.github.io/assets/images/og-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Sean Muller. Quantitative research: systematic equities, validation, execution.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Testing my own hypothesis about crowded chart triggers until no trading claim was left · Case study · Sean Muller">
+<meta name="twitter:description" content="I expected widely watched chart triggers on heavily traded instruments to produce predictable reactions. Three controls removed every tradable claim.">
+<meta name="twitter:image" content="https://seanmuller988-ui.github.io/assets/images/og-card.png">
+<link rel="icon" href="../assets/images/favicon.svg" type="image/svg+xml">
+<link rel="alternate icon" href="../favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="../assets/images/apple-touch-icon.png">
+<link rel="stylesheet" href="../css/style.css">
+<script src="../js/main.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="../index.html">Sean Muller<span>Quantitative research</span></a>
+    <button class="nav-toggle" type="button" aria-controls="nav" aria-expanded="false">Menu</button>
+    <nav class="nav" id="nav" aria-label="Primary">
+      <a href="../index.html">Home</a>
+      <a href="../quantitative-methods.html">Methods</a>
+      <a href="../case-studies.html" aria-current="page">Case Studies</a>
+      <a href="../systematic-equity.html">Platform</a>
+      <a href="../execution.html">Execution</a>
+      <a href="../research-roadmap.html">Agenda</a>
+      <a href="../about.html">About</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Case study &middot; Market hypothesis &middot; July 2026 &middot; <span class="badge">Completed</span></p>
+    <h1>Testing my own hypothesis about crowded chart triggers until no trading claim was left</h1>
+    <p>I expected widely watched chart triggers on heavily traded instruments to produce predictable reactions. Three controls removed every tradable claim.</p>
+    <p class="tagrow"><span class="hash">Dependent observations</span> <span class="hash">Placebo design</span> <span class="hash">Look ahead</span></p>
+  </div>
+</div>
+<main id="main">
+<article class="case">
+  <div class="wrap narrow">
+<h2>The question</h2>
+<p>On 9 July 2026 I put a hypothesis about market behavior to the test, outside my systematic equity strategy. On the instruments where day traders and algorithms concentrate, heavily traded funds and the largest stocks, I thought textbook technical-analysis triggers should produce semi-predictable reactions. The reasoning was about crowding, not the indicators being right: either enough participants act on a trigger that the move feeds itself, or larger firms trade against the crowd and it reverses. I counted either sign as a finding.</p>
+
+<h2>Initial approach</h2>
+<p>It was an event study, written down before any outcome was read. The plan fixed the instruments, the full family of triggers at textbook settings and the forward horizons: 80 cells. Each cell&rsquo;s average reaction was compared with 200 placebo draws of random non-trigger days. The pass mark was a placebo p-value of 0.01 or less. That is looser than a full correction for 80 cells, and 200 draws cannot resolve a much stricter one, so a pass made a cell a candidate for the held-back test and nothing more. The later part of the sample was held back.</p>
+
+<h2>What broke</h2>
+<p>Sixty-four cells had enough events to read. Eight passed, and seven of those failed once events were counted by distinct day. On a market-wide sell-off day many of these funds cross the same trigger at once, and the screen had counted that day once per fund. The placebo, drawn separately for each instrument, did not bunch the same way. One cell&rsquo;s 46 events came from 25 distinct days; counted by day, its average reaction shrank by about three quarters, with p = 0.27.</p>
+<p>The survivor was registered with a fixed bar and read once on the held-back window: same sign, less than half the size, p = 0.18 on 106 distinct days. It failed.</p>
+<p>The mechanism I had described belongs to minutes and hours, so the next screen was intraday: crossings of widely watched price levels, judged by day, against a placebo matched by hour. Thirty-eight of 48 cells passed.</p>
+
+<h2>Investigation</h2>
+<p>That was too many. The result note named the gap: the placebo matched the time of day but not the move. A price crosses a level only by moving toward it, so every trigger comes at the end of a directional move into the level. A random bar from the same hour is not. Sharp intraday moves can partly reverse by themselves, so the pullbacks in the table could come from the move alone, with no content in the level.</p>
+<p>A matched-move control compared each trigger with moves of the same sign and similar size, in the same instrument, session and hour, that crossed no level. Where a match existed, a crossing was followed by more continuation than the matched move, in 15 of 24 cells at the 0.01 mark. That contradicted the screen. Both extracts agreed on identical events, so the difference was the subset: a trigger was kept only if a match existed in its session, and the match could come after the trigger. That is a look-ahead inside the control. A later match is a same-direction move after the trigger, so it can sit inside the return being measured. Nobody at the trigger knows it is coming.</p>
+
+<h2>What changed</h2>
+<ul>
+<li>The primary statistic became the mean across distinct days, each day entering once as its own average, with a sign-flip test over days.</li>
+<li>The placebo became a matched move, not a random time.</li>
+<li>The conditioning was rebuilt from what is known at the trigger (whether a comparable same-direction move had already finished that session) and registered as eight named cells with a fixed bar.</li>
+</ul>
+
+<h2>Validation</h2>
+<p>All eight registered cells failed: average reactions under three basis points, p-values from 0.12 to 0.50. The unregistered half of the split showed one cell at p = 0.007. It was labeled post hoc and not followed.</p>
+<p>Three of the four written plans share a commit with their results, so version control cannot show they came first. Only the last was committed separately, ahead of its results.</p>
+
+<h2>Result</h2>
+<p>No trading claim came out of it. In the matched comparison a level crossing was followed by more continuation than an equal-sized move, but only on a subset chosen partly by what happened after the trigger. That selection can produce continuation by itself, so the difference is not evidence that the level carries information. Using only what is known at the trigger, raw reactions were a few basis points, which the record puts at or below trading costs. The daily survivor had failed its one held-back read. The record lists it for a later re-read and shows none.</p>
+
+<h2>What I learned</h2>
+<p>A count of events is not a count of observations when instruments share a market: one day is at most one observation. A placebo must share everything with the event except the thing under test, and here the event was defined by a move. A control can let future information in, so the variable that separates cases must be dated as carefully as a signal.</p>
+<p>The hypothesis explained why a reaction might exist. It did not say what could be known at the moment of the trigger, and that is where it failed.</p>
+
+<h2>What changed in the research process afterward</h2>
+<p>Those three changes were recorded as standing rules, with a new registration required for any variant.</p>
+<p>Five days later a study of a different market question made the period-clustered statistic primary from the start. On 6 August 2026 a plan for two more of my own market hypotheses required matched controls and day-clustered statistics (one of them is the <a href="split-adjustment-and-tail-risk.html">extreme-gainers case study</a>). It was committed alone, ahead of its first result, so version control shows the plan came first. For the point-in-time audit I cite only the rule as written that day.</p>
+  </div>
+</article>
+<nav class="case-nav" aria-label="Case studies">
+  <div class="wrap narrow">
+    <a href="../case-studies.html">&larr; All case studies</a>
+    <a href="selecting-on-a-noisy-proxy.html">Next: Selecting on a noisy proxy: a result that looked real and was measurement error &rarr;</a>
+  </div>
+</nav>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p>Selected materials are presented for educational and professional purposes. Proprietary signal definitions, parameters, portfolio construction rules and execution logic are intentionally omitted. All performance figures are historical backtests unless labeled otherwise; no live or paper-trading results are shown. Historical and simulated results do not guarantee future performance. Nothing here is an offer or investment advice.</p>
+    <div class="row"><span>&copy; 2026 Sean Muller &middot; Last updated 6 October 2026</span><span><a href="../about.html#contact">Contact</a></span></div>
+  </div>
+</footer>
+</body>
+</html>

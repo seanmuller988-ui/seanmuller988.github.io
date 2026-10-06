@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>An entry filter designed around a set of losing trades did no better than random filters on earlier data · Case study · Sean Muller</title>
+<meta name="description" content="A filter proposed after a post-mortem on a set of losing trades looked like a clear improvement. Scored on earlier trades with information known before entry, it blocked the better ones.">
+<meta name="author" content="Sean Muller">
+<link rel="canonical" href="https://seanmuller988-ui.github.io/case-studies/entry-filter-after-losses.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Sean Muller · Quantitative research">
+<meta property="og:title" content="An entry filter designed around a set of losing trades did no better than random filters on earlier data · Case study · Sean Muller">
+<meta property="og:description" content="A filter proposed after a post-mortem on a set of losing trades looked like a clear improvement. Scored on earlier trades with information known before entry, it blocked the better ones.">
+<meta property="og:url" content="https://seanmuller988-ui.github.io/case-studies/entry-filter-after-losses.html">
+<meta property="og:image" content="https://seanmuller988-ui.github.io/assets/images/og-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Sean Muller. Quantitative research: systematic equities, validation, execution.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="An entry filter designed around a set of losing trades did no better than random filters on earlier data · Case study · Sean Muller">
+<meta name="twitter:description" content="A filter proposed after a post-mortem on a set of losing trades looked like a clear improvement. Scored on earlier trades with information known before entry, it blocked the better ones.">
+<meta name="twitter:image" content="https://seanmuller988-ui.github.io/assets/images/og-card.png">
+<link rel="icon" href="../assets/images/favicon.svg" type="image/svg+xml">
+<link rel="alternate icon" href="../favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="../assets/images/apple-touch-icon.png">
+<link rel="stylesheet" href="../css/style.css">
+<script src="../js/main.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="../index.html">Sean Muller<span>Quantitative research</span></a>
+    <button class="nav-toggle" type="button" aria-controls="nav" aria-expanded="false">Menu</button>
+    <nav class="nav" id="nav" aria-label="Primary">
+      <a href="../index.html">Home</a>
+      <a href="../quantitative-methods.html">Methods</a>
+      <a href="../case-studies.html" aria-current="page">Case Studies</a>
+      <a href="../systematic-equity.html">Platform</a>
+      <a href="../execution.html">Execution</a>
+      <a href="../research-roadmap.html">Agenda</a>
+      <a href="../about.html">About</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Case study &middot; Trading rule &middot; 2026 &middot; <span class="badge">Completed</span></p>
+    <h1>An entry filter designed around a set of losing trades did no better than random filters on earlier data</h1>
+    <p>A filter proposed after a post-mortem on a set of losing trades looked like a clear improvement. Scored on earlier trades with information known before entry, it blocked the better ones.</p>
+    <p class="tagrow"><span class="hash">Look ahead</span> <span class="hash">Placebo controls</span> <span class="hash">Entry filters</span> <span class="hash">Overfitting</span></p>
+  </div>
+</div>
+<main id="main">
+<article class="case">
+  <div class="wrap narrow">
+<h2>The question</h2>
+<p>My systematic equity research centers on one strategy that trades relative-value effects among U.S. single stocks. I asked for a post-mortem on a set of losing trades from an earlier version of that strategy. The post-mortem proposed entry filters, rules that skip a trade the strategy would otherwise take. The question was whether the best-looking one should be adopted. That filter is not described here.</p>
+
+<h2>Initial approach</h2>
+<p>I then asked what each proposed filter would have done to those same trades. A retrospective scored four candidates, and one stood out: it appeared to improve the result substantially while blocking only a few trades. The retrospective called its own finding a hypothesis, because the filters had been designed after looking at these trades and then scored on them. It decided whether a trade would have been blocked using the daily bar of the entry day.</p>
+
+<h2>What broke</h2>
+<p>Nothing visibly broke. The retrospective was flattering, and a rule designed in response to a set of losses had been checked only against those losses. I asked that it be shown to hold on data that had played no part in its design. It did not.</p>
+
+<h2>Investigation</h2>
+<p>The test used several thousand simulated trades that pre-dated the design sample (a historical backtest of an earlier internal configuration, not a result reported on this site). The rule&rsquo;s parameters were left as designed. It was built two ways, the hand-built version from the design and a mechanical version using only data from before each entry, and scored under two timing conventions: daily data through the day before entry, and the entry day&rsquo;s own daily bar, as in the retrospective.</p>
+<p>The benchmark was a random filter: block the same number of trades at random, 1,000 times, and count how often the real filter&rsquo;s kept trades average at least as well.</p>
+<div class="table-wrap"><table>
+<thead><tr><th scope="col">Filter version</th><th scope="col">Information used</th><th scope="col">Random filters matched or beaten, of 1,000</th></tr></thead>
+<tbody>
+<tr><td>Hand-built</td><td>Through the day before entry</td><td>57</td></tr>
+<tr><td>Mechanical</td><td>Through the day before entry</td><td>2</td></tr>
+<tr><td>Hand-built</td><td>Entry day&rsquo;s own bar</td><td>1,000</td></tr>
+<tr><td>Mechanical</td><td>Entry day&rsquo;s own bar</td><td>1,000</td></tr>
+</tbody>
+</table></div>
+<p>With information from before entry, the trades the mechanical version blocked averaged about twice the return of the trades it kept. With the entry day&rsquo;s bar, the sign flipped in both versions.</p>
+<p>The analysis named three causes. The entry day&rsquo;s daily bar closes after the entry, so it includes what happened after the trade was opened, which is tied to the trade&rsquo;s own outcome. One episode had supplied nearly all of the retrospective&rsquo;s gain, while in the earlier sample the rule fired on about a quarter of trades, and those routine firings set the average. And the rule had been scored on the trades it was designed on.</p>
+
+<h2>What changed</h2>
+<p>The filter was not adopted. A narrower variant, examined only after the full rule failed, was left as an unconfirmed lead, to be read on later data before it counts.</p>
+<p>A standing rule was recorded the same day: score any entry-time rule on information strictly available at entry, run both timing conventions, and treat an effect that appears only with the entry day&rsquo;s bar as contamination.</p>
+
+<h2>Validation</h2>
+<p>Across twelve nearby parameter settings, the effect stayed within about six basis points of zero. A second placebo, which kept the rule&rsquo;s mechanics and scrambled its inputs, put the real rule inside the placebo distribution. The narrower variant matched or beat 996 of 1,000 random filters, yet a bootstrap that resampled whole entry days gave a 95% interval for the difference between blocked and kept trades that included zero.</p>
+<p>The limits: random filters treat trades as independent, and the report gives a day-level interval only for the narrower variant, not for the main rejection. The counts in the table are therefore too confident in both directions. They support the decision, which needed only that the filter was not better than random; they do not establish that it was reliably worse. The test plan is written as fixed before results but entered version control with them. The earlier sample held no episode like the one that motivated the filter, so the test is silent on such episodes. It also compared average returns only, so it cannot say whether the rule would be worth a lower average as protection against a rare large loss.</p>
+
+<h2>Result</h2>
+<p>The filter as designed was rejected. The finding is narrow: with information available before entry, the rule&rsquo;s routine firings removed better-than-average trades. The main losing trades that motivated it would still have been blocked under the stricter timing. The rule built around them did not generalize.</p>
+
+<h2>What I learned</h2>
+<p>A rule designed in response to a set of losses is the rule most in need of a test on data that played no part in its design. The trades that motivate it also flatter it.</p>
+<p>Scoring an entry rule with the entry day&rsquo;s own daily bar lets the outcome leak into the decision. The error works in the rule&rsquo;s favor, so nothing prompts a second look. Other data does not remove it: scored the retrospective&rsquo;s way, the filter matched or beat every random filter on the earlier sample.</p>
+<p>A random filter of the same size is the right first baseline: it separates which trades a rule blocks from how many. When trades entered on the same day move together, its count overstates the evidence, so it needs a day-level interval beside it.</p>
+
+<h2>What changed in the research process afterward</h2>
+<p>The standing rule is the change. It appears in later work. A later audit of a separate idea listed &ldquo;no same-day-bar usage&rdquo; among its checks. That check is narrow: the same audit missed a different look-ahead. Later a design note on new model inputs named same-bar contamination as a risk and cited this study. In early October a study of signal ranking took its daily inputs from the day before each signal only.</p>
+<p>The two-convention comparison is part of that standing rule for any later entry rule.</p>
+  </div>
+</article>
+<nav class="case-nav" aria-label="Case studies">
+  <div class="wrap narrow">
+    <a href="../case-studies.html">&larr; All case studies</a>
+    <a href="point-in-time-universe.html">Next: Restating a backtest whose stock universe was built with hindsight &rarr;</a>
+  </div>
+</nav>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p>Selected materials are presented for educational and professional purposes. Proprietary signal definitions, parameters, portfolio construction rules and execution logic are intentionally omitted. All performance figures are historical backtests unless labeled otherwise; no live or paper-trading results are shown. Historical and simulated results do not guarantee future performance. Nothing here is an offer or investment advice.</p>
+    <div class="row"><span>&copy; 2026 Sean Muller &middot; Last updated 6 October 2026</span><span><a href="../about.html#contact">Contact</a></span></div>
+  </div>
+</footer>
+</body>
+</html>

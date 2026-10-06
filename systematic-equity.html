@@ -3,22 +3,22 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Systematic Equity · Sean Muller</title>
-<meta name="description" content="Architecture, research process, validation, risk and backtest results for an independent systematic equity research platform.">
+<title>Systematic equity research platform · Sean Muller</title>
+<meta name="description" content="The research question, process, validation and backtest results for an independent systematic equity strategy, and the research infrastructure built to test it.">
 <meta name="author" content="Sean Muller">
 <link rel="canonical" href="https://seanmuller988-ui.github.io/systematic-equity.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Sean Muller · Quantitative research">
-<meta property="og:title" content="Systematic Equity · Sean Muller">
-<meta property="og:description" content="Architecture, research process, validation, risk and backtest results for an independent systematic equity research platform.">
+<meta property="og:title" content="Systematic equity research platform · Sean Muller">
+<meta property="og:description" content="The research question, process, validation and backtest results for an independent systematic equity strategy, and the research infrastructure built to test it.">
 <meta property="og:url" content="https://seanmuller988-ui.github.io/systematic-equity.html">
 <meta property="og:image" content="https://seanmuller988-ui.github.io/assets/images/og-card.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Sean Muller. Quantitative research: systematic equities, validation, execution.">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Systematic Equity · Sean Muller">
-<meta name="twitter:description" content="Architecture, research process, validation, risk and backtest results for an independent systematic equity research platform.">
+<meta name="twitter:title" content="Systematic equity research platform · Sean Muller">
+<meta name="twitter:description" content="The research question, process, validation and backtest results for an independent systematic equity strategy, and the research infrastructure built to test it.">
 <meta name="twitter:image" content="https://seanmuller988-ui.github.io/assets/images/og-card.png">
 <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml">
 <link rel="alternate icon" href="favicon.ico" sizes="any">
@@ -34,20 +34,21 @@
     <button class="nav-toggle" type="button" aria-controls="nav" aria-expanded="false">Menu</button>
     <nav class="nav" id="nav" aria-label="Primary">
       <a href="index.html">Home</a>
-      <a href="systematic-equity.html" aria-current="page">Systematic Equity</a>
-      <a href="execution.html">Execution &amp; Costs</a>
+      <a href="quantitative-methods.html">Methods</a>
       <a href="case-studies.html">Case Studies</a>
-      <a href="research-roadmap.html">Research Agenda</a>
-      <a href="about.html">About &amp; contact</a>
+      <a href="systematic-equity.html" aria-current="page">Platform</a>
+      <a href="execution.html">Execution</a>
+      <a href="research-roadmap.html">Agenda</a>
+      <a href="about.html">About</a>
     </nav>
   </div>
 </header>
 
 <div class="hero">
   <div class="wrap">
-    <p class="eyebrow">The project</p>
-    <h1>Systematic Equity platform</h1>
-    <p>A systematic U.S. equity research and trading platform focused on relative-value opportunities, portfolio-level risk controls, realistic execution and continuous validation.</p>
+    <p class="eyebrow">The research platform</p>
+    <h1>Systematic equity research platform</h1>
+    <p>A systematic U.S. equity strategy that trades relative-value effects among single stocks, under portfolio-level risk controls.</p>
     <p class="status">The platform has progressed from research and simulation into live trading with real capital through broker-integrated execution. Every performance figure on this site is a historical backtest. No live or paper-trading results are shown here. Signal definitions, parameters and trading rules are omitted from this site.</p>
   </div>
 </div>
@@ -55,50 +56,27 @@
 <section id="overview">
   <div class="wrap">
     <h2>Overview</h2>
-    <p class="lede">What exists, and what this page does and does not show.</p>
-    <p>The platform covers the full path from market data to orders: a minute-resolution data warehouse; a research replay harness; a trading engine; a verification layer set up to test, stage by stage, whether the trading engine matches the research reference; portfolio and risk controls; an order path through a separate order service to a retail broker's API; and a release process from research through staging to production. The order service is outside this code base, and it is not my work.</p>
-    <p>This page describes the system, research process and results at the level a reviewer needs to judge the work. Proprietary signal construction, feature definitions, thresholds, portfolio rules and execution logic are intentionally omitted.</p>
-    <p>How the work is done is described on the <a href="about.html#how">About page</a>.</p>
+    
+    <p>The question behind this work is whether relative-value effects among U.S. single stocks are worth trading after realistic costs, and how much of an apparent result survives testing. The economics are easy to state and hard to measure: a stock that moves away from comparable stocks may be under temporary price pressure, or it may have been repriced for a reason that lasts, and the two are hard to tell apart when the move happens. Costs then decide whether the difference is worth trading. My independent research in systematic equities began in May 2025. Answering this question took more than a backtest: every test needed point-in-time data, a replay that could be repeated exactly, a cost model, and a way to count everything that had been tried.</p>
+    <p>This page documents one configuration of that strategy, which is long-only, together with the research platform around it. The wider research program has also tested short-side variants, none of which is part of the documented configuration, and regime coverage is an open item on the <a href="research-roadmap.html#regime-coverage">research agenda</a>. The platform covers the full path from market data to order instructions, shown in the <a href="#architecture">research architecture</a> below; the broker connection itself is handled by a separate order service that the trading engine integrates with.</p>
+    
+    <p>The statistical tools are described on the <a href="quantitative-methods.html">quantitative methods page</a>, and how the work is done is described on the <a href="about.html#how">About page</a>.</p>
   </div>
 </section>
 
-<section id="architecture">
-  <div class="wrap">
-    <h2>Architecture</h2>
-    <p class="lede">Six lanes. Data flows left to right; the risk governor can veto any new position.</p>
-    <div class="lanes" role="img" aria-label="System architecture in six lanes. Data: market-data vendor feed, minute-bar warehouse, rollups and corporate actions, freshness and quality checks. Research: hypothesis and pre-registration, walk-forward replay harness, experiment log, study report. Validation: point-in-time audit, placebo and planted-effect controls, family-wise inference, parity proof against the reference. Portfolio and risk: signal engine, portfolio construction, risk governor with a veto over new positions. Execution: order service that runs separately, broker API, fill and position reconciliation. Operations: tagged and checksummed release with manifest, staging, production, monitoring and read-only dashboard.">
-      <div class="lane"><h4>Data</h4><ol><li><span>Market-data vendor feed</span></li><li><span>Minute-bar warehouse</span></li><li><span>Rollups and corporate actions</span></li><li><span>Freshness and quality checks</span></li></ol></div>
-      <div class="lane"><h4>Research</h4><ol><li><span>Hypothesis and pre-registration</span></li><li><span>Walk-forward replay harness</span></li><li><span>Experiment log</span></li><li><span>Study report</span></li></ol></div>
-      <div class="lane"><h4>Validation</h4><ol><li><span>Point-in-time audit</span></li><li><span>Placebo and planted-effect controls</span></li><li><span>Family-wise inference</span></li><li><span>Parity proof against the reference</span></li></ol></div>
-      <div class="lane"><h4>Portfolio and risk</h4><ol><li><span>Signal engine</span></li><li><span>Portfolio construction</span></li><li><span>Risk governor: veto over new positions</span></li></ol></div>
-      <div class="lane"><h4>Execution</h4><ol><li><span>Order service (runs separately)</span></li><li><span>Broker API</span></li><li><span>Fill and position reconciliation</span></li></ol></div>
-      <div class="lane"><h4>Operations</h4><ol><li><span>Tagged, checksummed release with manifest</span></li><li><span>Staging</span></li><li><span>Production</span></li><li><span>Monitoring and read-only dashboard</span></li></ol></div>
-    </div>
-    <h3>How a change reaches the trading engine</h3>
-    <p>This is the route by design. The headline figures on this page come from the research replay harness: they are backtest results, not results of the trading engine.</p>
-    <ol class="steps">
-      <li>A research question is written down with its baseline, its placebo and its stop rule before the study's report. The record is internal and self-dated.</li>
-      <li>The change is built as an opt-in patch, in nearly all cases behind a switch that is off by default. For the patches added in the October sweep the off path is recorded as byte-identical, and every experiment is compared with a reference run on the same build.</li>
-      <li>The replay harness runs the variant and its control on the same build and the same data.</li>
-      <li>Results are judged against the placebo and, across a sweep, in one family-wise test.</li>
-      <li>Only an adopted change is promoted: a tagged release with a manifest of component versions and a frozen set of governed configuration values.</li>
-      <li>By design a release goes to staging before it is eligible for production.</li>
-    </ol>
-  </div>
-</section>
 
 <section id="process">
   <div class="wrap">
     <h2>Research process</h2>
-    <p class="lede">The six steps of the October 2026 research sweep.</p>
-    <div class="grid g3">
-      <div class="card"><h3>1 · Pre-register</h3><p>Hypothesis, standing baseline, placebo, sample split and stop rule are written before a study's report. The record is internal and self-dated: for 16 of the 18 sweep studies, version control shows a short entry with the hypothesis, baseline and placebo before the report; the longer pre-registration files entered version control together with their reports.</p></div>
-      <div class="card"><h3>2 · Baseline</h3><p>Every variant is judged against the standing baseline, not against zero.</p></div>
-      <div class="card"><h3>3 · Placebo</h3><p>A version with the same mechanics and no information must fail. If it does not, the variant earns no credit.</p></div>
-      <div class="card"><h3>4 · Era split</h3><p>Choices are set on the first half of the sample and judged on the second, inside the same two-year window. No untouched holdout exists.</p></div>
-      <div class="card"><h3>5 · Same-build replay</h3><p>Variant and reference run on one pinned build, so a difference is not a build difference.</p></div>
-      <div class="card"><h3>6 · Family-wise check</h3><p>Leads with a per-session return series are tested together as one family, with placebo twins as a control family.</p></div>
-    </div>
+    <p class="lede">The general loop and the standards behind it are on the <a href="quantitative-methods.html#how-i-think">methods page</a>. The six steps below are the standard each study in the October 2026 research sweep was run under.</p>
+    <ol class="steps">
+      <li><strong>Pre-register.</strong> Hypothesis, standing baseline, placebo, sample split and stop rule are written before a study&rsquo;s report. The record is internal and self-dated: for 16 of the 18 sweep studies, version control shows a short entry with the hypothesis, baseline and placebo before the report.</li>
+      <li><strong>Baseline.</strong> Every variant is judged against the standing baseline, not against zero.</li>
+      <li><strong>Placebo.</strong> A version with the same mechanics and no information must fail. If it does not, the variant earns no credit.</li>
+      <li><strong>Era split.</strong> Choices are set on the first half of the sample and judged on the second, inside the same two-year window; evidence on data that no selection has touched accrues under the forward-evidence program (<a href="research-roadmap.html#forward-evidence">research agenda</a>).</li>
+      <li><strong>Same-build replay.</strong> Variant and reference run on one pinned build, so a difference is not a build difference.</li>
+      <li><strong>Family-wise check.</strong> Leads with a per-session return series are tested together as one family, with placebo twins as a control family.</li>
+    </ol>
   </div>
 </section>
 
@@ -113,9 +91,9 @@
    <div class="bar-row"><span class="lab">Original configuration, same realism</span><div class="bar-track"><div class="bar-fill" style="--w:0.231"></div><span class="val">1.87&times;</span></div></div>
    <div class="bar-row lead"><span class="lab">Selected configuration</span><div class="bar-track"><div class="bar-fill" style="--w:0.543"></div><span class="val">3.04&times;</span></div></div>
   </div>
-  <p class="small muted">Every bar is a historical backtest. Ending value of $1 after about two years, $1M simulated start, profits reinvested. Bars are measured from 1&times;. The first bar is as first reported, and its window ends a week earlier than the others. The second bar is the same rules under a point-in-time universe and modeled fills. The comparison between those two is not on a single software build: the universe rebuild was run on newer builds and includes one further small universe change, and only the modeled-fills step holds the build fixed.</p>
-  <p>The third bar is the selected configuration: it keeps the point-in-time universe and modeled fills, and revises how the liquidity screen is measured as of each date and the level of the requirement. It is not a further audit step, because the level was chosen afterward, after testing five settings on this same window. Selected configuration result. Configuration selection and evaluation overlap in this research window, so it is not independent out-of-sample evidence. Deflated Sharpe ratio: 0.85. An intermediate configuration also improved on the original, but that exact figure is omitted because it adds little to the research story and reveals unnecessary implementation detail.</p>
-  <p>Rebuilding the universe as of each date and replacing the flat cost with modeled fills each reduced the result materially. I accepted the lower figure, 1.87&times; in place of 4.76&times;, because the evidence behind it is more credible.</p>
+  <p class="small muted">Every bar is a historical backtest. Ending value of $1 after about two years, $1M simulated start, profits reinvested. Bars are measured from 1&times;. The first bar is as first reported, and its window ends a week earlier than the others.</p>
+  <p>The third bar is the selected configuration: it keeps the point-in-time universe and modeled fills, and revises how the liquidity screen is measured as of each date and the level of the requirement. It is not a further audit step, because the level was chosen afterward, after testing five settings on this same window, so it is not independent out-of-sample evidence; its figures and their qualifier are under <a href="#results">Results</a>.</p>
+  <p>After correcting more optimistic assumptions and introducing more realistic point-in-time and execution constraints, the headline simulated result weakened materially while the credibility of the research improved. I accepted the lower figure, 1.87&times; in place of 4.76&times;, for that reason.</p>
   <div class="note"><p><strong>What the rebuild showed.</strong> Under the point-in-time universe, most of what fell was breadth: fewer simulated trades. On this evidence the hindsight sat mainly in the list of names. That finding is what led to the revised liquidity requirement, which restores breadth while every order still pays modeled costs.</p></div>
  </div>
 </section>
@@ -126,69 +104,53 @@
     <p class="lede">Every figure is labeled by what kind of evidence it is.</p>
     <ul class="legend">
       <li><span><span class="badge backtest">Historical backtest</span></span><span>A walk-forward test on historical data: models are fitted on the past and applied to later data they had not seen. Every headline figure on this site is one. Where the text calls a result a simulation or simulated, it means a backtest of this kind.</span></li>
-      <li><span><span class="badge">Simulation</span></span><span>A modeled quantity inside a backtest or a study, such as transaction costs from the fill model. Derived from the execution model rather than published live-trading performance.</span></li>
-      <li><span><span class="badge paper">Real-time execution</span></span><span>The platform has progressed through paper execution into live trading with real capital. No live or paper-trading performance results are published on this site.</span></li>
-      <li><span><span class="badge">Live</span></span><span>Real capital traded through broker-integrated execution. The platform has traded live. No live results are shown on this site.</span></li>
-      <li><span><span class="badge ongoing">Ongoing research</span></span><span>Open questions and planned work on the <a href="research-roadmap.html">research agenda</a>. Plans and hypotheses, not results.</span></li>
-      <li><span><span class="badge">Completed</span></span><span>A finished study or post-mortem with a recorded outcome, as in the <a href="case-studies.html">case studies</a>. Completed describes the post-mortem, not every check in it: a check that is still open is named in the text.</span></li>
+      <li><span><span class="badge">Simulation</span></span><span>A modeled quantity inside a backtest or a study, such as transaction costs from the fill model.</span></li>
+      <li><span><span class="badge paper">Paper trading</span></span><span>Orders sent in real time to a broker&rsquo;s paper account, with no money at risk.</span></li>
+      <li><span><span class="badge">Live</span></span><span>Real capital traded through broker-integrated execution. The platform has traded live.</span></li>
+      
+      
       <li><span><span class="badge">Archived</span></span><span>A superseded result, shown only beside what replaced it.</span></li>
     </ul>
     <p>Selected configuration result. Configuration selection and evaluation overlap in this research window, so it is not independent out-of-sample evidence. Deflated Sharpe ratio: 0.85.</p>
     <div class="table-wrap">
       <table class="results">
-        <caption>Walk-forward historical backtests (first three rows): one simulated account, profits reinvested and marked daily. Sharpe on daily returns, annualized, no risk-free rate subtracted.</caption>
+        <caption>Walk-forward historical backtests (first three rows): one long-only account that can use leverage, profits reinvested, marked daily. Sharpe on daily returns, annualized, no risk-free rate subtracted.</caption>
         <thead><tr><th scope="col">Evidence and basis</th><th scope="col">Window</th><th scope="col" class="num">Ending multiple</th><th scope="col" class="num">Sharpe</th><th scope="col" class="num">Max drawdown</th><th scope="col" class="num">Trades</th></tr></thead>
         <tbody>
-          <tr><td><span class="tag sim">Historical backtest · selected configuration</span><span class="basis">Point-in-time universe, modeled transaction costs, $1M start. About 70% a year.</span></td><td class="nw">Jun 2024 – Jul 2026</td><td class="num"><strong>3.04&times;</strong></td><td class="num">1.84</td><td class="num">&minus;19.1%</td><td class="num">780</td></tr>
-          <tr><td><span class="tag alt">Historical backtest · original configuration, same realism</span><span class="basis">Point-in-time universe, modeled transaction costs, $1M start.</span></td><td class="nw">Jun 2024 – Jul 2026</td><td class="num">1.87&times;</td><td class="num">1.25</td><td class="num">&minus;17.4%</td><td class="num">583</td></tr>
-          <tr><td><span class="tag alt">Archived · historical backtest, first reported, superseded</span><span class="basis">Hindsight universe, flat cost, every order filled in full.</span></td><td class="nw">Jun 2024 – Jun 2026</td><td class="num">4.76&times;</td><td class="num">2.32</td><td class="num">&minus;16.6%</td><td class="num">not shown</td></tr>
-          <tr><td><span class="tag none">Real-time trading (paper and live)</span><span class="basis">The platform has progressed from research and simulation into live trading with real capital through broker-integrated execution.</span></td><td>n/a</td><td colspan="4">No results shown</td></tr>
+          <tr><td><span class="tag sim">Historical backtest · selected configuration</span><span class="basis">Point-in-time universe, modeled transaction costs, $1M start. About 70% a year.</span></td><td class="nw" data-label="Window">Jun 2024 – Jul 2026</td><td class="num" data-label="Ending multiple"><strong>3.04&times;</strong></td><td class="num" data-label="Sharpe">1.84</td><td class="num" data-label="Max drawdown">&minus;19.1%</td><td class="num" data-label="Trades">780</td></tr>
+          <tr><td><span class="tag alt">Historical backtest · original configuration, same realism</span><span class="basis">Point-in-time universe, modeled transaction costs, $1M start.</span></td><td class="nw" data-label="Window">Jun 2024 – Jul 2026</td><td class="num" data-label="Ending multiple">1.87&times;</td><td class="num" data-label="Sharpe">1.25</td><td class="num" data-label="Max drawdown">&minus;17.4%</td><td class="num" data-label="Trades">583</td></tr>
+          <tr><td><span class="tag alt">Archived · historical backtest, first reported, superseded</span><span class="basis">Hindsight universe, flat cost, every order filled in full.</span></td><td class="nw" data-label="Window">Jun 2024 – Jun 2026</td><td class="num" data-label="Ending multiple">4.76&times;</td><td class="num" data-label="Sharpe">2.32</td><td class="num" data-label="Max drawdown">&minus;16.6%</td><td class="num" data-label="Trades">not shown</td></tr>
+          <tr><td><span class="tag none">Real-time trading (paper and live)</span></td><td data-label="Window">n/a</td><td colspan="4">No results shown</td></tr>
         </tbody>
       </table>
     </div>
-    <h3>Limits that matter</h3>
-    <p>How to read the headline: 3.04&times; is a simulated result from the selected configuration, which was chosen on the same two years it is measured on, and it has not itself passed the six steps above: its liquidity requirement was chosen on the full window, and the revised screen did not beat its placebos. There is no untouched holdout, the deflated Sharpe ratio of 0.85 is below the conventional 0.95 bar, and a gap of about 0.5&times; between two simulations is inside the noise. I present it as where the research stands, not as an expected return.</p>
+    <h3>Key limitations</h3>
+    <p>How to read the headline: 3.04&times; is a simulated result from the selected configuration, and I present it as where the research stands, not as an expected return.</p>
     <ul>
-      <li>The headline is one implementation of one two-year window. Its deflated Sharpe ratio, a probability and not a reduced Sharpe, is 0.85 against the 240 full-window simulations on file. That count is simulations on file, not ideas tried, and may understate the search: the recount below found about 540 runs.</li>
-      <li>The minimum-liquidity requirement was chosen after testing five settings on this window. Every revised setting beat the original after costs, and several settings are within noise of one another.</li>
-      <li>The first of the two revisions, the revised liquidity screen, did not pass its placebo control. Placebo versions of the screen, with its information replaced by a random draw and the original requirement kept, mostly finished level with the real one or above it, before and after costs, and ended in the same range as the revised requirement settings. I credit that revision with no skill of its own, and part of the gap between 1.87&times; and 3.04&times; comes from it.</li>
-      <li>A compounding two-year multiple moves by roughly &plusmn;0.5&times; under small, arbitrary changes, even though the simulation itself is deterministic. Start date can move a result by more: on the first reported backtest the reported start date was the best of five nearby starts tested, and the other four ended lower by more than that band. The test has not yet been repeated on the selected configuration.</li>
-      <li>Fitted parameters are out of sample in a walk-forward test, but there is no purge or embargo gap between fitting data and test data, and the choice among configurations used the whole window.</li>
-      <li>Profit is concentrated. A small fraction of trades accounts for more than half of net profit.</li>
-      <li>The window ends inside a drawdown: the final mark is about 18% below the peak.</li>
-      <li>The historical simulation can use leverage, and financing cost on exposure above the account's equity is not charged.</li>
-      <li>Over the same window the S&amp;P 500 rose about 42% on a price basis, with a maximum drawdown of about 19%. That is context, not a like-for-like comparison. Market exposure has not been separated from the result: factor attribution on the selected configuration is pending.</li>
-      <li>Dividends and names that later delisted are outside the simulation ledger. Measured separately on the original configuration, they add a few percent of net profit.</li>
-      <li>The point-in-time rebuild is partial. Candidates are still drawn from the present-day list of names, so names that left that list are never candidates. One intermediate model input has not yet been rebuilt as of date, and corporate-action adjustments are not applied as of date. A test with a wider set of candidate names, run on a modified configuration, ended lower after modeled costs.</li>
+      <li><strong>Selection and evaluation overlap.</strong> The selected configuration&rsquo;s liquidity requirement was chosen on the same two-year window it is evaluated on, so the result is not independent out-of-sample evidence. Its deflated Sharpe ratio, a probability and not a reduced Sharpe, is 0.85.</li>
+      <li><strong>The sample is short.</strong> One two-year window in one broad market environment, in which the S&amp;P 500 rose about 42% on a price basis. A two-year compounding multiple is sensitive to small changes, and a small fraction of trades accounts for more than half of net profit.</li>
+      <li><strong>Costs are modeled and are being refined with live evidence.</strong> The cost model is textbook, with its impact setting conservative under one estimate and about central under the other; execution data from live operation are now being accumulated to refine it. Financing on exposure above equity is not charged.</li>
+      <li><strong>Where the performance originates is still being characterized.</strong> The documented configuration is long-only, so part of the result is market return. Factor and benchmark decomposition remain part of the ongoing evidence-extension program used to characterize where the historical performance originates: the first reported trade record has been decomposed, and the selected configuration is being extended the same way.</li>
+      <li><strong>The point-in-time reconstruction is still being completed.</strong> Candidates are drawn from the present-day list of names, so names that left that list are never candidates; dividends and later-delisted names sit outside the ledger and, measured separately, add a few percent of net profit.</li>
     </ul>
+    <p class="small">The full set of qualifications, including the placebo test of the revised liquidity screen, the sensitivity of the multiple to small changes, the start-date test and the trial recount, is in the <a href="assets/docs/Sean_Muller_Methodology_and_Validation.pdf">methodology and validation brief</a> (PDF) and in the <a href="case-studies.html">case studies</a>.</p>
   </div>
 </section>
 
 <section id="validation">
   <div class="wrap">
     <h2>Validation</h2>
-    <p class="lede">What was checked, and what the checks found.</p>
-    <div class="grid g2">
-      <div class="card"><h3>Sweep-wide inference</h3><p>Sixty-nine candidate improvements entered one correlation-aware family-wise test with a block bootstrap over sessions. Forty-four placebo twins of the selection-type candidates were tested as a control family. One candidate survived on the whole sample at the study's primary block length. It was an effect already known, it did not survive at the longest block lengths, and it did not survive in the reporting era (the later half of the sample) alone. The placebo panel behaved as a null should. The sweep took the first reported backtest (superseded: hindsight universe, flat cost) as its reference, and it has not been repeated on the point-in-time universe with modeled costs.</p></div>
-      <div class="card"><h3>Trial accounting</h3><p>The earlier results packet deflated its Sharpe ratio for 100 trials. A recount found about 540 simulation runs in 62 families over the same two-year period, some on shifted starts or part of the window, with highly correlated returns. By a simple Bonferroni correction the first-reported Sharpe (superseded) survives at the 5% level for up to 55 independent trials, so it does not survive at the 100 that packet assumed. The correction is reported as a range because the runs are highly correlated.</p></div>
-      <div class="card"><h3>Power of the tests</h3><p>Known effects of two realistic sizes were planted into the candidates' measured correlation structure. At the studies' own thresholds they were found about a fifth and about a third of the time. The sample, not the threshold, limited discovery, so most nulls in this record mean below resolution, not absent.</p></div>
-      <div class="card"><h3>Noise ceiling</h3><p>Before building more models to rank individual signals, the achievable skill was measured. The true spread between signals is more than ten times smaller than the noise in a single signal's outcome, so even a ranker that knew the truth would reach only a very low rank correlation. The feasibility rule written into the study's pre-registration required a higher ceiling than was found, and that line of modeling was closed as below resolution.</p></div>
-      <div class="card"><h3>An audit that shared its defect</h3><p>In September 2026 a look-ahead in the walk-forward calendar passed the look-ahead audit, because the audit used the same date-handling call as the code it checked. Every earlier pass from that audit was treated as void, one fix corrected both, and results were measured again on the corrected base. The rule since: a check must not share code with what it checks. A deliberate leak-injection test of the audit has not yet been run.</p></div>
-      <div class="card"><h3>Parity before experiments</h3><p>Before any study ran, the unpatched research fork reproduced a same-day re-run of the reference, the first reported backtest (superseded), to the dollar, and the parity checker correctly failed a build with a known rounding change. The patched build used for the experiments, with every switch off, made the same trades and ended about fifty dollars away, a rounding difference inherited from earlier builds. Variants are therefore compared only with a reference run on their own build. This is a lineage proof on one code path, not an independent replication.</p></div>
-    </div>
-    <p class="small">The cases above are written up in the <a href="assets/docs/sean-muller-methodology-and-validation.pdf">methodology and validation brief</a> (PDF).</p>
-    <h3>Completed and next</h3>
-    <div class="table-wrap">
-      <table>
-        <thead><tr><th scope="col">Completed</th><th scope="col">Next</th></tr></thead>
-        <tbody>
-          <tr><td>Point-in-time universe rebuild, sized in sequence</td><td>Start-date sensitivity on the selected configuration</td></tr>
-          <tr><td>Fill model with spread, impact, delay and partial fills</td><td>Concentration and factor attribution on the selected configuration</td></tr>
-          <tr><td>Liquidity requirement tested across five settings, after costs</td><td>Continue calibrating execution assumptions with accumulating live-order evidence</td></tr>
-          <tr><td>Family-wise test across 69 candidates from one research sweep</td><td>A forward test fixed before later data is examined</td></tr>
-        </tbody>
-      </table>
-    </div>
+    <p class="lede">What was checked, one line each. The case studies and the methods page carry the detail.</p>
+    <ul class="checks">
+      <li><strong>The stock universe was audited for hindsight and rebuilt as of each date.</strong> The result was restated lower. <a href="case-studies/point-in-time-universe.html">Case study</a></li>
+      <li><strong>The trial count behind the deflated Sharpe ratio was recounted.</strong> About 540 runs in 62 hypothesis families, where 100 had been assumed. <a href="case-studies/counting-trials.html">Case study</a></li>
+      <li><strong>One research sweep was judged once, as a family.</strong> Sixty-nine candidates beside 44 placebo twins. One survived: an effect already known, and fragile. <a href="quantitative-methods.html#multiple-testing">Method</a></li>
+      <li><strong>The power of those tests was measured.</strong> Planted effects of two realistic sizes were found about a fifth and about a third of the time, so most nulls in that sweep mean below resolution, not absent. <a href="quantitative-methods.html#controls-and-power">Method</a></li>
+      <li><strong>The ceiling on ranking skill was measured before more models were built.</strong> It was too low for this sample, and that line of modeling was closed. <a href="case-studies/ranking-feasibility.html">Case study</a></li>
+      <li><strong>A look-ahead audit was found to share the defect it checked for.</strong> Every earlier pass from it was treated as void, and the rule since is that a check must not share code with what it checks.</li>
+      <li><strong>The research fork had to reproduce the reference backtest before any experiment ran on it.</strong> It did, to the dollar, and the parity checker correctly failed a build with a known rounding change.</li>
+    </ul>
+    <p class="small">Which of these checks has been applied to which backtest, and the cases themselves, are written up in the <a href="assets/docs/Sean_Muller_Methodology_and_Validation.pdf">methodology and validation brief</a> (PDF).</p>
   </div>
 </section>
 
@@ -196,22 +158,75 @@
   <div class="wrap">
     <h2>Risk</h2>
     <p class="lede">A risk check sits between every proposed entry and the order path.</p>
-    <p>By design, a portfolio-level risk governor holds a veto over new positions.</p>
-    <p>A habit that came out of this work is asking what a control actually measures: in the early operational failure described under <a href="#infrastructure">Infrastructure</a>, every existing check passed because every check measured entries. The specific limits and triggers are omitted from this site.</p>
+    <p>By design, portfolio-level risk controls hold a veto over new positions. A long-only relative-value book is not hedged: besides the stock-specific move it was entered for, each position carries market exposure and the common exposure it shares with comparable stocks, so positions that each pass on their own can share one exposure and lose together. That is why the risk check looks at the whole book and not only at the trade in front of it.</p>
+    <p>The same exposure distorts tests. On a long-only book in a rising market, a test that shortens holding periods and is scored on raw return is biased toward longer holds, because shortening gives up market drift. One such verdict is behind the <a href="quantitative-methods.html#standards">standard on scoring net of market exposure</a>.</p>
+    <p>The specific limits and triggers are omitted from this site.</p>
+  </div>
+</section>
+
+<section id="architecture">
+  <div class="wrap">
+    <h2>Research architecture</h2>
+    <p class="lede">From market data to feedback. By design, statistical validation sits between a research result and any portfolio decision.</p>
+    <div class="arch" role="group" aria-label="Research architecture: eight stages from market data to monitoring, each marked as running in research, in real time or both, with statistical validation branching into five methods">
+      <div class="stage"><b>Market data <em>research and real time</em></b><span>Minute-resolution history for U.S. equities, with corporate actions.</span>
+      </div>
+      <div class="stage"><b>Point-in-time universe <em>research</em></b><span>The tradable universe rebuilt from information available on each date.</span>
+      </div>
+      <div class="stage"><b>Hypothesis and research replay <em>research</em></b><span>A question, a hypothesis and a test design, run as a walk-forward backtest on the research replay harness.</span>
+      </div>
+      <div class="stage core"><b>Statistical validation <em>research</em></b><span>The step every result has to survive before it is believed.</span>
+        <ul class="branch"><li>Walk-forward analysis</li><li>Bootstrap and resampling</li><li>Placebo tests</li><li>Sensitivity analysis</li><li>Multiple-testing controls</li></ul>
+      </div>
+      <div class="stage"><b>Portfolio construction <em>research and real time</em></b><span>Signals become positions under portfolio-level risk controls.</span>
+      </div>
+      <div class="stage"><b>Execution modeling <em>research</em></b><span>Spread and market impact charged on every simulated order, with a modeled delay and fills that can be partial.</span>
+      </div>
+      <div class="stage"><b>Live execution <em>real time</em></b><span>Broker-integrated execution through a separate order service.</span>
+      </div>
+      <div class="stage"><b>Monitoring and feedback <em>real time</em></b><span>A read-only dashboard, and replays compared with the real-time record.</span>
+      </div>
+    </div>
+    <p class="feedback">Monitoring feeds back into research: a discrepancy between what runs and the research reference becomes the next question.</p>
+    <p class="small">The headline figures on this page come from the research replay harness: they are backtest results, not results of the trading engine.</p>
   </div>
 </section>
 
 <section id="infrastructure">
   <div class="wrap">
-    <h2>Infrastructure</h2>
-    <p class="lede">Stated at the strength the system actually enforces.</p>
+    <h2>Research infrastructure</h2>
+    <p class="lede">What exists, with the basis of each count.</p>
+    <ul class="facts">
+      <li><b>500+</b> documented experiments (recorded backtest runs)</li>
+      <li><b>About 5,400</b> U.S. equities with minute-resolution price history</li>
+      <li><b>250,000+</b> lines of Python at the latest release candidate, comments and docstrings included, about a third of it tests</li>
+      <li><b>4,600+</b> automated test functions</li>
+      <li><b>60+</b> database tables on PostgreSQL with TimescaleDB, 16 of them time-partitioned</li>
+      <li><b>Broker-integrated</b> execution: the trading engine sends order instructions to a separate order service and reconciles fills and account state from it; a read-only monitoring dashboard</li>
+    </ul>
+    <p class="small">Counts as of early October 2026, with the code, test and table counts taken at the latest release candidate. Implementation uses extensive AI-assisted development (see <a href="about.html#how">how the work is done</a>).</p>
+    <h3>What it lets the research do</h3>
     <ul>
-      <li><strong>Environments.</strong> Research, development, staging and production, each with its own trade database. Market data is one shared store whose reader role cannot write.</li>
-      <li><strong>Releases.</strong> Since mid-September 2026 a release candidate is a tagged commit with a generated manifest of component versions and, since late September, a frozen set of governed configuration values. The built artifact is checksummed, not cryptographically signed. Code is promoted; state is not copied between environments.</li>
-      <li><strong>Release gate.</strong> Each release candidate is replayed against a fixed baseline over a small fixed set of sessions, and every difference in decisions must match a declared one. After one build passed on an empty comparison file, a third verdict, inconclusive, was added for empty or unattested evidence. Declared differences that the replay cannot produce are marked as not yet provable.</li>
-      <li><strong>Checks.</strong> A local commit hook runs lint and strict type checks on the files being committed.</li>
-      <li><strong>Data discipline.</strong> Minute bars are stored as traded, with corporate actions held as separate records. Two limits are open: adjustments are not yet applied as of each date, and the store holds no intraday history for names that later delisted.</li>
-      <li><strong>Incidents.</strong> An early operational failure that every existing check missed, because every check measured entries, led to a verification layer built on numeric parity proofs. A queue race that exhausted memory on the research host led to a start lock and a hard concurrency cap.</li>
+      
+      
+      
+      <li><strong>A ledger of runs.</strong> Launch logs record a backtest run with its build and its configuration, and the ledger assembled from them and from earlier queue records in October 2026 is where the trial count for multiple-testing corrections comes from. It was built by recount, not kept from the start, and result files survive for only part of it.</li>
+      <li><strong>Replay of the real-time loop.</strong> The loop that trades in real time can be run over completed historical bars under a frozen clock, which is how the replay is compared with the real-time record.</li>
+      <li><strong>One market-data store.</strong> By design, research and trading read the same bars through a reader role that cannot write.</li>
+    </ul>
+    <h3>Working within limits</h3>
+    <p class="small">The research has run on about two years of intraday history and shared hardware with limited memory. One case where a shortage shaped the design of a test.</p>
+    <ul class="limits">
+      <li><b>One unseen month, spent once</b><span>For one separate research line, one month of data was available that no earlier analysis had read.</span><span>The pass and fail bars were committed before any row of that month was read, together with a rule that capped the verdict at underpowered if the minimum detectable effect exceeded the effect seen in the earlier sample. The minimum detectable effect was computed and reported first, ahead of the result.</span><span class="got">The month could be read once without being over-read: the rule fired, the verdict was recorded as underpowered and descriptive only, and a more flattering variant was left out because one of its components had failed a reproduction check set in advance. An adjacent month, read outside the pre-registered test, disagreed.</span></li>
+    </ul>
+    <h3>Engineering detail</h3>
+    <ul>
+      <li><strong>Environments.</strong> Research, development, staging and production, each with its own trade database.</li>
+      <li><strong>Releases.</strong> Since mid-September 2026 a release candidate is a tagged commit with a generated manifest of component versions and, since late September, a frozen set of governed configuration values. The built artifact is checksummed. Code is promoted; state is not copied between environments.</li>
+      <li><strong>Release gate.</strong> Each release candidate is replayed against a fixed baseline over a small fixed set of sessions, and every difference in decisions must match a declared one. After one build passed on an empty comparison file, a third verdict, inconclusive, was added for empty or unattested evidence.</li>
+      
+      <li><strong>Data discipline.</strong> Minute bars are stored as traded, with corporate actions held as separate records.</li>
+      
     </ul>
   </div>
 </section>

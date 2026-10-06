@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Measuring whether ranking was possible before building another ranker · Case study · Sean Muller</title>
-<meta name="description" content="After repeated failures to rank individual signals, a feasibility study measured the best any ranker could do. It was below what two years of data can resolve.">
+<meta name="description" content="A feasibility study estimated the best score a signal ranker could reach on the groupings it examined; it sat below what two years of data can resolve.">
 <meta name="author" content="Sean Muller">
 <link rel="canonical" href="https://seanmuller988-ui.github.io/case-studies/ranking-feasibility.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Sean Muller · Quantitative research">
 <meta property="og:title" content="Measuring whether ranking was possible before building another ranker · Case study · Sean Muller">
-<meta property="og:description" content="After repeated failures to rank individual signals, a feasibility study measured the best any ranker could do. It was below what two years of data can resolve.">
+<meta property="og:description" content="A feasibility study estimated the best score a signal ranker could reach on the groupings it examined; it sat below what two years of data can resolve.">
 <meta property="og:url" content="https://seanmuller988-ui.github.io/case-studies/ranking-feasibility.html">
 <meta property="og:image" content="https://seanmuller988-ui.github.io/assets/images/og-card.png">
 <meta property="og:image:width" content="1200">
@@ -18,7 +18,7 @@
 <meta property="og:image:alt" content="Sean Muller. Quantitative research: systematic equities, validation, execution.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Measuring whether ranking was possible before building another ranker · Case study · Sean Muller">
-<meta name="twitter:description" content="After repeated failures to rank individual signals, a feasibility study measured the best any ranker could do. It was below what two years of data can resolve.">
+<meta name="twitter:description" content="A feasibility study estimated the best score a signal ranker could reach on the groupings it examined; it sat below what two years of data can resolve.">
 <meta name="twitter:image" content="https://seanmuller988-ui.github.io/assets/images/og-card.png">
 <link rel="icon" href="../assets/images/favicon.svg" type="image/svg+xml">
 <link rel="alternate icon" href="../favicon.ico" sizes="any">
@@ -34,38 +34,37 @@
     <button class="nav-toggle" type="button" aria-controls="nav" aria-expanded="false">Menu</button>
     <nav class="nav" id="nav" aria-label="Primary">
       <a href="../index.html">Home</a>
-      <a href="../systematic-equity.html">Systematic Equity</a>
-      <a href="../execution.html">Execution &amp; Costs</a>
+      <a href="../quantitative-methods.html">Methods</a>
       <a href="../case-studies.html" aria-current="page">Case Studies</a>
-      <a href="../research-roadmap.html">Research Agenda</a>
-      <a href="../about.html">About &amp; contact</a>
+      <a href="../systematic-equity.html">Platform</a>
+      <a href="../execution.html">Execution</a>
+      <a href="../research-roadmap.html">Agenda</a>
+      <a href="../about.html">About</a>
     </nav>
   </div>
 </header>
 
 <div class="hero">
   <div class="wrap">
-    <p class="eyebrow">Case study &middot; Research &middot; <span class="badge">Completed</span></p>
+    <p class="eyebrow">Case study &middot; Research &middot; October 2026 &middot; <span class="badge">Completed</span></p>
     <h1>Measuring whether ranking was possible before building another ranker</h1>
-    <p>After repeated failures to rank individual signals, a feasibility study measured the best any ranker could do. It was below what two years of data can resolve.</p>
-    <p class="tagrow"><span class="hash">#StatisticalPower</span> <span class="hash">#MachineLearning</span> <span class="hash">#ResearchProcess</span></p>
+    <p>A feasibility study estimated the best score a signal ranker could reach on the groupings it examined; it sat below what two years of data can resolve.</p>
+    <p class="tagrow"><span class="hash">Statistical power</span> <span class="hash">Machine learning</span> <span class="hash">Research process</span></p>
   </div>
 </div>
 <main id="main">
 <article class="case">
   <div class="wrap narrow">
-<h2>The problem</h2>
-<p>One research branch asked whether candidate opportunities could be ranked reliably by expected value before they reached the portfolio. Ranking means ordering candidate signals by expected value. Dated notes from June to early September 2026 record rules-based attempts to order or filter signals failing to improve on the standing baseline (the existing rule for taking signals). On 2 October I called ranking the most critical of the project&rsquo;s unsolved problems and asked for machine learning to be pointed at it.</p>
+<h2>The question</h2>
+<p>The question started as how to rank the signals of my systematic equity strategy, meaning how to order them by expected value. It became whether any ranker could. The strategy trades relative-value effects among U.S. single stocks, and each candidate trade it flags is a signal. Dated notes from June to early September 2026 record rules-based attempts to order or filter signals failing to improve on the standing baseline (the existing rule for taking signals). On 2 October I called ranking the most critical of the project&rsquo;s unsolved problems and asked for machine learning to be pointed at it.</p>
 
 <h2>Initial approach</h2>
 <p>Machine learning went first to execution timing: I had asked for a learned timing policy the same day, on condition that it be shown not to be overfit or a placebo effect. The ranking study then fitted several learners to a table of every signal, taken or not: learners combine inputs in ways hand-written rules do not.</p>
 
-<h2>What didn't work</h2>
-<p>Within about a day, in historical backtest:</p>
-<ol>
-<li><strong>Execution timing</strong> (226 configurations; trades from the first reported backtest, superseded). At the base order size the learned policy gained nothing; at a larger size, +7.3 basis points (bp) over the base schedule, but +6.5 bp with its inputs scrambled and +12.7 bp on random windows with no signal. It had learned to trade faster, which a fixed schedule does better.</li>
-<li><strong>First ranking study</strong> (962 configurations). No learned ranker beat the standing baseline on held-out data. Top-decile gains were matched by a shuffled-label placebo; the one lead failed the multiple-comparisons correction, then failed again on higher-resolution data.</li>
-</ol>
+<h2>What broke</h2>
+<p>In historical backtest, neither attempt beat its controls.</p>
+<p><strong>Execution timing</strong> (226 configurations; trades from the first reported backtest, superseded). At the base order size the learned policy gained nothing; at a larger size, +7.3 basis points (bp) over the base schedule, but +6.5 bp with its inputs scrambled and +12.7 bp on random windows with no signal. It had learned to trade faster, which a fixed schedule does better.</p>
+<p><strong>First ranking study</strong> (962 configurations). No learned ranker beat the standing baseline on held-out data. Top-decile gains were matched by a shuffled-label placebo; the one lead failed the multiple-comparisons correction, then failed again on higher-resolution data.</p>
 <p>Further ranking studies early in the October research sweep also failed their placebos or thresholds. Every rank correlation with outcomes was in the hundredths.</p>
 
 <h2>Investigation</h2>
@@ -73,8 +72,8 @@
 <p>A rule was pre-registered (written before the result): ranking is feasible only if the best achievable rank correlation clears a stated minimum and the sample can detect it at the multiplicity threshold (the significance level after correcting for the number of tests run). The study measured how repeatable expected value is across two halves of the data, its true spread between signals, and effective sample size once overlapping trades and same-day co-movement are allowed for.</p>
 <p>The first pass was wrong. A random split said expected value at one level of grouping was repeatable: 0.48, about three times its null. Overlapping trades had put near-copies of one outcome on both sides. Split by alternating blocks of time, the figure was 0.02; the change was logged as an amendment.</p>
 
-<h2>Iteration</h2>
-<p>The order of work changed: measure the ceiling before fitting a model. The sweep&rsquo;s closing report set rules for the next one, which has not run:</p>
+<h2>What changed</h2>
+<p>The order of work changed: measure the ceiling before fitting a model. The sweep&rsquo;s closing report set rules for the next one, which is being designed:</p>
 <ul>
 <li>design each test for an effect the sample can detect;</li>
 <li>judge a sweep once, in a pre-registered family-wise panel containing placebo twins;</li>
@@ -83,27 +82,26 @@
 </ul>
 
 <h2>Validation</h2>
-<ul>
-<li>The pre-registration and that amendment entered version control with the report, so their timing is self-recorded. Only the queue entry stating the premise and baselines is independently earlier, by about an hour.</li>
-<li>Several placebo rows scored as well as or better than the real learners.</li>
-<li>An alternative outcome label scored at the ceiling, its interval spanning zero.</li>
-</ul>
-<p>A family-wise test over 69 sweep candidates left one fragile survivor, an effect already known; at the studies&rsquo; own thresholds, planted effects of two realistic sizes were found 20% and 31% of the time (<a href="counting-trials.html">counting-trials case study</a>). A companion study at portfolio level could not distinguish the realistic prize for ranking from zero.</p>
+<p>The pre-registration and that amendment entered version control with the report, so their timing is self-recorded. Only the queue entry stating the premise and baselines is independently earlier. Several placebo rows scored as well as or better than the real learners. An alternative outcome label scored at the ceiling, its interval spanning zero.</p>
+<p>The sweep&rsquo;s family-wise test and its planted-effect power check are in the <a href="counting-trials.html">counting-trials case study</a>. A companion study at portfolio level could not distinguish the realistic prize for ranking from zero.</p>
 
 <h2>Result</h2>
 <p>The line was closed in the research log as below resolution at the individual-signal level. No ranker, gate or model was adopted; the standing baseline was kept.</p>
 <p>The true spread of expected value between signals was more than ten times smaller than the noise in one signal&rsquo;s outcome, so a ranker that knew the truth would reach a rank correlation of only 0.03 to 0.06, where the attempts had landed. Detecting 0.05 at the multiplicity threshold needs about 13,700 observations once correlation between same-day outcomes is allowed for; 0.03 needs about 38,000. The study (3,800+ configurations counted) used fixed-horizon outcomes for all candidate signals, not only simulated trades; the pre-registered rule failed on its first condition, because the ceiling itself did not clear the stated minimum. On this measurement the earlier nulls were the expected outcome, not failures of the models.</p>
 <p>The report calls this a finding about resolution, not about the strategy, and logs one exception where repeatability was above its null on the whole sample; a companion study&rsquo;s forecast there did not persist beyond its placebo band. Limits: the ceiling depends on the groupings the study chose and on that fixed-horizon outcome.</p>
 
-<h2>Lesson</h2>
-<p>Before building a model, measure how good the best possible model could be and whether the sample could detect it. A null means below resolution unless the test had power.</p>
-<p>Applied within two days: a panel judging the liquidity-screen revision reported its minimum detectable effect beside its result (<a href="counting-trials.html">counting-trials case study</a>), and the minimum-liquidity requirement was read as a dose-response across five settings in historical backtest, against a two-year multiple&rsquo;s sensitivity to small changes, about &plusmn;0.5&times;.</p>
+<h2>What I learned</h2>
+<p>Before building a model, measure how good the best possible model could be and whether the sample could detect it. A null shows an effect is absent only if the test had the power to see it. Without that it shows only that the effect is below what the sample can resolve.</p>
+
+<h2>What changed in the research process afterward</h2>
+<p>What carried forward is the practice of stating what a test could detect beside what it found. Applied next: a panel judging the liquidity-screen revision reported its minimum detectable effect beside its result (<a href="counting-trials.html">counting-trials case study</a>).</p>
+<p>That panel also followed two of the rules above: it was a family-wise test with placebo twins inside, and it carried the already-known effect as a mandatory comparator. Its limit is that it was written after the direction of its main comparison was known. The rules await their first use as a set, in the next sweep.</p>
   </div>
 </article>
 <nav class="case-nav" aria-label="Case studies">
   <div class="wrap narrow">
     <a href="../case-studies.html">&larr; All case studies</a>
-    <a href="replay-parity.html">Next: When the replay disagreed with the real-time record &rarr;</a>
+    <a href="entry-filter-after-losses.html">Next: An entry filter designed around a set of losing trades did no better than random filters on earlier data &rarr;</a>
   </div>
 </nav>
 </main>

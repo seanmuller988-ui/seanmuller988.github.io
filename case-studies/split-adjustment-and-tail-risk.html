@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reverse splits faked a short-side result; the repaired result was rejected on its tail · Case study · Sean Muller</title>
+<meta name="description" content="I asked whether extreme gainers give their gains back. The top of the first ranking was mostly reverse splits. On repaired data the average was positive, and the idea was still rejected on its tail.">
+<meta name="author" content="Sean Muller">
+<link rel="canonical" href="https://seanmuller988-ui.github.io/case-studies/split-adjustment-and-tail-risk.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Sean Muller · Quantitative research">
+<meta property="og:title" content="Reverse splits faked a short-side result; the repaired result was rejected on its tail · Case study · Sean Muller">
+<meta property="og:description" content="I asked whether extreme gainers give their gains back. The top of the first ranking was mostly reverse splits. On repaired data the average was positive, and the idea was still rejected on its tail.">
+<meta property="og:url" content="https://seanmuller988-ui.github.io/case-studies/split-adjustment-and-tail-risk.html">
+<meta property="og:image" content="https://seanmuller988-ui.github.io/assets/images/og-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Sean Muller. Quantitative research: systematic equities, validation, execution.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Reverse splits faked a short-side result; the repaired result was rejected on its tail · Case study · Sean Muller">
+<meta name="twitter:description" content="I asked whether extreme gainers give their gains back. The top of the first ranking was mostly reverse splits. On repaired data the average was positive, and the idea was still rejected on its tail.">
+<meta name="twitter:image" content="https://seanmuller988-ui.github.io/assets/images/og-card.png">
+<link rel="icon" href="../assets/images/favicon.svg" type="image/svg+xml">
+<link rel="alternate icon" href="../favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="../assets/images/apple-touch-icon.png">
+<link rel="stylesheet" href="../css/style.css">
+<script src="../js/main.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="../index.html">Sean Muller<span>Quantitative research</span></a>
+    <button class="nav-toggle" type="button" aria-controls="nav" aria-expanded="false">Menu</button>
+    <nav class="nav" id="nav" aria-label="Primary">
+      <a href="../index.html">Home</a>
+      <a href="../quantitative-methods.html">Methods</a>
+      <a href="../case-studies.html" aria-current="page">Case Studies</a>
+      <a href="../systematic-equity.html">Platform</a>
+      <a href="../execution.html">Execution</a>
+      <a href="../research-roadmap.html">Agenda</a>
+      <a href="../about.html">About</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Case study &middot; Market hypothesis &middot; August 2026 &middot; <span class="badge">Completed</span></p>
+    <h1>Reverse splits faked a short-side result; the repaired result was rejected on its tail</h1>
+    <p>I asked whether extreme gainers give their gains back. The top of the first ranking was mostly reverse splits. On repaired data the average was positive, and the idea was still rejected on its tail.</p>
+    <p class="tagrow"><span class="hash">Split adjustment</span> <span class="hash">Tail risk</span> <span class="hash">Pre registration</span> <span class="hash">Data quality</span></p>
+  </div>
+</div>
+<main id="main">
+<article class="case">
+  <div class="wrap narrow">
+<h2>The question</h2>
+<p>On 6 August 2026 I asked whether stocks that had just made extreme upward moves tend to give them back, and whether shorting them would pay. My hypothesis had two parts: the gains were temporary, and this was most true of low-quality companies. The idea was separate from my main strategy, which is long-only, and it was rejected. I wanted the widest set of stocks available, because a narrower list of liquid names would leave out the companies the idea was about.</p>
+
+<h2>Initial approach</h2>
+<p>A pre-registration, a plan with pass and fail criteria written before any data is read, was committed on its own, ahead of the report. It fixed twelve variants, a placebo of random stocks matched on day and liquidity, a rule that stocks entered on one day count as one observation, and a multiple-testing correction. It stated what was missing: no fundamentals data, so &ldquo;low quality&rdquo; could only be proxied, and no stock-borrow data.</p>
+<p>The worst case was a criterion, not a footnote. A short position in a recent winner has no upper bound on its loss, so the plan said a positive average with an unbounded tail is a rejection, fixed in advance so an attractive average could not reopen it.</p>
+
+<h2>What broke</h2>
+<p>The top of the first ranking of extreme gainers was mostly reverse stock splits. The price history was not split-adjusted, and the record of corporate actions held far too few entries for about five thousand stocks. In unadjusted prices a 1-for-10 reverse split is a 900% one-day gain. Companies that reverse split often keep falling, so the defect produced a short-side profit in exactly the direction under test. An error that flatters the hypothesis does not look like an error.</p>
+
+<h2>Investigation</h2>
+<p>Detecting splits from the prices took three versions, and the first two were wrong. The first looked for round ratios and missed splits whose combined ratio was not round. The second mistook quiet overnight collapses for forward splits and divided one stock&rsquo;s history by 727. The third asked whether trading volume and intraday range confirmed the move, because a real move of that size arrives with a surge in volume and a split does not.</p>
+
+<h2>What changed</h2>
+<p>The test was rebuilt on adjusted prices: 1,010 corporate actions applied, 816 of them reverse splits. A separate screen removed 33 index-tracking products from a set meant to hold single stocks.</p>
+
+<h2>Validation</h2>
+<p>After adjustment the 25 largest movers were all verifiable as real moves. A residual integrity screen, reported both ways, dropped 22 of about 14,700 events and moved no variant&rsquo;s average by more than 0.06 percentage points, so the adjustment had done the work.</p>
+<p>The average was then tested as planned and attacked by a refutation pass.</p>
+<div class="table-wrap"><table>
+<thead><tr><th scope="col">Check</th><th scope="col">Variants passing</th></tr></thead>
+<tbody>
+<tr><td>Positive average</td><td>12 of 12</td></tr>
+<tr><td>Above the matched placebo</td><td>12 of 12</td></tr>
+<tr><td>Significant after Bonferroni correction</td><td>3 of 12</td></tr>
+<tr><td>Significant at 5% when weighted by liquidity</td><td>2 of 12</td></tr>
+<tr><td>Significant at 5% on a longer, more liquid panel</td><td>0 of 12</td></tr>
+<tr><td>Simulated account above zero at the end</td><td>3 of 12</td></tr>
+</tbody>
+</table></div>
+<p>Removing the 50 best trades of about 2,100 from the strongest variant left about four-fifths of its average. The averages are before trading costs and borrow fees. With no borrow data, the report could give only the fee at which each variant would break even, and it noted that the stocks with the largest reversals are likely to be the hardest and most expensive to borrow.</p>
+
+<h2>Result</h2>
+<p>The idea was rejected under the criterion as written. Nine of twelve simulated accounts ended below zero, with or without a daily forced reduction that kept the short book no larger than the account. One of the nine had a Sharpe ratio of 1.52 without the forced reduction and 1.35 with it, computed on its daily returns up to the day it went below zero. The three survivors each had a drawdown above 80%, including the one with the largest cumulative gain. In one variant about one trade in nineteen saw the stock at least double against the position.</p>
+<p>My hypothesis was at most half right. Extreme gainers did fade on average in this sample, but the twelve variants were measured on the same stocks and days, so twelve positive rows are far fewer than twelve independent results, and none was significant on the longer, more liquid panel. The quality half found no support: lower-priced stocks, where that story pointed, showed the weaker effect in all twelve variants.</p>
+
+<h2>What I learned</h2>
+<p>A study that ranks stocks by return selects for data errors, because the extremes are where errors collect. The data needs its hardest audit when the answer is the one I hoped for.</p>
+<p>The mean and the Sharpe ratio did not see this risk. Had the rejection rule not been written first, a Sharpe ratio of 1.52 would have been an argument for the trade.</p>
+
+<h2>What changed in the research process afterward</h2>
+<p>Recorded that day: a standing note that any study ranking stocks by return across the wide set must use split-adjusted prices and exclude index products.</p>
+<p>The tail criterion held when the idea came back. On 7 August I asked whether the same idea could be expressed in a form that met the tail criterion. A follow-up on 19 August closed that branch: it lost under every pricing assumption tested, and among liquid stocks the effect was absent. The criterion was not relaxed to rescue the idea.</p>
+  </div>
+</article>
+<nav class="case-nav" aria-label="Case studies">
+  <div class="wrap narrow">
+    <a href="../case-studies.html">&larr; All case studies</a>
+    <a href="counting-trials.html">Next: Counting the trials behind a deflated Sharpe ratio &rarr;</a>
+  </div>
+</nav>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p>Selected materials are presented for educational and professional purposes. Proprietary signal definitions, parameters, portfolio construction rules and execution logic are intentionally omitted. All performance figures are historical backtests unless labeled otherwise; no live or paper-trading results are shown. Historical and simulated results do not guarantee future performance. Nothing here is an offer or investment advice.</p>
+    <div class="row"><span>&copy; 2026 Sean Muller &middot; Last updated 6 October 2026</span><span><a href="../about.html#contact">Contact</a></span></div>
+  </div>
+</footer>
+</body>
+</html>
