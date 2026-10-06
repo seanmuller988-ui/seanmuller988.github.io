@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>About · Sean Muller</title>
+<meta name="description" content="Background, working method, research notes and contact details for Sean Muller.">
+<link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html">Sean Muller<span>Quantitative research</span></a>
+    <button class="nav-toggle" aria-controls="nav" aria-expanded="false">Menu</button>
+    <nav class="nav" id="nav" aria-label="Primary">
+      <a href="index.html">Home</a>
+      <a href="systematic-equity.html">Systematic Equity</a>
+      <a href="execution.html">Execution &amp; Costs</a>
+      <a href="about.html" aria-current="page">About</a>
+    </nav>
+  </div>
+</header>
+<div class="hero">
+  <div class="wrap">
+    <p class="eyebrow">About</p>
+    <h1>Sean Muller</h1>
+    <p>Finance and Mathematics, University of Miami. I work on systematic equity research: forming hypotheses, setting the standard of evidence, and deciding what is adopted and what is rejected.</p>
+    <p class="status">Interested in junior roles in quantitative research, trading and implementation, portfolio analytics and investment risk.</p>
+  </div>
+</div>
+<main>
+<section id="how">
+  <div class="wrap">
+    <h2>How I work</h2>
+    <p class="lede">What is mine, and what is tooling.</p>
+    <p>The research questions, the mathematical reasoning, the validation standards and every adopt-or-reject decision are mine. Implementation was substantially AI-assisted: AI coding agents wrote most of the code, the test scaffolding and first drafts of reports, under my direction and review. I do not present code volume as hand-written work.</p>
+    <p>I think that division is worth stating plainly, because it is also where the judgment shows. Directing a large amount of generated work only helps if you insist on controls that can fail: placebos, parity proofs, pre-registered tests and independent re-verification of anything that looks too good.</p>
+  </div>
+</section>
+
+<section id="notes">
+  <div class="wrap">
+    <h2>Research notes</h2>
+    <p class="lede">Short accounts of things that changed my mind.</p>
+    <div class="grid g3">
+      <div class="card"><h3>When the placebo wins</h3><p>A change to how the tradable universe was screened looked promising: more trades at the same quality. Random versions with the same mechanics and no information scored as well or better. The change was withdrawn, and the lesson kept: a result is not a result until its placebo has run.</p></div>
+      <div class="card"><h3>Measuring the ceiling first</h3><p>Several models tried to rank individual signals and none beat chance. Instead of trying a tenth, I measured how much skill was achievable: the true spread between signals was a small fraction of per-trade noise. Two years of data could not resolve it. The work moved to breadth and cost.</p></div>
+      <div class="card"><h3>A negative result</h3><p>The project began as an options thesis. It was tested against acceptance gates set in advance, failed them, and was dropped in favour of the equity strategy. The gates were not lowered to save it.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap">
+    <h2>What this work is, and is not</h2>
+    <div class="grid g2">
+      <div class="card"><h3>Evidence it gives</h3><ul><li>Auditing a result I had already published, and restating it</li><li>Designing tests that can fail, and accepting when they do</li><li>Modelling execution cost and capacity with standard methods</li><li>Running a research platform end to end, through live production deployment</li></ul></div>
+      <div class="card"><h3>Experience I do not yet have</h3><ul><li>Institutional portfolio responsibility or professional capital allocation</li><li>Working in a team with code review and shared ownership</li><li>Production on-call at a firm</li><li>Derivatives or fixed-income research at a professional standard</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <h2>Contact</h2>
+    <p>LinkedIn: <a href="https://www.linkedin.com/in/seancmuller/" target="_blank" rel="noopener">linkedin.com/in/seancmuller</a></p>
+    <p>Resume: available on request.</p>
+  </div>
+</section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p>Selected materials are presented for educational and professional purposes. Proprietary signal definitions, parameters, portfolio construction rules and execution logic are intentionally omitted. Historical and simulated results are labelled as such. Live trading with real capital is underway, but the live sample is still treated as operational evidence rather than standalone statistical proof. Historical, simulated and live results do not guarantee future performance. Nothing here is an offer or investment advice.</p>
+    <div class="row"><span>&copy; 2026 Sean Muller</span><span><a href="about.html#contact">Contact</a></span></div>
+  </div>
+</footer>
+<script src="js/main.js"></script>
+</body>
+</html>

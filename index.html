@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sean Muller · Quantitative research</title>
+<meta name="description" content="Independent quantitative research in systematic equities: research validation, execution cost modelling and research infrastructure.">
+<link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html">Sean Muller<span>Quantitative research</span></a>
+    <button class="nav-toggle" aria-controls="nav" aria-expanded="false">Menu</button>
+    <nav class="nav" id="nav" aria-label="Primary">
+      <a href="index.html" aria-current="page">Home</a>
+      <a href="systematic-equity.html">Systematic Equity</a>
+      <a href="execution.html">Execution &amp; Costs</a>
+      <a href="about.html">About</a>
+    </nav>
+  </div>
+</header>
+<div class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Independent research · 2026</p>
+    <h1>Systematic equity research, with the validation shown.</h1>
+    <p>I direct an independent research programme on one systematic equity strategy: the data platform, the research and replay tooling, the validation standards, the execution-cost model and the live trading and monitoring stack.</p>
+    <p>Results are reported the hard way: on a universe rebuilt as of each date, with spread, market impact and partial fills charged on every order.</p>
+    <p class="status">Status: live trading with real capital is underway. Historical performance figures on this site remain clearly labelled simulations unless explicitly identified as live evidence.</p>
+  </div>
+</div>
+<main>
+<section>
+  <div class="wrap">
+    <h2>Headline simulation results</h2>
+    <p class="lede">Two-year walk-forward historical simulation, point-in-time universe, modelled transaction costs, $1M start.</p>
+    <div class="grid g4">
+      <div class="metric"><b>3.04&times;</b><span>ending multiple, Jun 2024 – Jul 2026 (about 70% a year)</span></div>
+      <div class="metric"><b>1.84</b><span>Sharpe ratio on daily returns, annualised</span></div>
+      <div class="metric"><b>&minus;19.1%</b><span>maximum drawdown on daily marks</span></div>
+      <div class="metric"><b>780</b><span>simulated trades; about 41 basis points modelled cost per round trip</span></div>
+    </div>
+    <p class="small muted" style="margin-top:14px">Simulated, not live. Definitions, results by account size and limitations are on the <a href="systematic-equity.html#results">project page</a>.</p>
+  </div>
+</section>
+<section>
+  <div class="wrap">
+    <h2>Research interests</h2>
+    <p class="lede">Questions I keep returning to.</p>
+    <div class="grid g3">
+      <div class="card"><h3>Systematic equity signals</h3><p>Identifying repeatable effects in U.S. equities, testing whether they survive out of sample, and determining whether they remain attractive after realistic costs.</p></div>
+      <div class="card"><h3>Validation and inference</h3><p>Point-in-time data, placebo controls, family-wise error control and how much a two-year sample can actually resolve.</p></div>
+      <div class="card"><h3>Execution and capacity</h3><p>Spread, market impact, partial fills and how modelled cost grows with account size.</p></div>
+    </div>
+  </div>
+</section>
+<section>
+  <div class="wrap">
+    <h2>Flagship project</h2>
+    <p class="lede">One strategy, studied end to end.</p>
+    <a class="card" href="systematic-equity.html">
+      <h3>Systematic Equity platform</h3>
+      <p>An end-to-end systematic equity research and trading platform spanning data, signal research, validation, portfolio construction, risk, execution and live monitoring. The page covers architecture, research process, validation, risk and results while intentionally omitting proprietary signal logic.</p>
+      <p class="more">Read the project overview &rarr;</p>
+    </a>
+  </div>
+</section>
+<section>
+  <div class="wrap">
+    <h2>By the numbers</h2>
+    <p class="lede">Scale of the research record. Each figure is counted from the record, not estimated.</p>
+    <div class="grid g4">
+      <div class="metric"><b>540+</b><span>simulation runs recorded on the reference window, in 62 hypothesis families</span></div>
+      <div class="metric"><b>10,000+</b><span>configurations counted in one pre-registered research sweep</span></div>
+      <div class="metric"><b>69 &rarr; 1</b><span>candidate improvements tested family-wise; one survived, and it was fragile</span></div>
+      <div class="metric"><b>45</b><span>study reports written during the October 2026 review</span></div>
+      <div class="metric"><b>65+</b><span>verification reports proving that what runs matches what was validated</span></div>
+      <div class="metric"><b>20</b><span>standalone pre-registration documents on file since June 2026</span></div>
+      <div class="metric"><b>4,300+</b><span>commits to the research and engineering record</span></div>
+      <div class="metric"><b>5,000+</b><span>U.S. equities with minute-resolution history in the data platform</span></div>
+    </div>
+    <p class="small muted" style="margin-top:14px">Implementation was substantially AI-assisted under my direction; see <a href="about.html#how">how I work</a>.</p>
+  </div>
+</section>
+<section>
+  <div class="wrap">
+    <h2>Selected work</h2>
+    <div class="grid g2">
+      <a class="card" href="systematic-equity.html#restatement"><h3>Rebuilding my own backtest</h3><p>A point-in-time audit found that the list of tradable names carried hindsight. The simulation was rebuilt as of each date with modelled fills on every order. The current configuration ends at 3.04&times; after costs; the figure first published is superseded.</p><p class="more">From the published figure to the current one &rarr;</p></a>
+      <a class="card" href="execution.html"><h3>Execution and transaction costs</h3><p>Replacing flat transaction-cost assumptions with a liquidity-aware fill model incorporating spread, market impact and partial execution. Sensitivity analysis shows how execution realism changes as capital and liquidity constraints increase.</p><p class="more">The execution research &rarr;</p></a>
+      <a class="card" href="systematic-equity.html#validation"><h3>One family-wise test over a whole sweep</h3><p>Sixty-nine candidate improvements entered a single correlation-aware test alongside placebo twins. One survived, it was already known, and it was fragile. No new lever was claimed.</p><p class="more">Validation approach &rarr;</p></a>
+      <a class="card" href="about.html#notes"><h3>Research notes</h3><p>Short write-ups: a lever withdrawn when its placebo matched it, a noise-ceiling measurement that ended a line of modelling, and an early thesis dropped when it failed its own gates.</p><p class="more">Read the notes &rarr;</p></a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p>Selected materials are presented for educational and professional purposes. Proprietary signal definitions, parameters, portfolio construction rules and execution logic are intentionally omitted. Historical and simulated results are labelled as such. Live trading with real capital is underway, but the live sample is still treated as operational evidence rather than standalone statistical proof. Historical, simulated and live results do not guarantee future performance. Nothing here is an offer or investment advice.</p>
+    <div class="row"><span>&copy; 2026 Sean Muller</span><span><a href="about.html#contact">Contact</a></span></div>
+  </div>
+</footer>
+<script src="js/main.js"></script>
+</body>
+</html>
