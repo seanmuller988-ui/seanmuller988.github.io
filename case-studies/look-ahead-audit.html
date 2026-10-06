@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A look-ahead audit that shared the defect it was checking for · Case study · Sean Muller</title>
+<meta name="description" content="A look-ahead audit passed on every run because it derived its dates the same way as the calendar it audited. Every figure on that base was withdrawn and re-measured.">
+<meta name="author" content="Sean Muller">
+<link rel="canonical" href="https://seanmuller988-ui.github.io/case-studies/look-ahead-audit.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Sean Muller · Quantitative research">
+<meta property="og:title" content="A look-ahead audit that shared the defect it was checking for · Case study · Sean Muller">
+<meta property="og:description" content="A look-ahead audit passed on every run because it derived its dates the same way as the calendar it audited. Every figure on that base was withdrawn and re-measured.">
+<meta property="og:url" content="https://seanmuller988-ui.github.io/case-studies/look-ahead-audit.html">
+<meta property="og:image" content="https://seanmuller988-ui.github.io/assets/images/og-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Sean Muller. Quantitative research: systematic equities, validation, execution.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="A look-ahead audit that shared the defect it was checking for · Case study · Sean Muller">
+<meta name="twitter:description" content="A look-ahead audit passed on every run because it derived its dates the same way as the calendar it audited. Every figure on that base was withdrawn and re-measured.">
+<meta name="twitter:image" content="https://seanmuller988-ui.github.io/assets/images/og-card.png">
+<link rel="icon" href="../assets/images/favicon.svg" type="image/svg+xml">
+<link rel="alternate icon" href="../favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="../assets/images/apple-touch-icon.png">
+<link rel="stylesheet" href="../css/style.css">
+<script src="../js/main.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="../index.html">Sean Muller<span>Quantitative research</span></a>
+    <button class="nav-toggle" type="button" aria-controls="nav" aria-expanded="false">Menu</button>
+    <nav class="nav" id="nav" aria-label="Primary">
+      <a href="../index.html">Home</a>
+      <a href="../systematic-equity.html">Systematic Equity</a>
+      <a href="../execution.html">Execution &amp; Costs</a>
+      <a href="../case-studies.html" aria-current="page">Case Studies</a>
+      <a href="../research-roadmap.html">Research Agenda</a>
+      <a href="../about.html">About &amp; contact</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Case study &middot; Research &middot; <span class="badge">Completed</span></p>
+    <h1>A look-ahead audit that shared the defect it was checking for</h1>
+    <p>A look-ahead audit passed on every run because it derived its dates the same way as the calendar it audited. Every figure on that base was withdrawn and re-measured.</p>
+    <p class="tagrow"><span class="hash">#LookAhead</span> <span class="hash">#Validation</span> <span class="hash">#Backtesting</span></p>
+  </div>
+</div>
+<main id="main">
+<article class="case">
+  <div class="wrap narrow">
+<h2>The problem</h2>
+<p>A walk-forward simulation fits a model on past data, tests it on the following period, steps forward and repeats. Its characteristic failure is look-ahead: a decision using information not yet available. In September 2026 the walk-forward runs of an earlier internal configuration (a historical backtest, since superseded and not among the results reported on this site) carried an automated no-look-ahead audit, which passed on every period of every run. A second machine was reproducing the research harness (the simulator that runs these walk-forward tests), and the figures were headed into the record of a pending build.</p>
+
+<h2>Initial approach</h2>
+<p>The audit was treated as assurance. That was reasonable: it was written for exactly this purpose and had passed on every run of this configuration. A reproduction of the figures on another machine, to the dollar, was recorded as supporting evidence. The audit itself was untested.</p>
+
+<h2>What didn't work</h2>
+<p>On 19 September 2026 a reconciliation between the backtest and a second replay engine produced a fix to how the walk-forward calendar derived session dates. Recorded symptoms: non-trading days in the calendar, one weekday missing, test windows opening early, and a point-in-time filter admitting an input before it existed. The fix reached the engine code line but not the research harness copies.</p>
+<p>On 21 September, on a second research machine set up from the newer code line I had chosen as its base, the old and the corrected base were run with the same data, configuration and settings. In this earlier internal historical backtest, gross profit was a little more than a third lower on the corrected base. The audit had passed on both.</p>
+
+<h2>Investigation</h2>
+<ol>
+<li><strong>A confounded gate.</strong> The first parity gate, a tolerance band, changed code base and data store together, so it could not attribute its own failure. It was withdrawn for the same-machine comparison.</li>
+<li><strong>Two alternatives discarded.</strong> Shorter early history on one machine, and corporate actions, were each tested and dropped on arithmetic.</li>
+<li><strong>The data store exonerated.</strong> The old code matched to the dollar across two machines on most periods, and a byte-for-byte re-run placed the whole remaining difference in the earliest periods, where one machine had shorter history.</li>
+<li><strong>The fix, read in full.</strong> The gap was at first treated as code-base drift to be documented. A review that read the fix itself, not its subject line, found it also patched the audit, which computed its dates with the same conversion as the calendar.</li>
+<li><strong>Scope and mechanism.</strong> The defect sat in seventeen harness copies at two places; the second generated the shifted calendar. The conversion was correct under only one time-zone setting, and the runs used a different one.</li>
+</ol>
+
+<h2>Iteration</h2>
+<p>I made four decisions on 21 September, three on this episode. The comparison runs already specified, run on the corrected base, would be the re-measurement. Development would continue on code only and quote no numbers, against a written list of every withdrawn figure. The pending build was held until those runs reported.</p>
+<p>The active harness copies were patched behind a new build label and the old build was left untouched, so earlier results stay reproducible. A regression fixture was added, a test that fails if the bare date conversion returns. That evening the calendar was not redefined to get past a data gap; the missing history was backfilled instead.</p>
+
+<h2>Validation</h2>
+<ul>
+<li>Same machine, data and configuration; only the code base differed.</li>
+<li>The old code agreed across two machines, to the dollar, on most periods, which cleared the data store, not the code.</li>
+<li>An independent generator reproduced the wrong calendar under the real time-zone setting and the correct one under the other.</li>
+<li>The regression fixture passed on the patched build.</li>
+</ul>
+<p>The size is one pair of runs on one machine. The decision note declines to call the whole difference leaked profit: it combines removing a look-ahead with shifting every walk-forward boundary, and the two were not separately quantified. A deliberate leak-injection test of the audit has not been run, so the claim that the audit now works rests on that fixture. The post-mortem is complete; that test remains open.</p>
+
+<h2>Result</h2>
+<p>The result got worse. Correcting the calendar lowered that earlier internal backtest&rsquo;s gross profit by a little more than a third, with the caveat above. Every absolute figure of that configuration was withdrawn, and it was re-measured on the corrected base later that week (see <a href="replay-parity.html">the replay-parity case</a>). Rankings between variants were described as probably intact, and not verified until then. Every earlier pass from the audit was recorded as void, not merely suspect. The next morning a checksum showed the earlier cross-machine reproduction had run the same uncorrected file: consistency, not correctness.</p>
+
+<h2>Lesson</h2>
+<p>A green check is evidence only if its measurement path is independent of the code it audits. The test adopted for any gate: if the build were wrong in exactly the way this step checks, the step must fail. By that test the repaired audit is itself unproven until a planted leak makes it fail.</p>
+<p>On 28 September a second look-ahead in the research harness was found only because a second engine keyed its decisions differently and the trade lists disagreed. The rule recorded then: test every mechanism that carries portfolio state against a second implementation on a common slice of history. On 2 October a point-in-time audit asked of each input whether it was knowable at the fitting date (see <a href="point-in-time-universe.html">the point-in-time universe case</a>).</p>
+  </div>
+</article>
+<nav class="case-nav" aria-label="Case studies">
+  <div class="wrap narrow">
+    <a href="../case-studies.html">&larr; All case studies</a>
+    <a href="ranking-feasibility.html">Next: Measuring whether ranking was possible before building another ranker &rarr;</a>
+  </div>
+</nav>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p>Selected materials are presented for educational and professional purposes. Proprietary signal definitions, parameters, portfolio construction rules and execution logic are intentionally omitted. All performance figures are historical backtests unless labeled otherwise; no live or paper-trading results are shown. Historical and simulated results do not guarantee future performance. Nothing here is an offer or investment advice.</p>
+    <div class="row"><span>&copy; 2026 Sean Muller &middot; Last updated 6 October 2026</span><span><a href="../about.html#contact">Contact</a></span></div>
+  </div>
+</footer>
+</body>
+</html>

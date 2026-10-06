@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Research agenda · Sean Muller</title>
+<meta name="description" content="Current research agenda: open questions, early hypotheses, planned approach and what evidence would change the view.">
+<meta name="author" content="Sean Muller">
+<link rel="canonical" href="https://seanmuller988-ui.github.io/research-roadmap.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Sean Muller · Quantitative research">
+<meta property="og:title" content="Research agenda · Sean Muller">
+<meta property="og:description" content="Current research agenda: open questions, early hypotheses, planned approach and what evidence would change the view.">
+<meta property="og:url" content="https://seanmuller988-ui.github.io/research-roadmap.html">
+<meta property="og:image" content="https://seanmuller988-ui.github.io/assets/images/og-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Sean Muller. Quantitative research: systematic equities, validation, execution.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Research agenda · Sean Muller">
+<meta name="twitter:description" content="Current research agenda: open questions, early hypotheses, planned approach and what evidence would change the view.">
+<meta name="twitter:image" content="https://seanmuller988-ui.github.io/assets/images/og-card.png">
+<link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml">
+<link rel="alternate icon" href="favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png">
+<link rel="stylesheet" href="css/style.css">
+<script src="js/main.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html">Sean Muller<span>Quantitative research</span></a>
+    <button class="nav-toggle" type="button" aria-controls="nav" aria-expanded="false">Menu</button>
+    <nav class="nav" id="nav" aria-label="Primary">
+      <a href="index.html">Home</a>
+      <a href="systematic-equity.html">Systematic Equity</a>
+      <a href="execution.html">Execution &amp; Costs</a>
+      <a href="case-studies.html">Case Studies</a>
+      <a href="research-roadmap.html" aria-current="page">Research Agenda</a>
+      <a href="about.html">About &amp; contact</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Current research agenda &middot; <span class="badge">Ongoing research</span></p>
+    <h1>The questions I want to answer next</h1>
+    <p>Where the current evidence stops, what I think may be true beyond it, how I am approaching each question, and what would change my view.</p>
+    <p class="status">Plans and hypotheses, not results. These are research questions, not commitments or a schedule. Planned means the study described has not been run; Designing means the approach is still being worked out; Testing means the tooling exists and has automated tests, and no study has used it yet. Definitions, variables and thresholds are omitted throughout.</p>
+  </div>
+</div>
+<main id="main" class="agenda">
+<section>
+  <div class="wrap">
+    <h2>On this page</h2>
+    <ul class="toc">
+      <li><a href="#forward-evidence">Forward evidence on a fixed configuration</a> <span class="muted small">Evidence Extension &middot; Planned</span></li>
+      <li><a href="#path-and-concentration">From one compounding path to a distribution</a> <span class="muted small">Robustness Research &middot; Planned</span></li>
+      <li><a href="#regime-coverage">Regime coverage</a> <span class="muted small">Strategy Evolution &middot; Planned</span></li>
+      <li><a href="#own-order-impact">Calibrating execution assumptions with live order evidence</a> <span class="muted small">Execution and Capacity Research &middot; Designing</span></li>
+      <li><a href="#capacity-at-size">Cost, fills and capacity as simulated size grows</a> <span class="muted small">Execution and Capacity Research &middot; Planned</span></li>
+      <li><a href="#detectable-effects">What a second research sweep could detect</a> <span class="muted small">Model Extension &middot; Designing</span></li>
+      <li><a href="#decision-record">A decision-level record of candidate signals</a> <span class="muted small">Research Infrastructure &middot; Testing</span></li>
+      <li><a href="#idle-capital">The use of idle capital</a> <span class="muted small">Model Extension &middot; Planned</span></li>
+    </ul>
+  </div>
+</section>
+<section class="agenda-item" id="forward-evidence">
+  <div class="wrap">
+<p class="cat">Evidence Extension &middot; Planned</p>
+<h2>Forward evidence on a fixed configuration</h2>
+<h3>Current state</h3>
+<p>Fitted parameters are out of sample in a walk-forward test; the choice among configurations is not. No backtest of the selected configuration on later dates is on file. Every performance figure on this site is a historical backtest. No live or paper-trading results are shown here.</p>
+<h3>Open question</h3>
+<p>Whether the selected configuration, held fixed, behaves on later data as it does inside the two-year research window.</p>
+<h3>Why it matters</h3>
+<p>Selection happened inside the window, so only data arriving after the configuration is fixed is free of it. The months between the window&rsquo;s end and that point are a weaker test.</p>
+<h3>Early hypothesis</h3>
+<p>A configuration chosen inside the window is probably flattered by it, so I do not read the headline as the expected result on later data. Over a few months the sampling error of an annualized Sharpe ratio is about as large as the ratio, so a short record tests consistency, not the level.</p>
+<h3>Planned approach</h3>
+<p>A planned extension is to apply the configuration, unchanged, to later data under its own evidence label. I am evaluating how to state in advance what would count as consistent.</p>
+<h3>What would change my view</h3>
+<p>Later-data trade frequency and win rate close to the backtest&rsquo;s would be weak support. A clear departure would shift weight away from the backtest.</p>
+  </div>
+</section>
+<section class="agenda-item" id="path-and-concentration">
+  <div class="wrap">
+<p class="cat">Robustness Research &middot; Planned</p>
+<h2>From one compounding path to a distribution</h2>
+<h3>Current state</h3>
+<p>The backtest headline is one compounding path, and a two-year multiple moves by about &plusmn;0.5&times; under small, arbitrary changes. On the first reported backtest, the reported start date ended highest of five nearby starts. Attribution and leave-out tests exist for that trade record only.</p>
+<h3>Open question</h3>
+<p>How wide the spread is across start dates, how much remains without the largest winners or after standard factors, and whether calendar dependence can be reduced without lowering the expected result.</p>
+<h3>Why it matters</h3>
+<p>One path is one draw. A right-tailed result should be shown as a property of the process, not of a few trades.</p>
+<h3>Early hypothesis</h3>
+<p>That the spread across starts comes from path dependence and a few large trades, not from model quality, as measurements on an earlier build showed.</p>
+<h3>Planned approach</h3>
+<p>I am evaluating shifted-start runs of the selected configuration. A planned extension is to repeat the leave-out tests and factor attribution on its trade record, with dependence-aware intervals.</p>
+<h3>What would change my view</h3>
+<p>A spread centered near the headline would support quoting it; one well below would mean quoting the spread instead. Profit is already concentrated in a few trades. If little remained without them, or standard factors absorbed most of the return, I would describe a concentrated or factor exposure, not a broad process.</p>
+  </div>
+</section>
+<section class="agenda-item" id="regime-coverage">
+  <div class="wrap">
+<p class="cat">Strategy Evolution &middot; Planned</p>
+<h2>Regime coverage</h2>
+<h3>Current state</h3>
+<p>The research window is about two years and covers one broad market environment: the S&amp;P 500 rose about 42% over it on a price basis. Every backtest on this site sits inside that window, so the evidence describes those conditions and not materially different ones.</p>
+<h3>Open question</h3>
+<p>How the strategy behaves when market conditions differ materially from those in the research window, and how its design should adapt if they do.</p>
+<h3>Why it matters</h3>
+<p>Results from one environment cannot simply be extrapolated across structurally different periods. The aim is to measure how the results depend on the environment first, then to decide explicitly how the system should behave when conditions change.</p>
+<h3>Early hypothesis</h3>
+<p>Held loosely: adverse regimes may call for a separately researched component, not a re-tuning of the primary one.</p>
+<h3>Planned approach</h3>
+<p>A planned extension is to define regimes without using future information, then measure which components remain stable across them, on historical stress periods where data allows and against later observation. From there I am evaluating two responses: capital scaled by regime, and components specialized by regime in place of a single model.</p>
+<h3>What would change my view</h3>
+<p>Evidence that the components are stable across regimes would favor a single model over a separate component. The bar for any extension is that it improves robustness across market states without materially degrading results in the primary regime.</p>
+  </div>
+</section>
+<section class="agenda-item" id="own-order-impact">
+  <div class="wrap">
+<p class="cat">Execution and Capacity Research &middot; Designing</p>
+<h2>Calibrating execution assumptions with live order evidence</h2>
+<h3>Current state</h3>
+<p>The current execution model is grounded in public market data and literature-based priors. The platform is now generating real-capital execution observations, which creates a second evidence source for checking whether the research simulator remains appropriately calibrated.</p>
+<h3>Open question</h3>
+<p>How closely realized execution outcomes align with modeled assumptions as the live sample grows, and when that sample becomes large enough to justify revising the simulator.</p>
+<h3>Why it matters</h3>
+<p>Execution assumptions sit behind every modeled cost and capacity statement. A stable live calibration can replace part of that uncertainty with direct measurement.</p>
+<h3>Early hypothesis</h3>
+<p>The public-data model remains the principal case until the live sample is large and stable enough to support a meaningful comparison.</p>
+<h3>Planned approach</h3>
+<p>One current research question is how to define a calibration test that is statistically meaningful without over-reading a small live sample. The plan is to compare realized shortfall with the simulator using pre-specified benchmarks and uncertainty bands.</p>
+<h3>What would change my view</h3>
+<p>Persistent, statistically meaningful deviations between realized execution and the simulator would justify revising the model; noisy differences inside the expected range would not.</p>
+  </div>
+</section>
+<section class="agenda-item" id="capacity-at-size">
+  <div class="wrap">
+<p class="cat">Execution and Capacity Research &middot; Planned</p>
+<h2>Cost, fills and capacity as simulated size grows</h2>
+<h3>Current state</h3>
+<p>In historical simulation, modeled execution friction rises as simulated capital increases. Earlier capacity work was performed on a superseded trade record and used simplifying assumptions, so I do not publish a single capacity number for the current configuration.</p>
+<h3>Open question</h3>
+<p>How cost, fills and capacity behave as simulated size grows, and how much remains if profit per trade falls with size.</p>
+<h3>Why it matters</h3>
+<p>Earlier results do not carry over to the selected configuration. Capacity assuming undiminished profit per trade is an upper bound.</p>
+<h3>Early hypothesis</h3>
+<p>None on levels. In an earlier replay on the superseded universe, an adverse bound on every fill removed essentially all the simulated gain: a bound, not a forecast.</p>
+<h3>Planned approach</h3>
+<p>A planned extension is to repeat the execution stresses on the selected configuration, compare results across liquidity conditions, and evaluate capacity against a marginal-return hurdle rather than a single headline threshold.</p>
+<h3>What would change my view</h3>
+<p>If central fill-price conventions, not only an adverse bound, removed most of the modeled profit, the cost model would be the binding uncertainty.</p>
+  </div>
+</section>
+<section class="agenda-item" id="detectable-effects">
+  <div class="wrap">
+<p class="cat">Model Extension &middot; Designing</p>
+<h2>What a second research sweep could detect</h2>
+<h3>Current state</h3>
+<p>The October 2026 sweep took the first reported backtest, with its hindsight universe and flat cost, as its reference. It put 69 candidate improvements and 44 placebo twins through one family-wise test. One survived, an effect already known, and was fragile. A feasibility study put the achievable skill for ranking individual signals below its pre-registered bar.</p>
+<h3>Open question</h3>
+<p>One current research question is whether learnable structure remains beyond the ranking of individual signals, and whether machine-learning methods can find leads on a sample this short without overfitting.</p>
+<h3>Why it matters</h3>
+<p>The first sweep showed that the sample, not the threshold, limited discovery. More of the same would add trials and noise, not findings.</p>
+<h3>Early hypothesis</h3>
+<p>Held loosely: these methods may surface leads that rule-based research misses, and on a two-year sample the risk of overfitting is as real as the potential.</p>
+<h3>Planned approach</h3>
+<p>I am investigating this in a separate research fork; nothing moves out of it without my item-by-item decision. I am evaluating how a second sweep should pose its questions so a realistic effect is detectable.</p>
+<h3>What would change my view</h3>
+<p>An effect that beats both its placebo and the effect already known would reopen that line of modeling. A second null from adequately powered studies would bound an effect, not show its absence.</p>
+  </div>
+</section>
+<section class="agenda-item" id="decision-record">
+  <div class="wrap">
+<p class="cat">Research Infrastructure &middot; Testing</p>
+<h2>A decision-level record of candidate signals</h2>
+<h3>Current state</h3>
+<p>Studies to date rebuilt each candidate signal&rsquo;s outcome from stored price bars. A purpose-built research record now exists: each candidate, taken or not, with the reason for the decision and a later outcome under one definition. The tooling has automated tests, and no study has used it yet.</p>
+<h3>Open question</h3>
+<p>Whether logged decisions, with their reasons and the portfolio&rsquo;s state at that moment, give enough resolution for questions that two years of backtested trades cannot settle.</p>
+<h3>Why it matters</h3>
+<p>The portfolio&rsquo;s state at decision time cannot be rebuilt afterward from price bars, and candidates outnumber trades. A rule that filters signals should also be judged on the signals it blocks.</p>
+<h3>Early hypothesis</h3>
+<p>Tests posed per candidate, on the larger sample, may detect effects that per-trade tests cannot. Candidates on the same day share market shocks, so the gain is smaller than the raw count suggests.</p>
+<h3>Planned approach</h3>
+<p>A planned extension is to use the record in backtest runs first, compare it with the reconstructions behind earlier studies, and base later research on it.</p>
+<h3>What would change my view</h3>
+<p>If logged and reconstructed records disagreed materially on the same dates, the earlier reconstructions would need re-examination. If per-candidate tests proved as underpowered as per-trade tests, the binding constraint would be length of history, not logging.</p>
+  </div>
+</section>
+<section class="agenda-item" id="idle-capital">
+  <div class="wrap">
+<p class="cat">Model Extension &middot; Planned</p>
+<h2>The use of idle capital</h2>
+<h3>Current state</h3>
+<p>On a build that predates the first reported backtest, the share of capital in use varied through time. A study compared a cash yield on idle capital with a broad index position: the index added market exposure, while a cash yield added a modest return without changing exposure. I have not settled on a treatment.</p>
+<h3>Open question</h3>
+<p>What capital should do when the strategy is not using it: stay in cash, earn a cash yield, or fund a second use that returns it on demand.</p>
+<h3>Why it matters</h3>
+<p>It sets the return on total capital and the fairness of any comparison with an always-invested benchmark.</p>
+<h3>Early hypothesis</h3>
+<p>The earlier evidence supports one narrow statement: an index position is market exposure under another name. Beyond that I hold no hypothesis.</p>
+<h3>Planned approach</h3>
+<p>A planned extension is to remeasure idle capital on the selected configuration with a financing charge and a cash yield added to the backtest ledger together. I am evaluating whether a second, weakly correlated use could take the idle fraction and return it on demand.</p>
+<h3>What would change my view</h3>
+<p>If idle spells proved short or unpredictable, a cash yield would be the simpler answer. A treatment that added return without adding market exposure or deepening the drawdown would be worth considering; an index position does both.</p>
+  </div>
+</section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p>Selected materials are presented for educational and professional purposes. Proprietary signal definitions, parameters, portfolio construction rules and execution logic are intentionally omitted. All performance figures are historical backtests unless labeled otherwise; no live or paper-trading results are shown. Historical and simulated results do not guarantee future performance. Nothing here is an offer or investment advice.</p>
+    <div class="row"><span>&copy; 2026 Sean Muller &middot; Last updated 6 October 2026</span><span><a href="about.html#contact">Contact</a></span></div>
+  </div>
+</footer>
+</body>
+</html>

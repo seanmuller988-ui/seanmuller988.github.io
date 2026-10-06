@@ -1,5 +1,7 @@
-# Sean Muller — research site (PROTOTYPE)
+# Sean Muller: research site
 
-Static site: plain HTML, CSS and one small script. No build step.
+Personal research site. Static HTML and CSS, no build step. Open `index.html` to view it locally.
 
-Open `index.html` in a browser to view locally.
+Selected materials are presented for educational and professional purposes. Proprietary signal definitions, parameters, portfolio construction rules and execution logic are intentionally omitted. All performance figures are historical backtests unless labeled otherwise; no live or paper-trading results are shown. Historical and simulated results do not guarantee future performance. Nothing here is an offer or investment advice.
+
+Content © 2026 Sean Muller. All rights reserved.

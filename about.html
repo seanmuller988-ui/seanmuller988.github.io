@@ -4,78 +4,122 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>About · Sean Muller</title>
-<meta name="description" content="Background, working method, research notes and contact details for Sean Muller.">
+<meta name="description" content="Sean Muller: University of Miami undergraduate (B.A. Mathematics, B.S. Finance &amp; Accounting), graduating December 2026. My work, how it is done, the roles I am looking for and contact details.">
+<meta name="author" content="Sean Muller">
+<link rel="canonical" href="https://seanmuller988-ui.github.io/about.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Sean Muller · Quantitative research">
+<meta property="og:title" content="About · Sean Muller">
+<meta property="og:description" content="Sean Muller: University of Miami undergraduate (B.A. Mathematics, B.S. Finance &amp; Accounting), graduating December 2026. My work, how it is done, the roles I am looking for and contact details.">
+<meta property="og:url" content="https://seanmuller988-ui.github.io/about.html">
+<meta property="og:image" content="https://seanmuller988-ui.github.io/assets/images/og-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Sean Muller. Quantitative research: systematic equities, validation, execution.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="About · Sean Muller">
+<meta name="twitter:description" content="Sean Muller: University of Miami undergraduate (B.A. Mathematics, B.S. Finance &amp; Accounting), graduating December 2026. My work, how it is done, the roles I am looking for and contact details.">
+<meta name="twitter:image" content="https://seanmuller988-ui.github.io/assets/images/og-card.png">
 <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml">
+<link rel="alternate icon" href="favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png">
 <link rel="stylesheet" href="css/style.css">
+<script src="js/main.js"></script>
 </head>
 <body>
+<a class="skip" href="#main">Skip to content</a>
 <header class="site-header">
   <div class="wrap">
     <a class="brand" href="index.html">Sean Muller<span>Quantitative research</span></a>
-    <button class="nav-toggle" aria-controls="nav" aria-expanded="false">Menu</button>
+    <button class="nav-toggle" type="button" aria-controls="nav" aria-expanded="false">Menu</button>
     <nav class="nav" id="nav" aria-label="Primary">
       <a href="index.html">Home</a>
       <a href="systematic-equity.html">Systematic Equity</a>
       <a href="execution.html">Execution &amp; Costs</a>
-      <a href="about.html" aria-current="page">About</a>
+      <a href="case-studies.html">Case Studies</a>
+      <a href="research-roadmap.html">Research Agenda</a>
+      <a href="about.html" aria-current="page">About &amp; contact</a>
     </nav>
   </div>
 </header>
+
 <div class="hero">
   <div class="wrap">
     <p class="eyebrow">About</p>
     <h1>Sean Muller</h1>
-    <p>Finance and Mathematics, University of Miami. I work on systematic equity research: forming hypotheses, setting the standard of evidence, and deciding what is adopted and what is rejected.</p>
-    <p class="status">Interested in junior roles in quantitative research, trading and implementation, portfolio analytics and investment risk.</p>
+    <p>I am an undergraduate at the University of Miami, graduating in December 2026 with a B.A. in Mathematics (Probability &amp; Statistics track) and a B.S. in Finance &amp; Accounting. My independent work is in systematic equities: statistical validation, execution costs, portfolio-level research and the infrastructure the research runs on.</p>
+    <p>I am looking for full-time, new-graduate roles in quantitative research, quantitative trading and related systematic-investing work, starting around or after December 2026. <a class="plain" href="#contact">Contact details</a> are at the foot of this page.</p>
   </div>
 </div>
-<main>
+<main id="main">
+<section id="work">
+  <div class="wrap">
+    <h2>What I work on</h2>
+    <p>Most of my time goes into one systematic equity strategy and the platform around it: a market-data store, a research replay harness, a transaction-cost model, a verification layer and a trading engine. The <a href="systematic-equity.html">project page</a> describes it.</p>
+    <p>The questions I find most interesting are about evidence: whether a result is real, what it would take to show that it is not, and how much a given sample can resolve. The <a href="case-studies.html">case studies</a> are where that shows, and the <a href="research-roadmap.html">research agenda</a> lists the questions I want to answer next.</p>
+  </div>
+</section>
+
+<section id="why">
+  <div class="wrap">
+    <h2>Why I built the platform</h2>
+    <p>Much of the platform grew out of questions I wanted to answer rather than features I planned to build. I wanted to see the whole research lifecycle at first hand: data, hypothesis, test, cost, portfolio, order, and the gap between what a simulation says and what a trading engine does.</p>
+    <p>Building it took me through each of those stages. It also showed me how much depth there is in execution, market microstructure and portfolio construction.</p>
+    <p>Because this is independent research rather than work produced inside an established research organization, I put particular emphasis on explicit validation, documentation and adversarial testing. I treat the platform as both a research system and a laboratory for improving my own process.</p>
+  </div>
+</section>
+
+<section id="learning">
+  <div class="wrap">
+    <h2>How I approach learning</h2>
+    <p>My preferred way to learn is through research problems with concrete consequences. I usually begin with a question, work out the simplest defensible test I can, and then spend more time trying to invalidate the result than trying to defend it. I learned that order on this project: the audit that found hindsight in my first reported backtest ran after it went out, not before. When the work exposes a gap in my statistics, mathematics, market knowledge or engineering, that becomes the next thing I study.</p>
+    <p>The part I enjoy most is working out why a convincing result broke under a stronger test. The <a href="case-studies.html">case studies</a> are examples, and in one of them the explanation that broke was my own.</p>
+  </div>
+</section>
+
 <section id="how">
   <div class="wrap">
-    <h2>How I work</h2>
-    <p class="lede">What is mine, and what is tooling.</p>
-    <p>The research questions, the mathematical reasoning, the validation standards and every adopt-or-reject decision are mine. Implementation was substantially AI-assisted: AI coding agents wrote most of the code, the test scaffolding and first drafts of reports, under my direction and review. I do not present code volume as hand-written work.</p>
-    <p>I think that division is worth stating plainly, because it is also where the judgment shows. Directing a large amount of generated work only helps if you insist on controls that can fail: placebos, parity proofs, pre-registered tests and independent re-verification of anything that looks too good.</p>
+    <h2>How the work is done</h2>
+    <p>I independently direct the research, quantitative methodology, experimental design and system architecture, and I use modern AI-assisted development tools extensively for implementation, documentation and iteration.</p>
+    <p>Because much of the implementation is AI-assisted, and I review results rather than every line of code, the work is only as reliable as its controls, and a control is useful only if it can fail: placebos, parity proofs, plans written before results, and independent re-checks of anything that looks too good. Those checks do not replace outside review. The work has not yet had independent outside review.</p>
   </div>
 </section>
 
-<section id="notes">
+<section id="developing">
   <div class="wrap">
-    <h2>Research notes</h2>
-    <p class="lede">Short accounts of things that changed my mind.</p>
-    <div class="grid g3">
-      <div class="card"><h3>When the placebo wins</h3><p>A change to how the tradable universe was screened looked promising: more trades at the same quality. Random versions with the same mechanics and no information scored as well or better. The change was withdrawn, and the lesson kept: a result is not a result until its placebo has run.</p></div>
-      <div class="card"><h3>Measuring the ceiling first</h3><p>Several models tried to rank individual signals and none beat chance. Instead of trying a tenth, I measured how much skill was achievable: the true spread between signals was a small fraction of per-trade noise. Two years of data could not resolve it. The work moved to breadth and cost.</p></div>
-      <div class="card"><h3>A negative result</h3><p>The project began as an options thesis. It was tested against acceptance gates set in advance, failed them, and was dropped in favour of the equity strategy. The gates were not lowered to save it.</p></div>
-    </div>
+    <h2>What I am working to get better at</h2>
+    <p>My current focus is on strengthening the statistical, execution and portfolio-level foundations of the work.</p>
+    <ul>
+      <li>Statistical inference for research with many trials and dependent data</li>
+      <li>Market microstructure and execution, beyond textbook cost models</li>
+      <li>Portfolio construction and risk at the level of the whole book</li>
+      <li>Research systems that stay reproducible as they grow</li>
+    </ul>
+    <p>I am particularly interested in learning from researchers with deeper experience in these areas.</p>
   </div>
 </section>
 
-<section id="experience">
+<section id="looking">
   <div class="wrap">
-    <h2>What this work is, and is not</h2>
-    <div class="grid g2">
-      <div class="card"><h3>Evidence it gives</h3><ul><li>Auditing a result I had already published, and restating it</li><li>Designing tests that can fail, and accepting when they do</li><li>Modelling execution cost and capacity with standard methods</li><li>Running a research platform end to end, through live production deployment</li></ul></div>
-      <div class="card"><h3>Experience I do not yet have</h3><ul><li>Institutional portfolio responsibility or professional capital allocation</li><li>Working in a team with code review and shared ownership</li><li>Production on-call at a firm</li><li>Derivatives or fixed-income research at a professional standard</li></ul></div>
-    </div>
+    <h2>What I am looking for</h2>
+    <p>I am looking for full-time, new-graduate roles in quantitative research, quantitative trading and related systematic-investing work, starting around or after December 2026. I would like to work with strong researchers and keep developing through real research problems.</p>
   </div>
 </section>
 
 <section id="contact">
   <div class="wrap">
     <h2>Contact</h2>
-    <p>LinkedIn: <a href="https://www.linkedin.com/in/seancmuller/" target="_blank" rel="noopener">linkedin.com/in/seancmuller</a></p>
-    <p>Resume: available on request.</p>
+    <p>LinkedIn: <a href="https://www.linkedin.com/in/seancmuller/" rel="noopener">linkedin.com/in/seancmuller</a></p>
+    <p>Resume available on request.</p>
   </div>
 </section>
 </main>
 
 <footer class="site-footer">
   <div class="wrap">
-    <p>Selected materials are presented for educational and professional purposes. Proprietary signal definitions, parameters, portfolio construction rules and execution logic are intentionally omitted. Historical and simulated results are labelled as such. Live trading with real capital is underway, but the live sample is still treated as operational evidence rather than standalone statistical proof. Historical, simulated and live results do not guarantee future performance. Nothing here is an offer or investment advice.</p>
-    <div class="row"><span>&copy; 2026 Sean Muller</span><span><a href="about.html#contact">Contact</a></span></div>
+    <p>Selected materials are presented for educational and professional purposes. Proprietary signal definitions, parameters, portfolio construction rules and execution logic are intentionally omitted. All performance figures are historical backtests unless labeled otherwise; no live or paper-trading results are shown. Historical and simulated results do not guarantee future performance. Nothing here is an offer or investment advice.</p>
+    <div class="row"><span>&copy; 2026 Sean Muller &middot; Last updated 6 October 2026</span><span><a href="about.html#contact">Contact</a></span></div>
   </div>
 </footer>
-<script src="js/main.js"></script>
 </body>
 </html>

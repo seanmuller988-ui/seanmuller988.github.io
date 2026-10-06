@@ -3,33 +3,55 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Execution & Costs · Sean Muller</title>
+<title>Execution &amp; Costs · Sean Muller</title>
 <meta name="description" content="Execution and transaction-cost research: from a flat cost assumption to a fill model with spread, square-root impact, delay and partial fills.">
+<meta name="author" content="Sean Muller">
+<link rel="canonical" href="https://seanmuller988-ui.github.io/execution.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Sean Muller · Quantitative research">
+<meta property="og:title" content="Execution &amp; Costs · Sean Muller">
+<meta property="og:description" content="Execution and transaction-cost research: from a flat cost assumption to a fill model with spread, square-root impact, delay and partial fills.">
+<meta property="og:url" content="https://seanmuller988-ui.github.io/execution.html">
+<meta property="og:image" content="https://seanmuller988-ui.github.io/assets/images/og-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Sean Muller. Quantitative research: systematic equities, validation, execution.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Execution &amp; Costs · Sean Muller">
+<meta name="twitter:description" content="Execution and transaction-cost research: from a flat cost assumption to a fill model with spread, square-root impact, delay and partial fills.">
+<meta name="twitter:image" content="https://seanmuller988-ui.github.io/assets/images/og-card.png">
 <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml">
+<link rel="alternate icon" href="favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png">
 <link rel="stylesheet" href="css/style.css">
+<script src="js/main.js"></script>
 </head>
 <body>
+<a class="skip" href="#main">Skip to content</a>
 <header class="site-header">
   <div class="wrap">
     <a class="brand" href="index.html">Sean Muller<span>Quantitative research</span></a>
-    <button class="nav-toggle" aria-controls="nav" aria-expanded="false">Menu</button>
+    <button class="nav-toggle" type="button" aria-controls="nav" aria-expanded="false">Menu</button>
     <nav class="nav" id="nav" aria-label="Primary">
       <a href="index.html">Home</a>
       <a href="systematic-equity.html">Systematic Equity</a>
       <a href="execution.html" aria-current="page">Execution &amp; Costs</a>
-      <a href="about.html">About</a>
+      <a href="case-studies.html">Case Studies</a>
+      <a href="research-roadmap.html">Research Agenda</a>
+      <a href="about.html">About &amp; contact</a>
     </nav>
   </div>
 </header>
+
 <div class="hero">
   <div class="wrap">
-    <p class="eyebrow">Research programme · October 2026</p>
+    <p class="eyebrow">Execution research &middot; October 2026</p>
     <h1>Execution and transaction costs</h1>
-    <p>A backtest needs a rule for what price an order gets. The easy rule is the bar's closing price, in full, for a small flat fee. This programme replaced that rule with a fill model and measured what it costs.</p>
-    <p class="status">All figures on this page are modelled costs inside a historical simulation. None is measured on real orders.</p>
+    <p>A backtest needs a rule for what price an order gets. The easy rule is the bar's closing price, in full, for a small flat fee. This work replaced that rule with a fill model and reports what the model charges.</p>
+    <p class="status">Performance figures shown on this site are historical backtests. The platform also trades live with real capital, but live performance is not published here. The execution costs on this page are model outputs; live order data is being accumulated as a separate calibration source.</p>
   </div>
 </div>
-<main>
+<main id="main">
 <section id="problem">
   <div class="wrap">
     <h2>The problem</h2>
@@ -45,40 +67,46 @@
 <section id="method">
   <div class="wrap">
     <h2>Method</h2>
-    <p class="lede">Standard models, calibrated conservatively.</p>
-    <p>Cost per side is modelled as half the quoted spread plus a square-root market-impact term:</p>
+    <p class="lede">Standard models. The impact setting is conservative under one estimate and about central under the other.</p>
+    <p>Cost per side is modeled as half of an assumed bid-ask spread plus a square-root market-impact term:</p>
     <p style="font-family:var(--serif);font-size:1.15rem;margin:10px 0 14px">cost per side &nbsp;=&nbsp; s&nbsp;/&nbsp;2 &nbsp;+&nbsp; Y &middot; &sigma; &middot; &radic;(Q&nbsp;/&nbsp;V)</p>
-    <p class="small muted">s is the spread, &sigma; daily volatility, Q the order size and V daily volume. Y is the impact coefficient.</p>
-    <p>Orders are evaluated under a liquidity-aware fill model that allows delayed and partial execution rather than assuming every order fills immediately and in full. Implementation shortfall is decomposed into broad cost components for research and sensitivity analysis.</p>
-    <p>Model parameters are calibrated conservatively from public market data and external priors. Calibration values, execution thresholds and production decision rules are intentionally not published.</p>
+    <p class="small muted">s is the spread assumed for the stock's liquidity tier, &sigma; its daily volatility, Q the order size in dollars and V its daily dollar volume. Y is the impact coefficient.</p>
+    <p>The simulator separates the research decision from the modeled execution process, allows partial fills when liquidity is limited, and decomposes implementation shortfall into delay, spread and impact. Exact scheduling, participation and order-handling rules are intentionally omitted.</p>
+    <p>The impact setting was estimated from public market data using two approaches and combined with a prior from the academic literature. The estimates disagree, so the difference is treated as model uncertainty rather than resolved away. Live order observations are now being accumulated for a future calibration check. Exact coefficients and execution parameters are not disclosed.</p>
   </div>
 </section>
 
 <section id="findings">
   <div class="wrap">
     <h2>Selected findings</h2>
+    <p class="lede">These studies were run on the trade record of the first reported backtest, which is superseded, and have not been repeated on the selected configuration. The cost table further down is the selected configuration.</p>
     <div class="grid g2">
-      <div class="card"><h3>Liquidity constraints matter before headline costs do</h3><p>Fill quality changes materially as available liquidity becomes scarce, so capacity cannot be evaluated from a flat fee or full-fill assumption.</p></div>
-      <div class="card"><h3>Exits can be worked for little</h3><p>Working an exit instead of crossing immediately gained about two basis points per order, and price drift after an exit was close to zero.</p></div>
-      <div class="card"><h3>Optimal-control analysis informed execution research</h3><p>An optimal-control formulation was used to test the trade-off between urgency, impact and signal decay. The resulting production policy is intentionally omitted.</p></div>
-      <div class="card"><h3>Capacity differs by liquidity</h3><p>The least liquid names run out of fills first as the account grows; larger names run out of margin later. Capacity is reported by segment, not as one number.</p></div>
+      <div class="card"><h3>At small size, participation decides fills, not cost</h3><p>Captured profit was indistinguishable across the three higher participation rates tested. It was lower at the lowest rate, where more of each order went unfilled, but that gap was not statistically resolved at the base size and was resolved only narrowly at three times the size.</p></div>
+      <div class="card"><h3>A better exit rule improved completion, not price</h3><p>Against the first version of the worked-exit rule, a refined version raised the filled share of exit orders under every fill assumption tested. A small price gain appeared only under the most favorable assumption and vanished under a stricter one, so none is claimed.</p></div>
+      <div class="card"><h3>More complexity did not automatically improve execution</h3><p>A more sophisticated optimal-control formulation was tested against simpler scheduling rules. On held-out simulation it did not outperform the best simple alternative, so the production research path kept the simpler rule rather than adding complexity without evidence.</p></div>
+      <div class="card"><h3>Capacity is not one number</h3><p>In a projection on the first reported trade record, the binding constraint differed across segments of the universe: in some the order outgrew the volume available, in others modeled cost was the limit. Between half-years the levels moved by large factors, so I report no capacity figure. The projection has not been repeated on the selected configuration.</p></div>
     </div>
   </div>
 </section>
 
 <section id="capacity">
   <div class="wrap">
-    <h2>Cost and capacity</h2>
-    <p class="lede">Execution costs and fill constraints increase with deployed capital, and the effect is uneven across liquidity segments.</p>
-    <div class="grid g2">
-      <div class="card"><h3>Scale sensitivity</h3><p>The execution model is rerun across multiple capital levels rather than assuming that small-account fills scale linearly. Larger simulated books experience higher implementation costs and more binding liquidity constraints.</p></div>
-      <div class="card"><h3>Capacity is segmented</h3><p>Less-liquid names become constrained first, while deeper names retain more room to scale. Public materials therefore describe the direction and methodology of the capacity analysis without publishing the exact production thresholds or execution policy.</p></div>
+    <h2>Cost and scale</h2>
+    <p class="lede">Modeled execution friction rises as simulated capital increases, but the relationship is not summarized publicly as a single capacity number.</p>
+    <div class="grid g3">
+      <div class="card"><h3>Costs are size-sensitive</h3><p>Scaling the same research logic to larger simulated orders increases modeled spread, impact and fill constraints. The exact size-to-cost mapping is intentionally omitted.</p></div>
+      <div class="card"><h3>Capacity varies through time</h3><p>The binding constraint can shift between available liquidity and modeled cost, and the estimated limit moves materially across periods and parts of the universe.</p></div>
+      <div class="card"><h3>No single capacity claim</h3><p>I treat capacity as a research question rather than a fixed headline number. The selected configuration is being re-evaluated under broader execution and live-calibration evidence.</p></div>
     </div>
-    <h3>What is not modelled</h3>
+    <p class="small">Selected configuration results elsewhere on the site are historical simulations. Configuration selection and evaluation overlap in the primary research window, so those figures are not presented as independent out-of-sample evidence.</p>
+    <p class="small">The full write-up is in the <a href="assets/docs/sean-muller-execution-and-transaction-costs.pdf">execution and transaction-cost brief</a> (PDF).</p>
+    <h3>What is not fully modeled</h3>
     <ul>
-      <li>Impact calibration is based on public market data rather than a long history of the strategy's own institutional-sized orders.</li>
-      <li>Financing cost on exposure above the account's equity is not charged in the historical simulation.</li>
-      <li>Permanent impact and some intraday liquidity dynamics remain outside the current execution model.</li>
+      <li>Live order observations are accumulating, but the public-data impact model remains the principal research calibration until the live sample is large enough for a stable comparison.</li>
+      <li>Financing cost on exposure above the account's equity is not charged in the historical simulations shown here.</li>
+      <li>Permanent market impact is not modeled in the historical replay.</li>
+      <li>Queue position, latency and crowding are not modeled.</li>
+      <li>Some execution assumptions are deliberately conservative; exact thresholds and sizing rules are omitted from the public site.</li>
     </ul>
   </div>
 </section>
@@ -86,10 +114,9 @@
 
 <footer class="site-footer">
   <div class="wrap">
-    <p>Selected materials are presented for educational and professional purposes. Proprietary signal definitions, parameters, portfolio construction rules and execution logic are intentionally omitted. Historical and simulated results are labelled as such. Live trading with real capital is underway, but the live sample is still treated as operational evidence rather than standalone statistical proof. Historical, simulated and live results do not guarantee future performance. Nothing here is an offer or investment advice.</p>
-    <div class="row"><span>&copy; 2026 Sean Muller</span><span><a href="about.html#contact">Contact</a></span></div>
+    <p>Selected materials are presented for educational and professional purposes. Proprietary signal definitions, parameters, portfolio construction rules and execution logic are intentionally omitted. All performance figures are historical backtests unless labeled otherwise; no live or paper-trading results are shown. Historical and simulated results do not guarantee future performance. Nothing here is an offer or investment advice.</p>
+    <div class="row"><span>&copy; 2026 Sean Muller &middot; Last updated 6 October 2026</span><span><a href="about.html#contact">Contact</a></span></div>
   </div>
 </footer>
-<script src="js/main.js"></script>
 </body>
 </html>

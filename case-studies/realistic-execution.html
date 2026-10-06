@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Replacing a flat cost assumption with a modeled fill · Case study · Sean Muller</title>
+<meta name="description" content="Replacing a flat cost and full fills with a fill model lowered the result, and showed that an ending multiple cannot rank cost assumptions.">
+<meta name="author" content="Sean Muller">
+<link rel="canonical" href="https://seanmuller988-ui.github.io/case-studies/realistic-execution.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Sean Muller · Quantitative research">
+<meta property="og:title" content="Replacing a flat cost assumption with a modeled fill · Case study · Sean Muller">
+<meta property="og:description" content="Replacing a flat cost and full fills with a fill model lowered the result, and showed that an ending multiple cannot rank cost assumptions.">
+<meta property="og:url" content="https://seanmuller988-ui.github.io/case-studies/realistic-execution.html">
+<meta property="og:image" content="https://seanmuller988-ui.github.io/assets/images/og-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Sean Muller. Quantitative research: systematic equities, validation, execution.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Replacing a flat cost assumption with a modeled fill · Case study · Sean Muller">
+<meta name="twitter:description" content="Replacing a flat cost and full fills with a fill model lowered the result, and showed that an ending multiple cannot rank cost assumptions.">
+<meta name="twitter:image" content="https://seanmuller988-ui.github.io/assets/images/og-card.png">
+<link rel="icon" href="../assets/images/favicon.svg" type="image/svg+xml">
+<link rel="alternate icon" href="../favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="../assets/images/apple-touch-icon.png">
+<link rel="stylesheet" href="../css/style.css">
+<script src="../js/main.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="../index.html">Sean Muller<span>Quantitative research</span></a>
+    <button class="nav-toggle" type="button" aria-controls="nav" aria-expanded="false">Menu</button>
+    <nav class="nav" id="nav" aria-label="Primary">
+      <a href="../index.html">Home</a>
+      <a href="../systematic-equity.html">Systematic Equity</a>
+      <a href="../execution.html">Execution &amp; Costs</a>
+      <a href="../case-studies.html" aria-current="page">Case Studies</a>
+      <a href="../research-roadmap.html">Research Agenda</a>
+      <a href="../about.html">About &amp; contact</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Case study &middot; Execution &middot; <span class="badge">Completed</span></p>
+    <h1>Replacing a flat cost assumption with a modeled fill</h1>
+    <p>Replacing a flat cost and full fills with a fill model lowered the result, and showed that an ending multiple cannot rank cost assumptions.</p>
+    <p class="tagrow"><span class="hash">#Execution</span> <span class="hash">#TransactionCosts</span> <span class="hash">#Validation</span></p>
+  </div>
+</div>
+<main id="main">
+<article class="case">
+  <div class="wrap narrow">
+<h2>The problem</h2>
+<p>The historical backtest I first reported in late September 2026 charged a flat cost per round trip and assumed full fills at the research decision price. Such a fee cannot grow with order size or leave shares unfilled, so it says little about execution realism as simulated capital increases.</p>
+
+<h2>Initial approach</h2>
+<p>The first reported backtest assumed a flat cost and stress-tested multiples of it, which seemed reasonable then. The calibration was based on generic execution assumptions rather than direct live-order evidence.</p>
+
+<h2>What didn't work</h2>
+<ul>
+<li>On 30 September I asked how friction differs across universe segments. A rough spread-plus-impact projection came out well above the flat cost.</li>
+<li>An implementation-shortfall study modeled a single, unworked entry order. As simulated size grew, it left more of the intended size unfilled.</li>
+<li>A row meant to be three times larger matched its $1M counterpart to the dollar: the replay ignored the starting-balance setting. The affected runs were rerun.</li>
+</ul>
+
+<h2>Investigation</h2>
+<p>In early October I asked for a research packet on fills, slippage, costs and partial fills. More than a dozen studies were run, most on a shared one-minute fill simulator, using the first reported backtest&rsquo;s trade record. Rules were tuned on one half-sample and reported on the other.</p>
+<p>After the first results (2 October) I set four reporting rules:</p>
+<ol>
+<li>Use a conservative principal execution assumption and treat alternative calibrations as sensitivities.</li>
+<li>Stress liquidity and partial-fill behavior rather than assuming every order completes.</li>
+<li>Treat modeled fill prices as estimates with explicit uncertainty.</li>
+<li>Separate a change&rsquo;s direct execution effect from its knock-on effect on later portfolio decisions.</li>
+</ol>
+
+<h2>Iteration</h2>
+<p>The replay replaced flat fees and guaranteed fills with a model that incorporates spread, market impact, partial fills and implementation shortfall. Exact scheduling, participation and sizing rules are intentionally omitted.</p>
+<p>Scaling tests were instrumented so that changing simulated capital had to produce observable changes in the execution path; otherwise the run was treated as invalid.</p>
+<p>Stress rows on the compounding multiple were not monotone: larger orders could end higher while paying more per order. Per-order cost and matched trades became the comparison of record. On 5 October I made the point-in-time, modeled-cost backtest the headline, with the first reported figure beside it, marked superseded.</p>
+
+<h2>Validation</h2>
+<ul>
+<li>The components of implementation shortfall add up to the total, to the dollar, on every row.</li>
+<li>The replay&rsquo;s bar-average price was checked against one-minute volume-weighted prices and given an error bar; an adverse bound on every fill was reported beside it.</li>
+<li>At my request the impact coefficient, first set by assumption, was estimated two ways from public trade-and-volume data. The disagreement is kept as uncertainty.</li>
+</ul>
+<p>A second, internal review (5&ndash;6 October) recomputed the tables from raw output. The numbers reproduced; four findings were worded more strongly than their sources. The impact value is conservative only against the lower-reading estimator and about central against the other. The summary I was carrying on exits and optimal control was too strong.</p>
+
+<h2>Result</h2>
+<p>The result weakened materially (walk-forward historical backtests, about two years, $1M start).</p>
+<ul>
+<li>Archived &middot; historical backtest, first reported, superseded: 4.76&times; ending multiple, flat cost.</li>
+<li>Historical backtest &middot; original configuration, same realism: 1.87&times;, Sharpe 1.25, 583 trades.</li>
+</ul>
+<p>Rebuilding the universe as of each date (<a href="point-in-time-universe.html">point-in-time universe case study</a>) and replacing the flat cost with modeled fills each reduced the result materially; modeled fills lowered the original configuration&rsquo;s backtest to 1.87&times;.</p>
+<p>Historical backtest &middot; selected configuration: the execution-aware version remains materially positive after modeled costs, but the exact size-to-cost mapping is intentionally omitted from the public case study. Configuration selection and evaluation overlap in the primary research window, so the result is not presented as independent out-of-sample evidence.</p>
+<div class="note"><p><strong>Public disclosure choice:</strong> scaling tests show that modeled friction increases with simulated capital and can change which orders fill, but the exact account-size, cost and ending-value combinations are withheld because together they reveal unnecessary information about sizing and capacity.</p></div>
+<p>On the first reported trade record (superseded), working an exit raised the share of exit orders completed under every fill assumption tested. A 2&ndash;3 bp price gain appeared only under the most favorable fill assumption and vanished under a stricter one, so no price gain is claimed. The optimal-control (Hamilton&ndash;Jacobi&ndash;Bellman) formulation favored the participation cap at the start of every entry. The full solution then spread most orders and lost on held-out data to the best simple schedule, so it added nothing to a simple rule. No learned timing policy beat the best fixed schedule on held-out data (<a href="ranking-feasibility.html">ranking-feasibility case study</a>).</p>
+<div class="note"><p>Still uncertain: live-order calibration is accumulating but not yet mature enough to replace the public-data model; queue position, latency and crowding are not modeled; and some detailed execution studies still need to be repeated on the selected configuration.</p></div>
+
+<h2>Lesson</h2>
+<p>A cost assumption that neither scales with order size nor allows unfilled shares is not a cost stress. A compounding multiple is too path-sensitive to rank cost variants: compare per-order cost and matched trades, and require a dose-response across several steps. A row that reproduces another to the dollar is a dead setting until proven otherwise.</p>
+<p>The October research sweep reported every minimum-liquidity setting without and with modeled fills.</p>
+  </div>
+</article>
+<nav class="case-nav" aria-label="Case studies">
+  <div class="wrap narrow">
+    <a href="../case-studies.html">&larr; All case studies</a>
+    <a href="counting-trials.html">Next: Counting the trials behind a deflated Sharpe ratio &rarr;</a>
+  </div>
+</nav>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p>Selected materials are presented for educational and professional purposes. Proprietary signal definitions, parameters, portfolio construction rules and execution logic are intentionally omitted. All performance figures are historical backtests unless labeled otherwise; no live or paper-trading results are shown. Historical and simulated results do not guarantee future performance. Nothing here is an offer or investment advice.</p>
+    <div class="row"><span>&copy; 2026 Sean Muller &middot; Last updated 6 October 2026</span><span><a href="../about.html#contact">Contact</a></span></div>
+  </div>
+</footer>
+</body>
+</html>

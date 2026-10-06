@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Case studies · Sean Muller</title>
+<meta name="description" content="Post-mortems from an independent systematic equity research project: what I believed, what the evidence showed, and what changed.">
+<meta name="author" content="Sean Muller">
+<link rel="canonical" href="https://seanmuller988-ui.github.io/case-studies.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Sean Muller · Quantitative research">
+<meta property="og:title" content="Case studies · Sean Muller">
+<meta property="og:description" content="Post-mortems from an independent systematic equity research project: what I believed, what the evidence showed, and what changed.">
+<meta property="og:url" content="https://seanmuller988-ui.github.io/case-studies.html">
+<meta property="og:image" content="https://seanmuller988-ui.github.io/assets/images/og-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Sean Muller. Quantitative research: systematic equities, validation, execution.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Case studies · Sean Muller">
+<meta name="twitter:description" content="Post-mortems from an independent systematic equity research project: what I believed, what the evidence showed, and what changed.">
+<meta name="twitter:image" content="https://seanmuller988-ui.github.io/assets/images/og-card.png">
+<link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml">
+<link rel="alternate icon" href="favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png">
+<link rel="stylesheet" href="css/style.css">
+<script src="js/main.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html">Sean Muller<span>Quantitative research</span></a>
+    <button class="nav-toggle" type="button" aria-controls="nav" aria-expanded="false">Menu</button>
+    <nav class="nav" id="nav" aria-label="Primary">
+      <a href="index.html">Home</a>
+      <a href="systematic-equity.html">Systematic Equity</a>
+      <a href="execution.html">Execution &amp; Costs</a>
+      <a href="case-studies.html" aria-current="page">Case Studies</a>
+      <a href="research-roadmap.html">Research Agenda</a>
+      <a href="about.html">About &amp; contact</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Case studies</p>
+    <h1>Where the work was wrong, and what changed</h1>
+    <p>Short post-mortems from the research record. Each starts with something I believed or relied on, the evidence that it was incomplete, and what replaced it.</p>
+    <p class="status">Each is a completed post-mortem: the episode is closed and its outcome is recorded, and any check still open is named in the text. These describe problems and methods. Signal definitions, parameters and trading rules are omitted throughout. How the work is done is described on the <a class="plain" href="about.html#how">About page</a>.</p>
+  </div>
+</div>
+<main id="main">
+<section>
+  <div class="wrap">
+    <h2>Completed case studies</h2>
+    <p class="lede">Six post-mortems, each with a recorded outcome.</p>
+    <div class="grid g2">
+      <a class="card case-card" href="case-studies/point-in-time-universe.html"><p class="cat">Data</p><h3>Restating a backtest whose stock universe was built with hindsight</h3><p>My first reported backtest was walk-forward for its models, but its list of tradable stocks had been read once from a present-day snapshot. An audit I asked for found it. Rebuilding the universe as of each date, and then modeling fills, took the two-year backtest result from a superseded 4.76&times; to 1.87&times;.</p><p class="tagrow"><span class="hash">#PointInTime</span> <span class="hash">#Survivorship</span> <span class="hash">#DataQuality</span> <span class="hash">#Validation</span></p><p class="more">Read case study &rarr;</p></a>
+      <a class="card case-card" href="case-studies/realistic-execution.html"><p class="cat">Execution</p><h3>Replacing a flat cost assumption with a modeled fill</h3><p>The first reported backtest charged a flat cost and filled every order in full. A fill model with spread, impact, delay and partial fills lowered the result, and showed that an ending multiple cannot rank cost assumptions.</p><p class="tagrow"><span class="hash">#Execution</span> <span class="hash">#TransactionCosts</span> <span class="hash">#Validation</span></p><p class="more">Read case study &rarr;</p></a>
+      <a class="card case-card" href="case-studies/counting-trials.html"><p class="cat">Statistics</p><h3>Counting the trials behind a deflated Sharpe ratio</h3><p>My first reported backtest deflated its Sharpe ratio for an assumed 100 trials. A recount found about 540 runs in 62 families. The claim was restated as a range, and the next research sweep was judged once, as a family, beside placebo twins.</p><p class="tagrow"><span class="hash">#MultipleTesting</span> <span class="hash">#PlaceboControls</span> <span class="hash">#Validation</span></p><p class="more">Read case study &rarr;</p></a>
+      <a class="card case-card" href="case-studies/look-ahead-audit.html"><p class="cat">Research</p><h3>A look-ahead audit that shared the defect it was checking for</h3><p>An automated look-ahead audit had passed on every walk-forward run. It derived its dates the same way as the calendar it was checking, so it could not have failed. Every figure measured on that base was withdrawn and re-measured.</p><p class="tagrow"><span class="hash">#LookAhead</span> <span class="hash">#Validation</span> <span class="hash">#Backtesting</span></p><p class="more">Read case study &rarr;</p></a>
+      <a class="card case-card" href="case-studies/ranking-feasibility.html"><p class="cat">Research</p><h3>Measuring whether ranking was possible before building another ranker</h3><p>After repeated failures to rank individual signals by quality, a feasibility study measured the best score any ranker could reach. It sat below what two years of data can resolve, and the line was closed as below resolution.</p><p class="tagrow"><span class="hash">#StatisticalPower</span> <span class="hash">#MachineLearning</span> <span class="hash">#ResearchProcess</span></p><p class="more">Read case study &rarr;</p></a>
+      <a class="card case-card" href="case-studies/replay-parity.html"><p class="cat">Infrastructure</p><h3>When the replay disagreed with the real-time record</h3><p>A replay built on the trading engine's own code disagreed with the engine's real-time record while all of its automated checks passed. My explanation was wrong. The audits I then asked for found defects in the replay itself.</p><p class="tagrow"><span class="hash">#ParityTesting</span> <span class="hash">#RealTimeRecord</span> <span class="hash">#Backtesting</span></p><p class="more">Read case study &rarr;</p></a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p>Selected materials are presented for educational and professional purposes. Proprietary signal definitions, parameters, portfolio construction rules and execution logic are intentionally omitted. All performance figures are historical backtests unless labeled otherwise; no live or paper-trading results are shown. Historical and simulated results do not guarantee future performance. Nothing here is an offer or investment advice.</p>
+    <div class="row"><span>&copy; 2026 Sean Muller &middot; Last updated 6 October 2026</span><span><a href="about.html#contact">Contact</a></span></div>
+  </div>
+</footer>
+</body>
+</html>

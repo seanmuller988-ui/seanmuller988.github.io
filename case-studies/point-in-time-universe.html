@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Restating a backtest whose stock universe was built with hindsight · Case study · Sean Muller</title>
+<meta name="description" content="An audit of my first reported backtest found hindsight in the list of tradable stocks. The universe was rebuilt as of each date and the result was restated lower.">
+<meta name="author" content="Sean Muller">
+<link rel="canonical" href="https://seanmuller988-ui.github.io/case-studies/point-in-time-universe.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Sean Muller · Quantitative research">
+<meta property="og:title" content="Restating a backtest whose stock universe was built with hindsight · Case study · Sean Muller">
+<meta property="og:description" content="An audit of my first reported backtest found hindsight in the list of tradable stocks. The universe was rebuilt as of each date and the result was restated lower.">
+<meta property="og:url" content="https://seanmuller988-ui.github.io/case-studies/point-in-time-universe.html">
+<meta property="og:image" content="https://seanmuller988-ui.github.io/assets/images/og-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Sean Muller. Quantitative research: systematic equities, validation, execution.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Restating a backtest whose stock universe was built with hindsight · Case study · Sean Muller">
+<meta name="twitter:description" content="An audit of my first reported backtest found hindsight in the list of tradable stocks. The universe was rebuilt as of each date and the result was restated lower.">
+<meta name="twitter:image" content="https://seanmuller988-ui.github.io/assets/images/og-card.png">
+<link rel="icon" href="../assets/images/favicon.svg" type="image/svg+xml">
+<link rel="alternate icon" href="../favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="../assets/images/apple-touch-icon.png">
+<link rel="stylesheet" href="../css/style.css">
+<script src="../js/main.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="../index.html">Sean Muller<span>Quantitative research</span></a>
+    <button class="nav-toggle" type="button" aria-controls="nav" aria-expanded="false">Menu</button>
+    <nav class="nav" id="nav" aria-label="Primary">
+      <a href="../index.html">Home</a>
+      <a href="../systematic-equity.html">Systematic Equity</a>
+      <a href="../execution.html">Execution &amp; Costs</a>
+      <a href="../case-studies.html" aria-current="page">Case Studies</a>
+      <a href="../research-roadmap.html">Research Agenda</a>
+      <a href="../about.html">About &amp; contact</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Case study &middot; Data &middot; <span class="badge">Completed</span></p>
+    <h1>Restating a backtest whose stock universe was built with hindsight</h1>
+    <p>An audit of my first reported backtest found hindsight in the list of tradable stocks. The universe was rebuilt as of each date and the result was restated lower.</p>
+    <p class="tagrow"><span class="hash">#PointInTime</span> <span class="hash">#Survivorship</span> <span class="hash">#DataQuality</span> <span class="hash">#Validation</span></p>
+  </div>
+</div>
+<main id="main">
+<article class="case">
+  <div class="wrap narrow">
+<h2>The problem</h2>
+<p>In late September 2026 I issued, in a short results packet, a two-year walk-forward historical backtest of a systematic equity strategy. Models were fitted on trailing data and applied to later data, so it was called out of sample. That was true of the fitted parameters only. I had not asked the question of the universe, the list of stocks the backtest may trade. A list chosen with hindsight holds names nobody could have picked then.</p>
+
+<h2>Initial approach</h2>
+<p>The earlier results packet relied on walk-forward fitting, a date-ordering audit that passed on every walk-forward period, and a second implementation that, on earlier builds, agreed closely with the first on shared inputs. For fitted parameters that was a reasonable standard.</p>
+
+<h2>What didn't work</h2>
+<p>On 2 October I listed the controls an outside reviewer would ask of my reported work, point-in-time universe first (each input knowable on the date it was used), and asked for them to be run that day. The audit found:</p>
+<ul>
+<li>The list of names was read once and that 2026 snapshot applied to every date back to mid-2024. None of its sources was point-in-time.</li>
+<li>The price store held survivors only: all two dozen delistings probed had no data.</li>
+<li>Orders were filled at the same price that produced the signal (removed once fills are modeled).</li>
+</ul>
+
+<h2>Investigation</h2>
+<p>Each input got its own verdict, and the rebuild was sized one main change at a time. It was wrong at first: it applied the liquidity requirement on the wrong basis, far too strict. The interim note on that first rebuild already said its result mixed a stricter screen with point-in-time admission. I decided that the runs queued behind it tested the wrong rule, canceled them and restated the declared rule. A follow-up study evaluated that rule at every date and separated the two effects.</p>
+
+<h2>Iteration</h2>
+<p>The universe is now rebuilt as of each date under a point-in-time listing and minimum-liquidity rule, behind a switch in the research replay. A fill model replaced the flat cost (<a href="realistic-execution.html">realistic-execution case study</a>).</p>
+<p>The rebuild is partial. Candidates still come from the present-day list of names; one intermediate model input was not rebuilt (direction conservative; rebuild scripted, not yet run); corporate-action adjustments are not as of date; history for part of the list begins after the window opens; hand-removed names stay removed; delisted names are absent.</p>
+<p>At my request the effect of those missing names was first modeled from public filings: a wide interval spanning zero, its sign resting on one assumption about acquisition targets. A backfill then proved to hold price history for nearly all of them, and a separate study measured the effect under a self-dated pre-registration with a stated falsifier.</p>
+
+<h2>Validation</h2>
+<p>On the first rebuilt runs, checks against an independent replica passed: every trade&rsquo;s name was in the eligible list for its own date, no trade preceded sufficient history, and a checksum of each date&rsquo;s list matched. On the restated run the checksums do not match and a handful of trades are flagged, most likely because the replica was not extended to an extra universe change included in that run. That explanation is a conjecture: no analysis of the mismatch has been written, so the restated run has not passed this check. The post-mortem is complete; this check stays open.</p>
+<p>The loss at the universe step was read mainly as lost breadth: fewer simulated trades.</p>
+<p>The measured delisting effect was small, its point estimates positive and below the model&rsquo;s, whose assumption about acquisition targets did not hold. The falsifier did not trigger, though one of two conditions was met.</p>
+<p>Limits: only the modeled-fills step holds the software build fixed; the universe rebuild ran on newer builds and includes one further small universe change. The delisting and dividend terms are arithmetic on measured inputs, not a re-simulation. No independent outside review yet.</p>
+
+<h2>Result</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr><th scope="col">Backtest</th><th scope="col" class="num">Ending multiple</th><th scope="col" class="num">Sharpe</th><th scope="col" class="num">Max drawdown</th><th scope="col" class="num">Trades</th></tr>
+</thead>
+<tbody>
+<tr><td>Archived &middot; historical backtest, first reported, superseded</td><td class="num">4.76&times;</td><td class="num">2.32</td><td class="num">&minus;16.6%</td><td class="num">not shown</td></tr>
+<tr><td>Historical backtest &middot; original configuration, same realism</td><td class="num">1.87&times;</td><td class="num">1.25</td><td class="num">&minus;17.4%</td><td class="num">583</td></tr>
+</tbody>
+</table></div>
+<p>Both rows are walk-forward historical backtests of the original configuration: one simulated account, $1M start, about two years (Jun 2024 &ndash; Jul 2026; first row to Jun 2026).</p>
+<p>Rebuilding the universe as of each date and replacing the flat cost with modeled fills each reduced the result materially. I accepted the lower figure because the evidence behind it is more credible. Outside the backtest ledger, measured separately on the original configuration, later-delisted names and uncredited dividends together add a few percent of net profit.</p>
+<p>On 5 October I decided that the first reported figure appears only beside its restatement, marked superseded. One limit: a test with a wider set of candidate names, run on a modified configuration, ended lower after modeled costs; its effect on the restated figure has not been simulated.</p>
+
+<h2>Lesson</h2>
+<p>I had taken walk-forward testing to cover more than it does. It protects fitted parameters; it does not protect the list of tradable names, the fill assumptions or the audit itself, so each input needs its own as-of-date question. An audit certifies only the inputs it lists, and two implementations that share inputs cannot question them. The first rebuild was wrong too, so a fix gets the same check as the thing it fixes. An estimate modeled for missing data should name the one assumption that sets its sign, and give way to a measurement when the data arrives.</p>
+<p>Within a day I asked the same question of splits and other corporate actions; that became its own audit.</p>
+  </div>
+</article>
+<nav class="case-nav" aria-label="Case studies">
+  <div class="wrap narrow">
+    <a href="../case-studies.html">&larr; All case studies</a>
+    <a href="realistic-execution.html">Next: Replacing a flat cost assumption with a modeled fill &rarr;</a>
+  </div>
+</nav>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p>Selected materials are presented for educational and professional purposes. Proprietary signal definitions, parameters, portfolio construction rules and execution logic are intentionally omitted. All performance figures are historical backtests unless labeled otherwise; no live or paper-trading results are shown. Historical and simulated results do not guarantee future performance. Nothing here is an offer or investment advice.</p>
+    <div class="row"><span>&copy; 2026 Sean Muller &middot; Last updated 6 October 2026</span><span><a href="../about.html#contact">Contact</a></span></div>
+  </div>
+</footer>
+</body>
+</html>

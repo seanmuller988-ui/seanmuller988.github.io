@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Counting the trials behind a deflated Sharpe ratio · Case study · Sean Muller</title>
+<meta name="description" content="A deflated Sharpe ratio had assumed 100 trials. A recount found about 540 runs, the claim was restated as a range, and the next sweep was judged as one family.">
+<meta name="author" content="Sean Muller">
+<link rel="canonical" href="https://seanmuller988-ui.github.io/case-studies/counting-trials.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Sean Muller · Quantitative research">
+<meta property="og:title" content="Counting the trials behind a deflated Sharpe ratio · Case study · Sean Muller">
+<meta property="og:description" content="A deflated Sharpe ratio had assumed 100 trials. A recount found about 540 runs, the claim was restated as a range, and the next sweep was judged as one family.">
+<meta property="og:url" content="https://seanmuller988-ui.github.io/case-studies/counting-trials.html">
+<meta property="og:image" content="https://seanmuller988-ui.github.io/assets/images/og-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Sean Muller. Quantitative research: systematic equities, validation, execution.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Counting the trials behind a deflated Sharpe ratio · Case study · Sean Muller">
+<meta name="twitter:description" content="A deflated Sharpe ratio had assumed 100 trials. A recount found about 540 runs, the claim was restated as a range, and the next sweep was judged as one family.">
+<meta name="twitter:image" content="https://seanmuller988-ui.github.io/assets/images/og-card.png">
+<link rel="icon" href="../assets/images/favicon.svg" type="image/svg+xml">
+<link rel="alternate icon" href="../favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="../assets/images/apple-touch-icon.png">
+<link rel="stylesheet" href="../css/style.css">
+<script src="../js/main.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="../index.html">Sean Muller<span>Quantitative research</span></a>
+    <button class="nav-toggle" type="button" aria-controls="nav" aria-expanded="false">Menu</button>
+    <nav class="nav" id="nav" aria-label="Primary">
+      <a href="../index.html">Home</a>
+      <a href="../systematic-equity.html">Systematic Equity</a>
+      <a href="../execution.html">Execution &amp; Costs</a>
+      <a href="../case-studies.html" aria-current="page">Case Studies</a>
+      <a href="../research-roadmap.html">Research Agenda</a>
+      <a href="../about.html">About &amp; contact</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Case study &middot; Statistics &middot; <span class="badge">Completed</span></p>
+    <h1>Counting the trials behind a deflated Sharpe ratio</h1>
+    <p>A deflated Sharpe ratio had assumed 100 trials. A recount found about 540 runs, the claim was restated as a range, and the next sweep was judged as one family.</p>
+    <p class="tagrow"><span class="hash">#MultipleTesting</span> <span class="hash">#PlaceboControls</span> <span class="hash">#Validation</span></p>
+  </div>
+</div>
+<main id="main">
+<article class="case">
+  <div class="wrap narrow">
+<h2>The problem</h2>
+<p>The first reported historical backtest of my systematic equity strategy, since superseded, was issued with a deflated Sharpe ratio of &ldquo;1.00&rdquo; at 100 trials. That statistic is the probability that the true Sharpe ratio exceeds the best that luck would produce from the variants tried, so too low a count overstates the evidence. The 100 was not a count: it came from a ladder of preset values in the report generator.</p>
+
+<h2>Initial approach</h2>
+<p>The earlier results packet assumed 100. Printing a deflated figure looked like the careful step, and the count went unexamined. In June 2026, for an earlier line of work, I had decided to deflate across the full ledger of searched configurations. This line had no such ledger.</p>
+
+<h2>What didn't work</h2>
+<p>On 2 October 2026 I listed the checks an outside reviewer would run against my reported results. One item was true trial accounting, where I expected far more than 100. The recount, run that day, found about 540 runs in 62 hypothesis families, and that &ldquo;1.00&rdquo; was a probability of 0.997, not a reduced Sharpe ratio.</p>
+
+<h2>Investigation</h2>
+<p>The 171 runs whose daily return series were still on file correlate 0.88 on average, so the effective number of independent trials is about 1 to 30; the raw count is 540. Neither extreme is the right count. For each count the study computed a Bonferroni-adjusted p-value (p times the number of trials) and the deflated Sharpe probability, which said little alone: the runs are near-copies, so it barely moves with the count.</p>
+
+<h2>Iteration</h2>
+<p>The count is now stated as a range, and the statistic is labeled a probability. For the October research sweep I required a named placebo in every pre-registration (a plan written before results), and every configuration was counted: more than 10,000. A literature scan I had asked for, to find methods I might not know, recommended a correlation-aware family-wise test (Reality Check and SPA with a Romano-Wolf step-down): one verdict on whether the best of many correlated candidates could be luck. All 69 candidates with a per-session return series entered it, beside 44 placebo twins: selection-type candidates with their information shuffled out.</p>
+
+<h2>Validation</h2>
+<p>The twins behaved as a null should (family-wise p 0.91, zero rejections). A rule written into the test&rsquo;s plan classed a verdict that flips across bootstrap block lengths as unstable, not significant. One limit: the test&rsquo;s plan, like the written entry of one other of the sweep&rsquo;s 18 studies, entered version control together with its results, so version control cannot show that it predates them.</p>
+<p><strong>The framework in use.</strong> I had asked for a revision to how the liquidity screen is measured. It was pre-registered with a modest hypothesis: that the revision would cost nothing in trades or profit. Full historical backtests then seemed to show more: the revised screen materially improved the ending result relative to the original configuration under the same realism assumptions. A research-log entry called it the rule to bring forward.</p>
+<p>About an hour later a panel for that candidate could not separate the two (adjusted p about 0.35), and the entry was corrected in writing as premature. Three placebo versions (mechanics kept, information randomized, one seed each) and a like-for-like control were run, under a panel written after the direction of its main comparison was known.</p>
+
+<h2>Result</h2>
+<p><strong>The first reported claim got weaker.</strong> The Sharpe ratio of 2.32 (Archived &middot; historical backtest, first reported, superseded) survives a 5% Bonferroni correction for up to 55 independent trials: not at the 100 assumed (adjusted p about 0.09), nor at 540; its deflated Sharpe probability is 0.997 at 100 trials and 0.995 at 540 (0.97 on the wider spread of all runs).</p>
+<p><strong>The sweep claimed no new lever.</strong> One of 69 candidates survived on the whole sample. It was an effect already known; it held at the primary block length and the next (adjusted p 0.005 and 0.04), not at the two longest (0.14 and 0.21), and not in the later half of the sample alone. Planted effects of two realistic per-trade sizes were found 20% and 31% of the time at the studies&rsquo; own thresholds (29% and 40% under the family-wise rule): the sample, not the threshold, limited discovery.</p>
+<p><strong>The revised screen earns no credit.</strong> Its modest hypothesis held; the stronger claim was withdrawn. Most placebo runs ended level with it or above, before and after costs, as did the like-for-like control before costs, and the re-scored panel rejected nothing. The log credits what improvement there was to the level of the minimum-liquidity requirement, not to the revised measurement, and that level was itself chosen after testing five settings on the same window.</p>
+<p>Historical backtest &middot; selected configuration: 3.04&times;. Selected configuration result. Configuration selection and evaluation overlap in this research window, so it is not independent out-of-sample evidence. Deflated Sharpe ratio: 0.85. That 0.85 is a probability, measured against the 240 full-window backtests on file, fewer than the 540 runs the recount found. This configuration still uses the revised measurement, so part of its gap from the original configuration&rsquo;s 1.87&times; is not claimed as skill.</p>
+
+<h2>Lesson</h2>
+<p>Count every run, state the count as a range, and judge related tests once as a family, with null twins inside and the test&rsquo;s power stated. That rule has been exercised once. A gap between two single simulations of a compounding book is not evidence unless it exceeds what small, arbitrary changes do to a two-year multiple, which is about &plusmn;0.5&times;. A candidate is not named until it has beaten a version of itself with the information removed.</p>
+  </div>
+</article>
+<nav class="case-nav" aria-label="Case studies">
+  <div class="wrap narrow">
+    <a href="../case-studies.html">&larr; All case studies</a>
+    <a href="look-ahead-audit.html">Next: A look-ahead audit that shared the defect it was checking for &rarr;</a>
+  </div>
+</nav>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p>Selected materials are presented for educational and professional purposes. Proprietary signal definitions, parameters, portfolio construction rules and execution logic are intentionally omitted. All performance figures are historical backtests unless labeled otherwise; no live or paper-trading results are shown. Historical and simulated results do not guarantee future performance. Nothing here is an offer or investment advice.</p>
+    <div class="row"><span>&copy; 2026 Sean Muller &middot; Last updated 6 October 2026</span><span><a href="../about.html#contact">Contact</a></span></div>
+  </div>
+</footer>
+</body>
+</html>

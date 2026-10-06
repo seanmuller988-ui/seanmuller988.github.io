@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>When the replay disagreed with the real-time record · Case study · Sean Muller</title>
+<meta name="description" content="A replay disagreed with the trading engine&#x27;s real-time record while all of its checks passed. My explanation was wrong, and the audits I then asked for found defects in the replay.">
+<meta name="author" content="Sean Muller">
+<link rel="canonical" href="https://seanmuller988-ui.github.io/case-studies/replay-parity.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Sean Muller · Quantitative research">
+<meta property="og:title" content="When the replay disagreed with the real-time record · Case study · Sean Muller">
+<meta property="og:description" content="A replay disagreed with the trading engine&#x27;s real-time record while all of its checks passed. My explanation was wrong, and the audits I then asked for found defects in the replay.">
+<meta property="og:url" content="https://seanmuller988-ui.github.io/case-studies/replay-parity.html">
+<meta property="og:image" content="https://seanmuller988-ui.github.io/assets/images/og-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Sean Muller. Quantitative research: systematic equities, validation, execution.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="When the replay disagreed with the real-time record · Case study · Sean Muller">
+<meta name="twitter:description" content="A replay disagreed with the trading engine&#x27;s real-time record while all of its checks passed. My explanation was wrong, and the audits I then asked for found defects in the replay.">
+<meta name="twitter:image" content="https://seanmuller988-ui.github.io/assets/images/og-card.png">
+<link rel="icon" href="../assets/images/favicon.svg" type="image/svg+xml">
+<link rel="alternate icon" href="../favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="../assets/images/apple-touch-icon.png">
+<link rel="stylesheet" href="../css/style.css">
+<script src="../js/main.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="../index.html">Sean Muller<span>Quantitative research</span></a>
+    <button class="nav-toggle" type="button" aria-controls="nav" aria-expanded="false">Menu</button>
+    <nav class="nav" id="nav" aria-label="Primary">
+      <a href="../index.html">Home</a>
+      <a href="../systematic-equity.html">Systematic Equity</a>
+      <a href="../execution.html">Execution &amp; Costs</a>
+      <a href="../case-studies.html" aria-current="page">Case Studies</a>
+      <a href="../research-roadmap.html">Research Agenda</a>
+      <a href="../about.html">About &amp; contact</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Case study &middot; Infrastructure &middot; <span class="badge">Completed</span></p>
+    <h1>When the replay disagreed with the real-time record</h1>
+    <p>A replay disagreed with the trading engine's real-time record while all of its checks passed. My explanation was wrong, and the audits I then asked for found defects in the replay.</p>
+    <p class="tagrow"><span class="hash">#ParityTesting</span> <span class="hash">#RealTimeRecord</span> <span class="hash">#Backtesting</span></p>
+  </div>
+</div>
+<main id="main">
+<article class="case">
+  <div class="wrap narrow">
+<h2>The problem</h2>
+<p>A replay re-runs history through trading code. One such replay disagreed with the trading engine&rsquo;s real-time record over a common window. The size and direction of the gap are not given. No live or paper-trading results are shown here. The comparison below is in fills, entry prices and exit reasons. If the replay could not reproduce a period the engine had already traded, its output for any other period was in doubt.</p>
+<p>Simulations here are historical backtests of an earlier internal configuration, not a tier reported on this site.</p>
+
+<h2>Initial approach</h2>
+<p>The replay drove the engine&rsquo;s own trading classes under a frozen clock (the system time pinned to each historical moment), a better start than a parallel reimplementation. Its output passed a verifier of nearly 200 automated checks: the ledger added up, each statistic recomputed from it, and the report showed the same figures. It was assumed comparable with the real-time record.</p>
+
+<h2>What didn't work</h2>
+<p>Every check passed, yet I did not believe the replay and said so: over exactly that period it gave a different answer, so it must be calculating a key quantity wrongly. I also asked whether it was running stale logic.</p>
+<p>My explanation was wrong in mechanism. The replay was not miscalculating the quantity. Some open positions were not evaluated at all: the replay&rsquo;s own loop skipped one call that the engine&rsquo;s loop makes.</p>
+
+<h2>Investigation</h2>
+<ul>
+<li>Comparing holding times with the real-time record&rsquo;s, then auditing which open positions the replay evaluated, isolated that defect.</li>
+<li>Defects had surfaced one at a time, each after hours of running, so I asked for adversarial searches against the replay in parallel with every simulation, stopping and relaunching on any finding. Four passes (orchestration, fills, data and time sources, arithmetic) and three relaunches followed.</li>
+<li>At least nine defects were recorded, including order size mis-scaled by a stale default, replay state written into tables the trading engine reads, and fills booked when no order could have filled. Two were created by earlier fixes: in one, a second reference to the system clock was left unfrozen, so a guard that depended on it never acted.</li>
+<li>Part of the disagreement was not a defect: the engine&rsquo;s rules had changed during that period, while the replay, as I had specified, applied one configuration throughout. On the one like-for-like window, the replay&rsquo;s value of that quantity matched the engine&rsquo;s logged value (median difference zero).</li>
+</ul>
+
+<h2>Iteration</h2>
+<p>Fixes went into the replay&rsquo;s driver, not the code it drives, and every override is recorded beside the output. Guards were proven by counters that must move: one rose from zero after the clock fix. Differences left unfixed were listed and stamped on the output.</p>
+<p>I warned that the test suite held stale and contaminated material. Among the rules recorded: trace every number an inherited test or default reads to the run&rsquo;s own configuration; verify a guard by breaking what it guards.</p>
+<p>I then set the rule that engine updates would be decided on this replay, two versions side by side, once I gave the go-ahead. By 4 October that comparison had not been run; it remains open, outside this completed post-mortem.</p>
+
+<h2>Validation</h2>
+<p>The corrected replay, started from an empty book, was compared with the real-time record, the control, over the like-for-like window.</p>
+<ul>
+<li>About two-thirds of the recorded fills were reproduced.</li>
+
+<li>Entry prices were about 3 basis points apart.</li>
+<li>The exit reason was identical on every paired completed trade.</li>
+</ul>
+<p>This is a partial check on a short slice. Unpaired fills were attributed to model state upstream of sizing and not quantified. On earlier history, with every open position evaluated, the replay&rsquo;s result at that revision was recorded as an open question.</p>
+
+<h2>Result</h2>
+<p>The replay became more trustworthy and its limits explicit; it is not a proof of equivalence.</p>
+<p>The lesson then reached a different instrument, the research replay harness that produces the backtests reported on this site: a containerized walk-forward simulator (its calendar defect is <a href="look-ahead-audit.html">another case</a>). On 25 September a parity comparison exposed in it a second, undeclared risk limit that refused entries. Every figure measured under it was withdrawn and restated in a dated report listing which verdicts survive. The reference result rose; a variant then recommended over it kept a narrower advantage, and its drawdown became the deeper of the two.</p>
+<p>On 28 September, running the engine&rsquo;s code and the harness over a common slice found eight harness defects, including a second look-ahead, a rule counted in the wrong unit, and a position-sizing error. One was a half-applied fix (one call site changed, another not) that oversized positions in some configurations until the comparison caught it the same day. By that evening the variant&rsquo;s advantage was gone.</p>
+<p>At the first restatement, the harness and a separately built second implementation agreed within a fraction of a percent on shared fitted inputs and differed by 5 to 12 percent in simulated ending value when each fitted its own.</p>
+
+<h2>Lesson</h2>
+<p>A replay reproduces the engine only along the code path it calls. A self-consistent harness cannot find its own defects; a partner implementation on a common slice can. Passing checks describe the system as it was when their fixtures were written.</p>
+<p>That 5 to 12 percent is the one measured guide I have to how far a single-implementation simulation can be off; this site&rsquo;s headline figures are one implementation and say so.</p>
+  </div>
+</article>
+<nav class="case-nav" aria-label="Case studies">
+  <div class="wrap narrow">
+    <a href="../case-studies.html">&larr; All case studies</a>
+    <a href="point-in-time-universe.html">Next: Restating a backtest whose stock universe was built with hindsight &rarr;</a>
+  </div>
+</nav>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p>Selected materials are presented for educational and professional purposes. Proprietary signal definitions, parameters, portfolio construction rules and execution logic are intentionally omitted. All performance figures are historical backtests unless labeled otherwise; no live or paper-trading results are shown. Historical and simulated results do not guarantee future performance. Nothing here is an offer or investment advice.</p>
+    <div class="row"><span>&copy; 2026 Sean Muller &middot; Last updated 6 October 2026</span><span><a href="../about.html#contact">Contact</a></span></div>
+  </div>
+</footer>
+</body>
+</html>
