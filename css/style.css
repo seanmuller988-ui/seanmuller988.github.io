@@ -357,3 +357,11 @@ details.std > p{margin-top:10px}
 @media (max-width:560px){.metrics{grid-template-columns:1fr}.actions .btn{flex:1 1 100%;text-align:center}}
 @media (max-width:560px){.flow{flex-direction:column;align-items:stretch;gap:4px}.flow .arrow{transform:rotate(90deg);align-self:flex-start;margin:0 0 0 12px;line-height:1}.flow .step{border-left:3px solid var(--accent);border-radius:0 6px 6px 0}}
 .platform-wrap .disclosure,.disclosure{max-width:68ch;margin:-6px 0 14px}
+/* simplification pass (7 Oct 2026, evening): nutshell band, exploration cards */
+section.band{background:var(--surface)}
+#explore .wrap{padding-top:28px}
+.nutshell p{font-size:1.1rem;line-height:1.65;max-width:72ch;color:var(--ink)}
+.nutshell p:last-child{margin-bottom:0;color:var(--ink-2)}
+.explore-card h3{margin-top:0}
+.explore-card p.more.btn{margin:14px 0 0;display:inline-block}
+a.explore-card:hover p.more.btn{background:var(--accent);color:#fff}

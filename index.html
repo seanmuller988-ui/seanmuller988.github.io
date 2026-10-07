@@ -48,23 +48,31 @@
   <div class="wrap">
     <p class="eyebrow">Quantitative Research &middot; Systematic Trading &middot; Applied Mathematics</p>
     <h1>Sean Muller</h1>
-    <p class="intro">I am a University of Miami undergraduate graduating December 2026 and an early-career quantitative researcher focused on systematic U.S. equities, statistical validation, portfolio research, and execution. I built an end-to-end research and trading platform to test market hypotheses and investigate why results fail. I am seeking new-graduate roles in quantitative research, quantitative trading, and systematic investing.</p>
+    <p class="intro">I am a University of Miami undergraduate graduating in December 2026, focused on systematic equities and seeking new-graduate roles in quantitative research, quantitative trading, and systematic investing.</p>
     <div class="actions">
-      <a class="btn primary" href="case-studies.html">Explore case studies</a>
-      <a class="btn" href="assets/docs/Sean_Muller_Resume.pdf">Download resume</a>
+      <a class="btn primary" href="#nutshell">Explore the research</a>
+      <a class="btn" href="assets/docs/Sean_Muller_Resume.pdf">Download r&eacute;sum&eacute;</a>
       <a class="btn" href="#contact">Contact</a>
     </div>
-    <p class="hero-sub"><a class="plain" href="quantitative-methods.html">View quantitative methods &rarr;</a></p>
   </div>
 </div>
 <main id="main">
-<section id="glance">
+<section id="nutshell" class="band">
   <div class="wrap">
-    <h2>The research at a glance</h2>
-    <div class="grid g3">
-      <div class="card"><h3>What I study</h3><p>Cross-sectional and relative-value behavior in U.S. equities. I test whether deviations from comparable stocks are temporary or persistent, whether they remain meaningful after costs, and whether the evidence survives point-in-time reconstruction and robustness checks.</p></div>
-      <div class="card"><h3>What I built</h3><p>An end-to-end environment spanning point-in-time data, walk-forward replay, statistical validation, portfolio construction, execution modeling, broker-integrated trading, risk controls, and monitoring.</p></div>
-      <div class="card"><h3>How I work</h3><p>I pre-specify hypotheses and failure criteria, respect time in evaluation, use dependence-aware inference and placebo controls, account for multiple testing, and write post-mortems when the evidence goes against me.</p></div>
+    <h2>In a nutshell</h2>
+    <div class="nutshell">
+      <p><strong>I built an end-to-end research and live-trading system for systematic U.S. equities.</strong> It takes ideas from raw data through statistical testing, portfolio construction, execution, and risk controls.</p>
+      <p>Across 500+ documented experiments, I have focused on why promising results fail and what survives stronger evidence. The four paths below open the case studies, quantitative methods, platform, and research agenda.</p>
+    </div>
+  </div>
+</section>
+<section id="explore" aria-label="Where to go next">
+  <div class="wrap">
+    <div class="grid g2 explore">
+      <a class="card explore-card" href="case-studies.html"><h3>Case studies</h3><p>What failed, how I investigated it, and what changed afterward.</p><p class="more btn">Explore case studies</p></a>
+      <a class="card explore-card" href="quantitative-methods.html"><h3>Quantitative methods</h3><p>The statistical tools used to test whether apparent results are credible.</p><p class="more btn">View quantitative methods</p></a>
+      <a class="card explore-card" href="systematic-equity.html"><h3>Research platform</h3><p>The data, validation, portfolio, execution, risk, and monitoring environment supporting the work.</p><p class="more btn">Explore the platform</p></a>
+      <a class="card explore-card" href="research-roadmap.html"><h3>Research agenda</h3><p>The next questions involving regimes, forward evidence, capacity, execution, and portfolio behavior.</p><p class="more btn">View research agenda</p></a>
     </div>
   </div>
 </section>
@@ -79,46 +87,28 @@
     <p class="viewall"><a class="btn" href="case-studies.html">View all case studies</a></p>
   </div>
 </section>
-<section id="methods">
-  <div class="wrap">
-    <h2>How I test whether a result is real</h2>
-    <p class="narrow">A result counts only after it survives the ways a backtest can mislead. I rebuild inputs point-in-time, evaluate forward through time, use dependence-aware inference and placebo controls, count multiple trials, test statistical power, and model transaction costs before treating an effect as credible.</p>
-    <p class="pills"><span class="pill">Point-in-time data</span><span class="pill">Block bootstrap</span><span class="pill">Multiple testing</span><span class="pill">Placebo controls</span><span class="pill">Power analysis</span><span class="pill">Implementation shortfall</span></p>
-    <p class="viewall"><a class="btn" href="quantitative-methods.html">Explore quantitative methods</a></p>
-  </div>
-</section>
 <section id="platform">
   <div class="wrap">
-    <h2>The research platform</h2>
-    <p class="narrow">The engineering exists because the research needed a repeatable, point-in-time, cost-aware environment. The platform has progressed from research and simulation into live trading with real capital through broker-integrated execution.</p>
+    <h2>Platform snapshot</h2>
     <div class="metrics">
-      <div class="metric"><b>500+</b><span>documented experiments</span></div>
-      <div class="metric"><b>About 5,400</b><span>U.S. equities with minute-resolution history</span></div>
+      <div class="metric"><b>500+</b><span>documented experiments (recorded backtest runs)</span></div>
+      <div class="metric"><b>About 5,400</b><span>U.S. equities with minute-resolution price history</span></div>
       <div class="metric"><b>4,600+</b><span>automated test functions</span></div>
-      <div class="metric"><b>Live execution</b><span>broker-integrated trading and fill reconciliation</span></div>
+      <div class="metric"><b>Live operation</b><span>broker-integrated trading with real capital; fills reconciled into the research platform</span></div>
     </div>
     <p class="small muted disclosure">The research questions, methodology, system design, and interpretation are independently directed; implementation uses extensive AI-assisted development.</p>
-    <p class="flow" aria-label="Research workflow"><span class="step">Market data</span> <span class="arrow" aria-hidden="true">&rarr;</span> <span class="step">Point-in-time universe</span> <span class="arrow" aria-hidden="true">&rarr;</span> <span class="step">Hypothesis and replay</span> <span class="arrow" aria-hidden="true">&rarr;</span> <span class="step">Statistical validation</span> <span class="arrow" aria-hidden="true">&rarr;</span> <span class="step">Portfolio and execution</span> <span class="arrow" aria-hidden="true">&rarr;</span> <span class="step">Live trading and monitoring</span></p>
-    <div class="note evidence"><p><strong>Historical evidence.</strong> In a two-year walk-forward backtest using a point-in-time universe and modeled costs, $1 of simulated capital grew to $3.04 (3.04&times;). This is a selected-configuration result&mdash;not independent out-of-sample evidence&mdash;and its deflated Sharpe ratio is 0.85. No live or paper results are shown. <a href="systematic-equity.html#results">Full evidence and limitations &rarr;</a></p></div>
-    <p class="viewall"><a class="btn" href="systematic-equity.html">Explore the research platform</a></p>
+    <div class="note evidence"><p><strong>Historical evidence.</strong> In a Jun 2024 &ndash; Jul 2026 walk-forward backtest with modeled costs, $1 of simulated capital grew to $3.04. Because configuration selection and evaluation overlap, this is not independent out-of-sample evidence; deflated Sharpe ratio: 0.85. No live or paper-trading results are shown. <a href="systematic-equity.html#results">Full evidence and limitations &rarr;</a></p></div>
   </div>
 </section>
 <section id="documents">
   <div class="wrap">
-    <h2>Research documents</h2>
+    <h2>Selected documents</h2>
     <ul class="doclinks">
-      <li><a href="assets/docs/Sean_Muller_Resume.pdf">Resume</a> <span>PDF, 1 page</span></li>
+      <li><a href="assets/docs/Sean_Muller_Resume.pdf">R&eacute;sum&eacute;</a> <span>PDF, 1 page</span></li>
       <li><a href="assets/docs/Sean_Muller_Research_Overview.pdf">Research overview</a> <span>PDF, 2 pages</span></li>
       <li><a href="assets/docs/Sean_Muller_Quantitative_Methods.pdf">Quantitative methods</a> <span>PDF, 8 pages</span></li>
     </ul>
     <p class="viewall"><a class="plain" href="about.html#documents">View all research documents &rarr;</a></p>
-  </div>
-</section>
-<section id="agenda">
-  <div class="wrap">
-    <h2>Current research</h2>
-    <p class="narrow">I am extending the evidence across market regimes, accumulating forward and live implementation evidence, and refining execution and portfolio-level analysis.</p>
-    <p class="viewall"><a class="btn" href="research-roadmap.html">View the research agenda</a></p>
   </div>
 </section>
 <section id="contact">
@@ -128,7 +118,7 @@
       <p>Email: <a href="mailto:seanmuller988@gmail.com">seanmuller988@gmail.com</a></p>
       <p>LinkedIn: <a href="https://www.linkedin.com/in/seancmuller/" rel="noopener">linkedin.com/in/seancmuller</a></p>
       <p>GitHub: <a href="https://github.com/seanmuller988-ui" rel="noopener">github.com/seanmuller988-ui</a></p>
-      <p>Resume: <a href="assets/docs/Sean_Muller_Resume.pdf">Download resume (PDF)</a></p>
+      <p>R&eacute;sum&eacute;: <a href="assets/docs/Sean_Muller_Resume.pdf">Download r&eacute;sum&eacute; (PDF)</a></p>
       <p class="small muted">Phone: <a href="tel:+19044298583">(904) 429-8583</a></p>
     </div>
     <p class="viewall"><a class="plain" href="about.html">Background, research philosophy and current learning priorities &rarr;</a></p>
