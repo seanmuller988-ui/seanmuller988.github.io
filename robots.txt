@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://seanmuller988-ui.github.io/sitemap.xml
+Sitemap: https://seanmuller988-ui.github.io/seanmuller988.github.io/sitemap.xml

@@ -6,20 +6,20 @@
 <title>Research agenda · Sean Muller</title>
 <meta name="description" content="Current research agenda: open questions, early hypotheses, planned approach and what evidence would change the view.">
 <meta name="author" content="Sean Muller">
-<link rel="canonical" href="https://seanmuller988-ui.github.io/research-roadmap.html">
+<link rel="canonical" href="https://seanmuller988-ui.github.io/seanmuller988.github.io/research-roadmap.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Sean Muller · Quantitative research">
 <meta property="og:title" content="Research agenda · Sean Muller">
 <meta property="og:description" content="Current research agenda: open questions, early hypotheses, planned approach and what evidence would change the view.">
-<meta property="og:url" content="https://seanmuller988-ui.github.io/research-roadmap.html">
-<meta property="og:image" content="https://seanmuller988-ui.github.io/assets/images/og-card.png">
+<meta property="og:url" content="https://seanmuller988-ui.github.io/seanmuller988.github.io/research-roadmap.html">
+<meta property="og:image" content="https://seanmuller988-ui.github.io/seanmuller988.github.io/assets/images/og-card.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Sean Muller. Quantitative research: systematic equities, validation, execution.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Research agenda · Sean Muller">
 <meta name="twitter:description" content="Current research agenda: open questions, early hypotheses, planned approach and what evidence would change the view.">
-<meta name="twitter:image" content="https://seanmuller988-ui.github.io/assets/images/og-card.png">
+<meta name="twitter:image" content="https://seanmuller988-ui.github.io/seanmuller988.github.io/assets/images/og-card.png">
 <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml">
 <link rel="alternate icon" href="favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png">
@@ -60,7 +60,7 @@
       <li><a href="#forward-evidence">Forward evidence on a fixed configuration</a> <span class="muted small">Evidence Extension &middot; Planned</span></li>
       <li><a href="#path-and-concentration">From one compounding path to a distribution</a> <span class="muted small">Robustness Research &middot; Planned</span></li>
       <li><a href="#regime-coverage">Regime coverage</a> <span class="muted small">Strategy Evolution &middot; Planned</span></li>
-      <li><a href="#own-order-impact">Refining execution-cost calibration with live evidence</a> <span class="muted small">Execution and Capacity Research &middot; Designing</span></li>
+      <li><a href="#own-order-impact">Calibrating the impact model on the strategy&rsquo;s own orders</a> <span class="muted small">Execution and Capacity Research &middot; Designing</span></li>
       <li><a href="#capacity-at-size">Cost, fills and capacity as simulated size grows</a> <span class="muted small">Execution and Capacity Research &middot; Planned</span></li>
       <li><a href="#detectable-effects">What a second research sweep could detect</a> <span class="muted small">Model Extension &middot; Designing</span></li>
       <li><a href="#idle-capital">The use of idle capital</a> <span class="muted small">Model Extension &middot; Planned</span></li>
@@ -98,7 +98,7 @@
 <h3>Early hypothesis</h3>
 <p>That the spread across starts comes from path dependence and a few large trades, not from model quality, as measurements on an earlier build showed.</p>
 <h3>Planned approach</h3>
-<p>I am evaluating shifted-start runs of the selected configuration. Broader factor and benchmark decomposition, together with leave-out diagnostics and dependence-aware intervals, remain part of the continuing evidence-extension program.</p>
+<p>I am evaluating shifted-start runs of the selected configuration. A planned extension is to repeat the leave-out tests and factor attribution on its trade record, with dependence-aware intervals.</p>
 <h3>What would change my view</h3>
 <p>A spread centered near the headline would support quoting it; one well below would mean quoting the spread instead. Profit is already concentrated in a few trades. If little remained without them, or standard factors absorbed most of the return, I would describe a concentrated or factor exposure, not a broad process.</p>
   </div>
@@ -124,9 +124,9 @@
 <section class="agenda-item" id="own-order-impact">
   <div class="wrap">
 <p class="cat">Execution and Capacity Research &middot; Designing</p>
-<h2>Refining execution-cost calibration with live evidence</h2>
+<h2>Calibrating the impact model on the strategy&rsquo;s own orders</h2>
 <h3>Current state</h3>
-<p>The historical cost model is grounded in public market data and prior research (<a href="execution.html#method">execution page</a>). Live execution data are now being accumulated to refine empirical impact and implementation-shortfall estimates as the sample grows.</p>
+<p>The cost model&rsquo;s impact coefficient comes from public tape data and a prior from the academic literature (<a href="execution.html#method">execution page</a>). Execution data from live operation are now being accumulated to refine and calibrate it on the strategy&rsquo;s own orders.</p>
 <h3>Open question</h3>
 <p>How the accumulating fills should be benchmarked to measure the coefficient, and whether realized fills match the fill model at the same relative size.</p>
 <h3>Why it matters</h3>
@@ -198,7 +198,7 @@
 <footer class="site-footer">
   <div class="wrap">
     <p>Selected materials are presented for educational and professional purposes. Proprietary signal definitions, parameters, portfolio construction rules and execution logic are intentionally omitted. All performance figures are historical backtests unless labeled otherwise; no live or paper-trading results are shown. Historical and simulated results do not guarantee future performance. Nothing here is an offer or investment advice.</p>
-    <div class="row"><span>&copy; 2026 Sean Muller &middot; Last updated 6 October 2026</span><span><a href="about.html#contact">Contact</a></span></div>
+    <div class="row"><span>&copy; 2026 Sean Muller &middot; Last updated 7 October 2026</span><span><a href="about.html#contact">Contact</a></span></div>
   </div>
 </footer>
 </body>

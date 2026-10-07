@@ -6,20 +6,20 @@
 <title>Execution &amp; Costs · Sean Muller</title>
 <meta name="description" content="Execution and transaction-cost research: from a flat cost assumption to a cost model that depends on spread, liquidity, volatility and order size, with partial fills and implementation shortfall.">
 <meta name="author" content="Sean Muller">
-<link rel="canonical" href="https://seanmuller988-ui.github.io/execution.html">
+<link rel="canonical" href="https://seanmuller988-ui.github.io/seanmuller988.github.io/execution.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Sean Muller · Quantitative research">
 <meta property="og:title" content="Execution &amp; Costs · Sean Muller">
 <meta property="og:description" content="Execution and transaction-cost research: from a flat cost assumption to a cost model that depends on spread, liquidity, volatility and order size, with partial fills and implementation shortfall.">
-<meta property="og:url" content="https://seanmuller988-ui.github.io/execution.html">
-<meta property="og:image" content="https://seanmuller988-ui.github.io/assets/images/og-card.png">
+<meta property="og:url" content="https://seanmuller988-ui.github.io/seanmuller988.github.io/execution.html">
+<meta property="og:image" content="https://seanmuller988-ui.github.io/seanmuller988.github.io/assets/images/og-card.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Sean Muller. Quantitative research: systematic equities, validation, execution.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Execution &amp; Costs · Sean Muller">
 <meta name="twitter:description" content="Execution and transaction-cost research: from a flat cost assumption to a cost model that depends on spread, liquidity, volatility and order size, with partial fills and implementation shortfall.">
-<meta name="twitter:image" content="https://seanmuller988-ui.github.io/assets/images/og-card.png">
+<meta name="twitter:image" content="https://seanmuller988-ui.github.io/seanmuller988.github.io/assets/images/og-card.png">
 <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml">
 <link rel="alternate icon" href="favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png">
@@ -64,7 +64,7 @@
 <section id="method">
   <div class="wrap">
     <h2>The modeling framework</h2>
-    <p>Historical execution research here models trading costs as functions of spread, volatility, liquidity and order size rather than assuming a constant per-trade penalty. The framework allows market impact and fill uncertainty to vary with trading conditions, and tests whether the research remains economically meaningful under less favorable assumptions. The impact calibration remains the least certain input and is discussed at a high level in the <a href="assets/docs/Sean_Muller_Execution_and_Transaction_Costs.pdf">execution brief</a>.</p>
+    <p>Historical execution research here models trading costs as functions of spread, volatility, liquidity and order size rather than assuming a constant per-trade penalty. Each side of a trade pays part of the bid-ask spread, set by the stock&rsquo;s liquidity; on top of that sits a market-impact term that grows with the order&rsquo;s size relative to the volume available and with the stock&rsquo;s volatility, following the square-root regularity reported across markets, in which doubling an order less than doubles its impact. The impact coefficient that scales that term is the model&rsquo;s weakest input. The textbook form and each of its terms are set out in the <a href="assets/docs/Sean_Muller_Execution_and_Transaction_Costs.pdf">execution brief</a>.</p>
     <p>Around it sit <strong>delay</strong>, since an order reaches the market after the price that prompted it; <strong>partial fills</strong>, since an order may fill only in part when volume is thin, with the unfilled remainder carried as an opportunity cost rather than assumed away; and <strong>implementation shortfall</strong>, which splits the gap between profit at the decision price and executable profit into delay, spread, impact, fees and unfilled shares, so order-handling rules can be compared on the same trades.</p>
     <p>The impact coefficient was estimated two ways from public trade-and-volume data and combined with a prior from the academic literature. The estimators disagree, and I carry that as uncertainty: the model&rsquo;s value is conservative against one and about central against the other.</p>
   </div>
@@ -119,7 +119,7 @@
 <footer class="site-footer">
   <div class="wrap">
     <p>Selected materials are presented for educational and professional purposes. Proprietary signal definitions, parameters, portfolio construction rules and execution logic are intentionally omitted. All performance figures are historical backtests unless labeled otherwise; no live or paper-trading results are shown. Historical and simulated results do not guarantee future performance. Nothing here is an offer or investment advice.</p>
-    <div class="row"><span>&copy; 2026 Sean Muller &middot; Last updated 6 October 2026</span><span><a href="about.html#contact">Contact</a></span></div>
+    <div class="row"><span>&copy; 2026 Sean Muller &middot; Last updated 7 October 2026</span><span><a href="about.html#contact">Contact</a></span></div>
   </div>
 </footer>
 </body>
